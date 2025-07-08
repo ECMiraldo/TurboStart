@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneAssets:
   - {fileID: 102900000, guid: 4916a76b3cd73974691af2a0c527203f, type: 3}
-  - {fileID: 102900000, guid: 90bc27a2ffc5d9843bf47f9bc6b50234, type: 3}
+  - {fileID: 102900000, guid: b444946a49ca15349a03ed04e040bb8a, type: 3}
   - {fileID: 102900000, guid: 96fab360fdb8745449f0fce1520914b3, type: 3}
   - {fileID: 102900000, guid: 7b9d81141c63a8d45905571ef3b2485f, type: 3}
   - {fileID: 0}

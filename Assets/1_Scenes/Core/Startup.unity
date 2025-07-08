@@ -118,6 +118,103 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &334252642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 334252644}
+  - component: {fileID: 334252643}
+  - component: {fileID: 334252647}
+  - component: {fileID: 334252648}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &334252643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334252642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a90c7305a61afc46a3def51f8b57eee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <profileData>k__BackingField:
+    heroes:
+    - <Name>k__BackingField: Name
+      <Id>k__BackingField: 0
+      <Action>k__BackingField:
+        <currentTick>k__BackingField: 0
+        <durationInTicks>k__BackingField: 0
+        <type>k__BackingField: 0
+      <spriteName>k__BackingField: 
+    - <Name>k__BackingField: Name
+      <Id>k__BackingField: 1
+      <Action>k__BackingField:
+        <currentTick>k__BackingField: 0
+        <durationInTicks>k__BackingField: 0
+        <type>k__BackingField: 0
+      <spriteName>k__BackingField: 
+    - <Name>k__BackingField: Name
+      <Id>k__BackingField: 2
+      <Action>k__BackingField:
+        <currentTick>k__BackingField: 0
+        <durationInTicks>k__BackingField: 0
+        <type>k__BackingField: 0
+      <spriteName>k__BackingField: 
+    tavernData:
+      availableHeroes: []
+--- !u!4 &334252644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334252642}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &334252647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334252642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b050f6b03e41e744481df76ae8890045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeroSpriteNames: []
+--- !u!114 &334252648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334252642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d18d8d8c1f82449a28a109d33a9227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ticksPerSecond: 1
 --- !u!1 &1427433497
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,6 +244,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46e7111f9930ed247a0fb96db4e23de1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <data>k__BackingField:
+    heroes: []
+    tavernData:
+      availableHeroes: []
 --- !u!4 &1427433499
 Transform:
   m_ObjectHideFlags: 0
@@ -238,14 +339,14 @@ MonoBehaviour:
     asset: {fileID: 102900000, guid: 4916a76b3cd73974691af2a0c527203f, type: 3}
     guid: 4916a76b3cd73974691af2a0c527203f
   mainMenu:
-    asset: {fileID: 102900000, guid: 90bc27a2ffc5d9843bf47f9bc6b50234, type: 3}
-    guid: 90bc27a2ffc5d9843bf47f9bc6b50234
+    asset: {fileID: 102900000, guid: b444946a49ca15349a03ed04e040bb8a, type: 3}
+    guid: b444946a49ca15349a03ed04e040bb8a
   uiScene:
     asset: {fileID: 102900000, guid: 96fab360fdb8745449f0fce1520914b3, type: 3}
     guid: 96fab360fdb8745449f0fce1520914b3
   gameplayScenes:
-  - asset: {fileID: 102900000, guid: 7b9d81141c63a8d45905571ef3b2485f, type: 3}
-    guid: 7b9d81141c63a8d45905571ef3b2485f
+  - asset: {fileID: 102900000, guid: b444946a49ca15349a03ed04e040bb8a, type: 3}
+    guid: b444946a49ca15349a03ed04e040bb8a
   loadingScreen: {fileID: 3703701811924045643}
   delayOnLoad: 0.2
 --- !u!114 &829008423239680628
@@ -580,3 +681,4 @@ SceneRoots:
   - {fileID: 4635678042893318739}
   - {fileID: 3530915249536676226}
   - {fileID: 1738426388}
+  - {fileID: 334252644}

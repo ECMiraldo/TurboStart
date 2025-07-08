@@ -10,12 +10,13 @@ namespace Persistence
 {
     public class SaveLoadSystem : Singleton<SaveLoadSystem>
     {
-        [field: SerializeField] public PersistentData data { get; private set; }
+        [field: SerializeField] public ProfileData data { get; private set; }
 
         private string filePath;
         private JsonSerializerSettings serializerSettings;
-        private void Start()
+        protected override  void Awake()
         {
+            base.Awake();
             filePath = Application.persistentDataPath + "/PersistentData.json";
             serializerSettings = new JsonSerializerSettings
             {
@@ -35,7 +36,7 @@ namespace Persistence
                 throw new IOException($"The save file already exists and cannot be overwritten.");
             }
             string savedData = JsonConvert.SerializeObject(data, serializerSettings);
-            Logger.LogPersistence($"Saved Data: {savedData} ");
+            //Logger.LogPersistence($"Saved Data: {savedData} ");
             File.WriteAllText(filePath, savedData);
         }
 
@@ -46,8 +47,8 @@ namespace Persistence
                 throw new ArgumentException($"No Persitent Data file found");
             }
             string loadedData = File.ReadAllText(filePath);
-            Logger.LogPersistence($"Loaded Data: {loadedData}");
-            data = JsonConvert.DeserializeObject<PersistentData>(loadedData);
+            //Logger.LogPersistence($"Loaded Data: {loadedData}");
+            data = JsonConvert.DeserializeObject<ProfileData>(loadedData);
         }
 
         public void Delete()
@@ -66,7 +67,7 @@ namespace Persistence
                 if (Path.GetExtension(path) == ".json")
                 {
                     string saveFile = Path.GetFileNameWithoutExtension(path);
-                    Logger.LogPersistence($"Found save file with name {saveFile}");
+                    //Logger.LogPersistence($"Found save file with name {saveFile}");
                     list.Add(saveFile);
                 }
             }
@@ -84,7 +85,7 @@ namespace Persistence
             }
             else
             {
-                Logger.LogPersistence("No saved data found");
+                //Logger.LogPersistence("No saved data found");
                 data = new();
             }
         }

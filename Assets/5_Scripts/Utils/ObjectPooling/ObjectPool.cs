@@ -34,12 +34,12 @@ namespace ObjectPooling
             }
         }
 
-        public static GameObject Spawn(ObjectPoolSettings settings) => instance.pools[settings]?.Get();
+        public static GameObject Spawn(ObjectPoolSettings settings) => Instance.pools[settings]?.Get();
         public static void ReturnToPool(GameObject go)
         {
             if (go.TryGetComponent(out IPooledObject pooledObject))
             {
-                instance.pools[pooledObject.PoolSettings]?.Release(go);
+                Instance.pools[pooledObject.PoolSettings]?.Release(go);
             }
         }
     }
