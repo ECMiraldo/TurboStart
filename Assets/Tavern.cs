@@ -16,46 +16,60 @@ public class Tavern : MonoBehaviour
     [SerializeField] private TextMeshProUGUI costText;
     [SerializeField] private Button hireButton;
 
+    ProfileData profileData;
     TavernHero selectedHero;
-    TavernData data;
+    TavernData tavernData;
 
     private void Start()
     {
-        data = SaveLoadSystem.Instance.data.tavernData;
+        profileData = SaveLoadSystem.Instance.data;
+        tavernData = profileData.tavernData;
 
-        data.availableHeroes.RemoveAll((x) => x.Action == null || x.Action.currentTick == x.Action.durationInTicks);
+        tavernData.availableHeroes.RemoveAll(
+            (x) => 
+                        x.hero == null
+                    || x.hero.Action == null 
+                    || x.hero.Action.currentTick == x.hero.Action.durationInTicks
+                    );
 
 
-        if (data.availableHeroes.Count < 3)
+        if (tavernData.availableHeroes.Count < 3)
         {
-            data.CreateHero(GetRandomSprite());
-            data.CreateHero(GetRandomSprite());
+            tavernData.AddHero();
+            tavernData.AddHero();
         }
 
-        foreach (TavernHero th in data.availableHeroes)
+        foreach (TavernHero th in tavernData.availableHeroes)
         {
             InstantiateHeroCard(th);
         }
+        SelectHero(tavernData.availableHeroes[0]);
     }
 
-    private static string GetRandomSprite()
-    {
-        var sprites = Database.Instance.HeroSpriteNames;
-        return sprites[Random.Range(0, sprites.Count)];
-    }
 
+   
     private void InstantiateHeroCard(TavernHero hero)
     {
         TavernCard heroCard = Instantiate(heroCardPrefab, heroListContent).GetComponent<TavernCard>();
         heroCard.Init(this, hero);
     }
 
-    public void SelectHero(TavernHero hero)
+    public void SelectHero(TavernHero tavernHero)
     {
-        selectedHero = hero;
-        heroNameText.text = hero.Name;
-        costText.text = TickManager.Instance.ticksToSeconds(hero.Action.durationInTicks - hero.Action.currentTick).ToString();
-        itemIcon.sprite = hero.Sprite;
+        selectedHero = tavernHero;
+        heroNameText.text = tavernHero.hero.Name;
+        costText.text = tavernHero.cost.ToString();
+        itemIcon.sprite = tavernHero.hero.Sprite;
+        hireButton.interactable = profileData.gold < tavernHero.cost;
+    }
+
+    public void HireHero()
+    {
+
+        profileData.gold -= selectedHero.cost;
+        profileData.heroes.Add(selectedHero.hero);
+        tavernData.availableHeroes.Remove(selectedHero);
+        SelectHero(tavernData.availableHeroes[0]);
     }
 
 
