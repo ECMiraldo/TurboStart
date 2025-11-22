@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using AYellowpaper.SerializedCollections;
+using System.Collections;
 using UnityEngine;
 
 public struct Damage
@@ -23,6 +24,10 @@ public abstract class Unit : MonoBehaviour
     public abstract UnitStats stats { get; }
     public abstract UnitVitals unitVitals { get; }
 
+    protected virtual void Awake()
+    {
+
+    }
 
     public void TakeDamage(Damage damage)
     {

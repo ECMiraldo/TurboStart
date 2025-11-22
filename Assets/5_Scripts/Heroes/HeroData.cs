@@ -117,6 +117,6 @@ public class HeroData
         vitals.InjectStats(attributes);
     }
 }
-}
+
 
 

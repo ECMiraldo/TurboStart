@@ -8,6 +8,14 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private GameObject heroPrefab;
     [SerializeField] private List<Transform> enemySpots;
     [SerializeField] private List<Transform> heroSpots;
+    [SerializeField] private float unitTurnInterval = 1;
+
+    private WaitForSeconds unitTurnYield;
+
+    private void Awake()
+    {
+        unitTurnYield = new WaitForSeconds(unitTurnInterval);
+    }
 
     public void StartStage(HeroTeam team, AdventureMapStageSO stage) => StartCoroutine(BattleCoroutine(team, stage));
     private IEnumerator BattleCoroutine(HeroTeam team, AdventureMapStageSO stage)
@@ -28,7 +36,10 @@ public class BattleManager : MonoBehaviour
                 while (currentUnit < turnOrders.Count)
                 {
                     yield return turnOrders[currentUnit].DoMove();
+
                     currentUnit++;
+
+                    yield return unitTurnYield;
                 }
             }
 

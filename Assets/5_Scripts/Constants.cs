@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using UnityEngine;
 
 public enum ItemType : byte
 {
@@ -70,8 +71,24 @@ public enum Element : byte
 
 }
 
+public enum AnimationNames : byte
+{
+    Attack = 0,
+    Hurt = 1,
+    Cast = 2,
+}
+
+
 public static class Constants
 {
     public const string HERO_SPRITES_ADDRESS = "Heroes/HeroSprites";
- 
+
+    public static Dictionary<AnimationNames, int> animationHashes =
+    new Dictionary<AnimationNames, int>
+    {
+        { AnimationNames.Attack, Animator.StringToHash(AnimationNames.Attack.ToString()) },
+        { AnimationNames.Hurt,    Animator.StringToHash(AnimationNames.Hurt.ToString()) },
+        { AnimationNames.Cast,   Animator.StringToHash(AnimationNames.Cast.ToString()) },
+    };
+
 }
