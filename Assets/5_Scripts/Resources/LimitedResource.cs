@@ -21,17 +21,17 @@ public class LimitedResource
     }
 
 
-    public ulong MaxValue => (ulong)Mathf.FloorToInt(maxValue.FinalValue);
+    //public ulong MaxValue => (ulong)Mathf.FloorToInt(maxValue.FinalValue);
 
-    public void ApplyModifier(AttributeModifier mod)
-    {
-        maxValue.AddModifier(mod);
-        OnResourceChanged.Invoke(value);
-    }
+    //public void ApplyModifier(AttributeModifier mod)
+    //{
+    //    maxValue.AddModifier(mod);
+    //    OnResourceChanged.Invoke(value);
+    //}
 
-    public void RemoveModifier(AttributeModifier mod)
-    {
-        maxValue.RemoveModifier(mod);
-        OnResourceChanged.Invoke(value);
-    }
+    //public void RemoveModifier(AttributeModifier mod)
+    //{
+    //    maxValue.RemoveModifier(mod);
+    //    OnResourceChanged.Invoke(value);
+    //}
 }

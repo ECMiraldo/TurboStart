@@ -24,7 +24,7 @@ public class Weapon : Equipment
         EquipmentSlot Slot, 
         EquipmentRarity Rarity,
         WeaponType weaponType,
-        List<FixedAttributeModifier> Modifiers) : base(Name, SpriteName, Tier, Slot, Rarity, Modifiers)
+        List<AttributeModifier> Modifiers) : base(Name, SpriteName, Tier, Slot, Rarity, Modifiers)
     {
         this.WeaponType = weaponType;
     }

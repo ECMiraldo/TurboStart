@@ -7,33 +7,12 @@ using UnityEngine;
 using UnityUtils;
 
 
-public class HeroFactory
-{
-    public static Hero CreateRandomHero(int id)
-    {
-        return new Hero(id, GetRandomName(), GetRandomSprite());
-    }
-    private static string GetRandomName()
-    {
-        return "hero";
-    }
-
-    private static string GetRandomSprite()
-    {
-        var sprites = Database.Instance.HeroSpriteNames;
-        return sprites[UnityEngine.Random.Range(0, sprites.Count)];
-    }
-
-}
-
-
 
 [Serializable]
 public class TavernData
 {
     public List<TavernHero> availableHeroes;
     [JsonProperty] private int totalCreatedHeroes;
-
 
     public TavernData()
     {
@@ -45,6 +24,7 @@ public class TavernData
     {
         this.availableHeroes = availableHeroes;
     }
+
 
     public void AddHero()
     {

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99d8822bc3aa15d4fb626eee76ab4659, type: 3}
+  m_Name: MageTemplate
+  m_EditorClassIdentifier: 
+  <id>k__BackingField: 298f8ce7-80fe-45e5-a4c3-735b36c98f45
+  <possibleIcons>k__BackingField:
+  - {fileID: 21300000, guid: f2620047f9d292748a6ab91a2e786657, type: 3}
+  - {fileID: 21300000, guid: 8c78a802ce936e64fa86ddac26a29263, type: 3}
+  <possibleSprites>k__BackingField:
+  - {fileID: 2061856562, guid: 47a5c64795eea6c48b1abcf8f336ba5a, type: 3}
+  <animationController>k__BackingField: {fileID: 0}
+  <prefab>k__BackingField: {fileID: 0}

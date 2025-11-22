@@ -14,19 +14,21 @@ namespace Persistence
         //newtonsoft's Json documentation is right here: https://www.newtonsoft.com/json/help/html/Introduction.htm 
         public Inventory inventory;
 
-        public List<Hero> heroes;
+        public List<HeroData> heroes;
 
         public TavernData tavernData;
+
+        public AdventureMapData adventureMapData;
 
         public long lastTickTime;
 
         public long gold;
         public ProfileData()
         {
-            heroes = new List<Hero>();
+            heroes = new List<HeroData>();
             tavernData = new TavernData();
             inventory = new Inventory();
-            gold = 0;
+            gold = 1000;
           
          }
     }

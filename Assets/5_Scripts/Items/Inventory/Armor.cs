@@ -24,7 +24,7 @@ public class Armor : Equipment
         EquipmentSlot Slot,
         EquipmentRarity Rarity,
         ArmorType ArmorType,
-        List<FixedAttributeModifier> Modifiers) : base(Name, SpriteName, Tier, Slot, Rarity, Modifiers)
+        List<AttributeModifier> Modifiers) : base(Name, SpriteName, Tier, Slot, Rarity, Modifiers)
     {
         this.ArmorType = ArmorType;
     }

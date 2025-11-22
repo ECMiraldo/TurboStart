@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 public enum ItemType : byte
 {
     Equipments,
@@ -71,4 +73,5 @@ public enum Element : byte
 public static class Constants
 {
     public const string HERO_SPRITES_ADDRESS = "Heroes/HeroSprites";
+ 
 }
