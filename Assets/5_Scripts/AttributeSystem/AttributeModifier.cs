@@ -9,7 +9,7 @@ public enum ModifierSource
 
 }
 
-
+[Serializable]
 public class AttributeModifier 
 {
     public event Action<float> OnChanged;

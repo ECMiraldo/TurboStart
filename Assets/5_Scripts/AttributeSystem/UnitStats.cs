@@ -1,8 +1,6 @@
-﻿
-
-
-
-using AYellowpaper.SerializedCollections;
+﻿using AYellowpaper.SerializedCollections;
+using Newtonsoft.Json;
+using System;
 using UnityEngine;
 
 public enum UnitStat
@@ -23,6 +21,7 @@ public enum UnitStat
 
 
 
+[Serializable]
 public class UnitStats
 {
     [field: SerializeField] public SerializedDictionary<UnitStat, CharacterAttribute> stats { get; private set; }
@@ -30,6 +29,12 @@ public class UnitStats
     public UnitStats(IUnitData data)
     { 
         stats = data.GetStatsMap();
+    }
+
+    [JsonConstructor]
+    public UnitStats(SerializedDictionary<UnitStat, CharacterAttribute> stats)
+    {
+        this.stats = stats;
     }
 }
 

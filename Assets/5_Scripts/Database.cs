@@ -13,7 +13,7 @@ public class Database : Singleton<Database>
     protected override void Awake()
     {
         base.Awake();
-        LoadResource<HeroTemplateSO>(heroTemplates, "Heroes/HeroTemplates");
+        LoadResource(heroTemplates, "Combat/Units/Heroes/HeroTemplates");
         CacheHeroSprites();
     }
 

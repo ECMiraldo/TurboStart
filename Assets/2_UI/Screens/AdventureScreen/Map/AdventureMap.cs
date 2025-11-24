@@ -12,6 +12,11 @@ public class AdventureMap : MonoBehaviour
         else Destroy(this.gameObject);
     }
 
+    private void OnDisable()
+    {
+        stageDetails.gameObject.SetActive(false);
+    }
+
     public void StageButtonClicked(AdventureMapStageSO stageSO)
     {
         stageDetails.ShowDetails(stageSO);

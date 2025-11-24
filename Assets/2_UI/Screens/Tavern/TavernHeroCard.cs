@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class TavernHeroCard : MonoBehaviour
 {
- 
+
     [SerializeField] private Image icon;
     [SerializeField] private Toggle toggle;
     [SerializeField] private TextMeshProUGUI nameText;
@@ -13,6 +13,7 @@ public class TavernHeroCard : MonoBehaviour
 
     private Tavern tavern;
     private TavernHero tavernHero;
+  
 
     public void Init(Tavern tavern, TavernHero hero)
     {

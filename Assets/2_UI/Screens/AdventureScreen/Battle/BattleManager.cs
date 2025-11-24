@@ -5,10 +5,12 @@ using System.Linq;
 
 public class BattleManager : MonoBehaviour
 {
-    [SerializeField] private GameObject heroPrefab;
     [SerializeField] private List<Transform> enemySpots;
     [SerializeField] private List<Transform> heroSpots;
     [SerializeField] private float unitTurnInterval = 1;
+
+    public List<HeroBattleController> heroes { get; private set; }
+    public List<EnemyBattleController> enemies { get; private set; }
 
     private WaitForSeconds unitTurnYield;
 
@@ -21,20 +23,33 @@ public class BattleManager : MonoBehaviour
     private IEnumerator BattleCoroutine(HeroTeam team, AdventureMapStageSO stage)
     {
         int currentFight = 0;
-        List<HeroBattleController> heroes = SpawnHeroes(team);
+        heroes = SpawnHeroes(team);
 
+        Logger.LogBattle($"Stage {stage.name} Started");
+
+
+        yield return new WaitForSeconds(1);
         while (currentFight < stage.numberFights)
         {
-            List<EnemyBattleController> enemies = SpawnEnemies(stage.BuyEncounter(currentFight));
+            Logger.LogBattle($"Fight {currentFight} Started");
+
+
+            enemies = SpawnEnemies(stage.BuyEncounter(currentFight));
             List<Unit> turnOrders = GetTurnOrder(enemies, heroes);
-    
-            while(enemies.All((x) => x.unitVitals.currentHealth > 0) && 
-                  heroes.All((x) => x.unitVitals.currentHealth > 0))
+            yield return new WaitForSeconds(1);
+
+
+            while (enemies.Any((x) => x.unitVitals.currentHealth > 0) && 
+                  heroes.Any((x) => x.unitVitals.currentHealth > 0))
 
             {
+                
+
                 int currentUnit = 0;
                 while (currentUnit < turnOrders.Count)
                 {
+                    Logger.LogBattle($"Turn {currentUnit} for {turnOrders[currentUnit].name} Started");
+
                     yield return turnOrders[currentUnit].DoMove();
 
                     currentUnit++;
@@ -44,9 +59,11 @@ public class BattleManager : MonoBehaviour
             }
 
 
-            if (heroes.Count == 0)
+            if (heroes.All((x) => x.unitVitals.currentHealth == 0))
             {
+                Logger.LogBattle("Player Team Died");
                 HandlePlayerTeamDied();
+                yield break;
             }
             else currentFight++;
 
@@ -61,9 +78,11 @@ public class BattleManager : MonoBehaviour
         List<HeroBattleController> controllers = new();
         for (int i = 0; i < heroes.Count; i++)
         {
+            if (heroes[i] == null) continue;
             HeroTemplateSO heroTemplate = heroes[i].SO();
-            HeroBattleController controller = Instantiate(heroTemplate.prefab, heroSpots[i]).GetComponent<HeroBattleController>();
+            HeroBattleController controller = heroTemplate.InstantiateBattlePrefab(heroSpots[i]);
             controller.SetData(heroes[i]);
+            controller.SetBattleManager(this);
             controllers.Add(controller);
         }
         return controllers;
@@ -92,6 +111,7 @@ public class BattleManager : MonoBehaviour
         {
             EnemyBattleController enemyBattleController = Instantiate(enemies[i].prefab, enemySpots[i]).GetComponent<EnemyBattleController>();
             enemyBattleControllers.Add(enemyBattleController);
+            enemyBattleController.SetBattleManager(this);
         }
         return enemyBattleControllers;
     }

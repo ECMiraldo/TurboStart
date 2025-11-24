@@ -1,4 +1,5 @@
 using Persistence;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,6 +22,7 @@ public class Tavern : MonoBehaviour
     ProfileData profileData;
     TavernHero selectedHero;
     TavernData tavernData;
+    private Dictionary<TavernHero, TavernHeroCard> heroCards = new();
 
     private void Start()
     {
@@ -54,6 +56,7 @@ public class Tavern : MonoBehaviour
     {
         TavernHeroCard heroCard = Instantiate(heroCardPrefab, heroListContent).GetComponent<TavernHeroCard>();
         heroCard.Init(this, hero);
+        heroCards.Add(hero, heroCard);
     }
 
     public void SelectHero(TavernHero tavernHero)
@@ -71,7 +74,13 @@ public class Tavern : MonoBehaviour
         profileData.gold -= selectedHero.cost;
         profileData.heroes.Add(selectedHero.hero);
         tavernData.availableHeroes.Remove(selectedHero);
-        SelectHero(tavernData.availableHeroes[0]);
+      
+
+        Destroy(heroCards[selectedHero].gameObject);
+        heroCards.Remove(selectedHero);
+
+        if (tavernData.availableHeroes.Count > 0)
+            SelectHero(tavernData.availableHeroes[0]);
     }
 
 

@@ -23,7 +23,7 @@ public class AdventureMapStageSO : ScriptableObject
     {
         List<EnemyDataSO> encounter = new List<EnemyDataSO>();
 
-        int remainingCost = Mathf.FloorToInt(enemyBudgetCurve.Evaluate(currentFight));
+        int remainingCost = Mathf.FloorToInt(enemyBudgetCurve.Evaluate(currentFight)); //TODO multiply this by something
         int maxEnemies = 3;
 
         // Convert dictionary to list for easier random selection

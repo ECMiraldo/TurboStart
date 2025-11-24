@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3b5076050403ff48a221c483da3375f, type: 3}
+  m_Name: OrangeSlimeStats
+  m_EditorClassIdentifier: 
+  <prefab>k__BackingField: {fileID: 9032516647439729905, guid: 10cb1ca4472d23d408660d78894e4cb3, type: 3}
+  <fighterData>k__BackingField:
+    <Attack>k__BackingField: 10
+    <MagicAttack>k__BackingField: 20
+    <Accuracy>k__BackingField: 5
+    <CritChance>k__BackingField: 10
+    <Health>k__BackingField: 100
+    <Mana>k__BackingField: 50
+    <Defense>k__BackingField: 20
+    <MagicDefense>k__BackingField: 10
+    <Evasion>k__BackingField: 10
+    <initative>k__BackingField: 5

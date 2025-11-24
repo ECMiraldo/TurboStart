@@ -30,7 +30,8 @@ public class AdventureMapHeroChoosingScreen : MonoBehaviour
         }
         else
         {
-            ShowHeroDetails(GameManager.ProfileData.heroes[0]);
+            if (GameManager.ProfileData.heroes.Count > 0)
+                ShowHeroDetails(GameManager.ProfileData.heroes[0]);
         }
     }
 
@@ -48,7 +49,9 @@ public class AdventureMapHeroChoosingScreen : MonoBehaviour
 
     private void ShowAllHeroes()
     {
+        if (GameManager.ProfileData.heroes == null || GameManager.ProfileData.heroes.Count == 0) return;
         List<HeroData> list = GameManager.ProfileData.heroes;
+
 
         list.RemoveAll((x) => tempTeam.heroes.Contains(x.heroId));  
 

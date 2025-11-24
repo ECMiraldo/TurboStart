@@ -76,12 +76,13 @@ public enum AnimationNames : byte
     Attack = 0,
     Hurt = 1,
     Cast = 2,
+    Die = 3,
 }
 
 
 public static class Constants
 {
-    public const string HERO_SPRITES_ADDRESS = "Heroes/HeroSprites";
+    public const string HERO_SPRITES_ADDRESS = "Combat/Units/Heroes/HeroSprites";
 
     public static Dictionary<AnimationNames, int> animationHashes =
     new Dictionary<AnimationNames, int>
@@ -89,6 +90,7 @@ public static class Constants
         { AnimationNames.Attack, Animator.StringToHash(AnimationNames.Attack.ToString()) },
         { AnimationNames.Hurt,    Animator.StringToHash(AnimationNames.Hurt.ToString()) },
         { AnimationNames.Cast,   Animator.StringToHash(AnimationNames.Cast.ToString()) },
+        { AnimationNames.Die,   Animator.StringToHash(AnimationNames.Die.ToString()) },
     };
 
 }

@@ -3,50 +3,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[Serializable]
-public class UnitVitals
-{
-    public event Action<int> OnHealthChanged;
-    public event Action<int> OnManaChanged;
-    public event Action OnDied;
-
-    [field: SerializeField] public int currentHealth { get; private set; }
-    [field: SerializeField] public int currentMana { get; private set; }
-
-    [JsonIgnore] private UnitStats unitStats;
-    public void InjectStats(UnitStats stats)
-    {
-        this.unitStats = stats;
-        //handles regen in case the vitals are being created and not loaded.
-        if (currentHealth == 0 && currentMana == 0)
-        {
-            IncrementHealth(unitStats.stats[UnitStat.Health].ToInt());
-            IncrementMana(unitStats.stats[UnitStat.Mana].ToInt());
-        }
-    }
-    public void IncrementHealth(int health)
-    {
-        currentHealth = Mathf.Clamp(currentHealth + health, 0, unitStats.stats[UnitStat.Health].ToInt());
-        OnHealthChanged?.Invoke(currentHealth);
-        if (currentHealth == 0)
-        {
-            //TODO: handle die
-            OnDied?.Invoke();
-        }
-    }
-
-    public void IncrementMana(int mana)
-    {
-        currentMana = Mathf.Clamp(currentMana + mana, 0, unitStats.stats[UnitStat.Mana].ToInt());
-        OnManaChanged?.Invoke(currentMana);
-    }
-
-
-}
-
-
-
 [Serializable]
 public class HeroData
 {
@@ -80,7 +36,7 @@ public class HeroData
         this.heroId = id;
         this.spriteName = spriteAddress;
         this.level = 1;
-        this.attributes = new UnitStats(heroTemplate);
+        this.attributes = new UnitStats(heroTemplate.starterStats);
         this.vitals = new UnitVitals();
         vitals.InjectStats(attributes);
     }
@@ -105,15 +61,17 @@ public class HeroData
 
 
     [JsonConstructor]
-    public HeroData(int heroId, string templateId, int level, string name, string spriteAddress, HeroAction action, UnitStats attributes)
+    public HeroData(int heroId, string templateId, int level, string name, string spriteName, HeroAction Action, UnitStats attributes, UnitVitals vitals)
     {
         this.name = name;
         this.templateId = templateId;
         this.heroId = heroId;
-        this.spriteName = spriteAddress;
-        this.Action = action;
+        this.spriteName = spriteName;
+        this.Action = Action;
         this.level = level;
-        this.attributes = attributes;
+        this.vitals = vitals;
+        if (attributes == null) this.attributes = new UnitStats(SO().starterStats);
+        else this.attributes = attributes;
         vitals.InjectStats(attributes);
     }
 }

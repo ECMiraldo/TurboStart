@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 6943006506701626094}
   - component: {fileID: 7667360788504511993}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: NameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -495,9 +495,9 @@ GameObject:
   - component: {fileID: 3665191640130248995}
   - component: {fileID: 7573346141672633468}
   - component: {fileID: 1440784679357264175}
-  - component: {fileID: 2849566877515309789}
+  - component: {fileID: 7364820405472992555}
   m_Layer: 5
-  m_Name: TavernNewHeroCard
+  m_Name: TavernHeroCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -612,7 +612,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
---- !u!114 &2849566877515309789
+--- !u!114 &7364820405472992555
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -621,7 +621,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5657698817072830206}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4b9f165d35ac55478acfe69ea7e9f49, type: 3}
+  m_Script: {fileID: 11500000, guid: 77585c64d2f1d514d98c0f37557e87c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 3056023169794975040}

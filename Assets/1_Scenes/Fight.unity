@@ -1033,7 +1033,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129672344}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1308,93 +1308,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 164274028}
   m_CullTransparentMesh: 1
---- !u!1 &165778157
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 165778158}
-  - component: {fileID: 165778159}
-  m_Layer: 0
-  m_Name: Idle_0
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &165778158
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 165778157}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 6, z: 5}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1481190416}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &165778159
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 165778157}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 2061856562, guid: 47a5c64795eea6c48b1abcf8f336ba5a, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.4375, y: 1.03125}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &179355430
 GameObject:
   m_ObjectHideFlags: 0
@@ -4417,8 +4330,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -237299043
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6fb1c8e6cbf2a3641b6959ab45c887d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5758,8 +5671,7 @@ Transform:
   m_LocalPosition: {x: -4.55, y: -9.68, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1481190416}
+  m_Children: []
   m_Father: {fileID: 1189478091}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &883340430
@@ -5831,14 +5743,13 @@ GameObject:
   m_Component:
   - component: {fileID: 900939860}
   - component: {fileID: 900939861}
-  - component: {fileID: 900939862}
   m_Layer: 5
   m_Name: StageDetails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &900939860
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5883,23 +5794,9 @@ MonoBehaviour:
   - {fileID: 1110205318}
   - {fileID: 1640873176}
   - {fileID: 1725261633}
+  fightRenderTexture: {fileID: 1869387566}
   heroChoosingScreen: {fileID: 179355432}
-  battleConstructor: {fileID: 900939862}
---- !u!114 &900939862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 900939859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ac5c7b3f5b8bc84283614f3fd527674, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  battleManager: {fileID: 0}
-  heroPrefab: {fileID: 0}
-  heroSpots: []
+  battleConstructor: {fileID: 1731355235}
 --- !u!1 &911397186
 GameObject:
   m_ObjectHideFlags: 0
@@ -6120,7 +6017,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920402676}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
   m_Name: 
@@ -6578,141 +6475,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 955770118}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6396b367f922b24f9bcf3a4676b09b1, type: 3}
+  m_Script: {fileID: 11500000, guid: c0ef6d92242dd78498a67d3ffadc6adf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heroListContent: {fileID: 163788890}
   heroCardPrefab: {fileID: 3823129547714228263, guid: f2b745b0c082b2f4a84b02169ca6b0c4, type: 3}
-  <heroListToggleGroup>k__BackingField: {fileID: 0}
   itemIcon: {fileID: 940027027}
   heroNameText: {fileID: 732736084}
   costText: {fileID: 280738578}
   hireButton: {fileID: 1850216845}
-  profileData:
-    inventory:
-      <items>k__BackingField:
-      - quantity: 0
-        index: 0
-      - quantity: 0
-        index: 1
-      - quantity: 0
-        index: 2
-      - quantity: 0
-        index: 3
-      - quantity: 0
-        index: 4
-      - quantity: 0
-        index: 5
-      - quantity: 0
-        index: 6
-      - quantity: 0
-        index: 7
-      - quantity: 0
-        index: 8
-      - quantity: 0
-        index: 9
-      - quantity: 0
-        index: 10
-      - quantity: 0
-        index: 11
-      - quantity: 0
-        index: 12
-      - quantity: 0
-        index: 13
-      - quantity: 0
-        index: 14
-      - quantity: 0
-        index: 15
-      - quantity: 0
-        index: 16
-      - quantity: 0
-        index: 17
-      - quantity: 0
-        index: 18
-      - quantity: 0
-        index: 19
-      - quantity: 0
-        index: 20
-      - quantity: 0
-        index: 21
-      - quantity: 0
-        index: 22
-      - quantity: 0
-        index: 23
-      - quantity: 0
-        index: 24
-      - quantity: 0
-        index: 25
-      - quantity: 0
-        index: 26
-      - quantity: 0
-        index: 27
-      - quantity: 0
-        index: 28
-      - quantity: 0
-        index: 29
-      - quantity: 0
-        index: 30
-      - quantity: 0
-        index: 31
-      - quantity: 0
-        index: 32
-      - quantity: 0
-        index: 33
-      - quantity: 0
-        index: 34
-      - quantity: 0
-        index: 35
-      - quantity: 0
-        index: 36
-      - quantity: 0
-        index: 37
-      - quantity: 0
-        index: 38
-      - quantity: 0
-        index: 39
-      - quantity: 0
-        index: 40
-      - quantity: 0
-        index: 41
-      - quantity: 0
-        index: 42
-      - quantity: 0
-        index: 43
-      - quantity: 0
-        index: 44
-      - quantity: 0
-        index: 45
-      - quantity: 0
-        index: 46
-      - quantity: 0
-        index: 47
-      - quantity: 0
-        index: 48
-      - quantity: 0
-        index: 49
-    heroes: []
-    tavernData:
-      availableHeroes: []
-      totalCreatedHeroes: 0
-    lastTickTime: 0
-    gold: 1000
-  selectedHero:
-    <cost>k__BackingField: 0
-    <hero>k__BackingField:
-      <Name>k__BackingField: 
-      <Id>k__BackingField: 0
-      <level>k__BackingField: 0
-      <Action>k__BackingField:
-        <currentTick>k__BackingField: 0
-        <durationInTicks>k__BackingField: 0
-        <type>k__BackingField: 0
-      <spriteName>k__BackingField: 
-      <MainAttibutes>k__BackingField: []
-      _sprite: {fileID: 0}
-  tavernData:
-    availableHeroes: []
-    totalCreatedHeroes: 0
+  heroListContent: {fileID: 163788890}
 --- !u!1 &961287950
 GameObject:
   m_ObjectHideFlags: 0
@@ -9274,7 +9045,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1353248378}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -9310,7 +9081,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -10075,66 +9846,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1479945116}
   m_CullTransparentMesh: 1
---- !u!1 &1481190415
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1481190416}
-  - component: {fileID: 1481190417}
-  m_Layer: 0
-  m_Name: Hero
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1481190416
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1481190415}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 165778158}
-  m_Father: {fileID: 865201344}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1481190417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1481190415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67d2d55ff4e1ebf4a8cc2dbcd466c40d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <maxHealth>k__BackingField: 0
-  <currentHealth>k__BackingField: 0
-  <MaxMana>k__BackingField: 0
-  <currentMana>k__BackingField: 0
-  <attackDamage>k__BackingField: 0
-  <heroData>k__BackingField:
-    <Name>k__BackingField: 
-    <Id>k__BackingField: 0
-    <templateID>k__BackingField: 
-    <level>k__BackingField: 0
-    <Action>k__BackingField:
-      <currentTick>k__BackingField: 0
-      <durationInTicks>k__BackingField: 0
-      <type>k__BackingField: 0
-    <spriteName>k__BackingField: 
 --- !u!1 &1482158891
 GameObject:
   m_ObjectHideFlags: 0
@@ -10767,7 +10478,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1723378568}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -11016,9 +10727,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1839d026ece6566449a03cb302279f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heroPrefab: {fileID: 0}
-  enemySpots: []
-  heroSpots: []
+  enemySpots:
+  - {fileID: 1340612299}
+  - {fileID: 1945108325}
+  - {fileID: 116598145}
+  heroSpots:
+  - {fileID: 865201344}
+  - {fileID: 108053160}
+  - {fileID: 1125546688}
+  unitTurnInterval: 1
 --- !u!1 &1758141949
 GameObject:
   m_ObjectHideFlags: 0
@@ -13577,8 +13294,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -237299043
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1d3da24d193e67a4e9c92032ffd4fd66, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

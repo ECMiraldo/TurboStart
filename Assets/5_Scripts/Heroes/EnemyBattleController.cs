@@ -10,9 +10,10 @@ public class EnemyBattleController : Unit
     public override UnitStats stats => enemyStats;
     [SerializeField] private UnitStats enemyStats;
    
-    private void Awake()
+    protected  void Awake()
     {
-        enemyStats = new UnitStats(enemyData);
+        //base.Awake();
+        enemyStats = new UnitStats(enemyData.fighterData);
         vitals = new UnitVitals();
         vitals.InjectStats(enemyStats);
     }

@@ -8,6 +8,7 @@ public class AdventureMapStageDetails : MonoBehaviour
     [Header("Ui Refs")]
     [SerializeField] private TextMeshProUGUI stageNameText;
     [SerializeField] private List<Image> heroButtonImages;
+    [SerializeField] private GameObject fightRenderTexture;
  
 
     [Header("Dependencies")]
@@ -19,10 +20,10 @@ public class AdventureMapStageDetails : MonoBehaviour
 
     private void OnDisable()
     {
-        tempTeam = null;
         ClearHero(0);
         ClearHero(1);
         ClearHero(2);
+        tempTeam = null;
     }
 
     public void ShowDetails(AdventureMapStageSO stageSO)
@@ -44,11 +45,14 @@ public class AdventureMapStageDetails : MonoBehaviour
         if (!tempTeam.heroes.Exists((x) => x != -1)) return; //there are no heroes on the team
 
         battleConstructor.StartStage(tempTeam, stage);
+        fightRenderTexture.SetActive(true);
+        gameObject.SetActive(false);
     }
 
 
     public void SelectHero(HeroData hero, int slot)
     {
+        if (hero == null) return;
         tempTeam.heroes[slot] = hero.heroId;
         heroButtonImages[slot].sprite = hero.Sprite;
     }

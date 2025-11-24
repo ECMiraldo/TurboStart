@@ -149,31 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a90c7305a61afc46a3def51f8b57eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <profileData>k__BackingField:
-    heroes:
-    - <Name>k__BackingField: Name
-      <Id>k__BackingField: 0
-      <Action>k__BackingField:
-        <currentTick>k__BackingField: 0
-        <durationInTicks>k__BackingField: 0
-        <type>k__BackingField: 0
-      <spriteName>k__BackingField: 
-    - <Name>k__BackingField: Name
-      <Id>k__BackingField: 1
-      <Action>k__BackingField:
-        <currentTick>k__BackingField: 0
-        <durationInTicks>k__BackingField: 0
-        <type>k__BackingField: 0
-      <spriteName>k__BackingField: 
-    - <Name>k__BackingField: Name
-      <Id>k__BackingField: 2
-      <Action>k__BackingField:
-        <currentTick>k__BackingField: 0
-        <durationInTicks>k__BackingField: 0
-        <type>k__BackingField: 0
-      <spriteName>k__BackingField: 
-    tavernData:
-      availableHeroes: []
 --- !u!4 &334252644
 Transform:
   m_ObjectHideFlags: 0
@@ -245,9 +220,113 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <data>k__BackingField:
+    inventory:
+      <items>k__BackingField:
+      - quantity: 0
+        index: 0
+      - quantity: 0
+        index: 1
+      - quantity: 0
+        index: 2
+      - quantity: 0
+        index: 3
+      - quantity: 0
+        index: 4
+      - quantity: 0
+        index: 5
+      - quantity: 0
+        index: 6
+      - quantity: 0
+        index: 7
+      - quantity: 0
+        index: 8
+      - quantity: 0
+        index: 9
+      - quantity: 0
+        index: 10
+      - quantity: 0
+        index: 11
+      - quantity: 0
+        index: 12
+      - quantity: 0
+        index: 13
+      - quantity: 0
+        index: 14
+      - quantity: 0
+        index: 15
+      - quantity: 0
+        index: 16
+      - quantity: 0
+        index: 17
+      - quantity: 0
+        index: 18
+      - quantity: 0
+        index: 19
+      - quantity: 0
+        index: 20
+      - quantity: 0
+        index: 21
+      - quantity: 0
+        index: 22
+      - quantity: 0
+        index: 23
+      - quantity: 0
+        index: 24
+      - quantity: 0
+        index: 25
+      - quantity: 0
+        index: 26
+      - quantity: 0
+        index: 27
+      - quantity: 0
+        index: 28
+      - quantity: 0
+        index: 29
+      - quantity: 0
+        index: 30
+      - quantity: 0
+        index: 31
+      - quantity: 0
+        index: 32
+      - quantity: 0
+        index: 33
+      - quantity: 0
+        index: 34
+      - quantity: 0
+        index: 35
+      - quantity: 0
+        index: 36
+      - quantity: 0
+        index: 37
+      - quantity: 0
+        index: 38
+      - quantity: 0
+        index: 39
+      - quantity: 0
+        index: 40
+      - quantity: 0
+        index: 41
+      - quantity: 0
+        index: 42
+      - quantity: 0
+        index: 43
+      - quantity: 0
+        index: 44
+      - quantity: 0
+        index: 45
+      - quantity: 0
+        index: 46
+      - quantity: 0
+        index: 47
+      - quantity: 0
+        index: 48
+      - quantity: 0
+        index: 49
     heroes: []
     tavernData:
       availableHeroes: []
+    lastTickTime: 0
+    gold: 1000
 --- !u!4 &1427433499
 Transform:
   m_ObjectHideFlags: 0

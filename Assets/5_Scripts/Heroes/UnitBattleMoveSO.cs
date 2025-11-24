@@ -1,38 +1,7 @@
 ﻿using AYellowpaper.SerializedCollections;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
-
-public abstract class BattleMoveController : MonoBehaviour
-{
-    [field: SerializeField] public Unit unit { get; private set; }
-    [field: SerializeField] public UnitBattleMoveSO moveData { get; private set; }
-    protected WaitForSeconds yieldTime;
-
-
-
-    protected virtual void Awake()
-    {
-        yieldTime = new WaitForSeconds(moveData.moveTime);
-    }
-
-    public virtual IEnumerator DoMove()
-    {
-        unit.animator.SetTrigger(Constants.animationHashes[AnimationNames.Attack]);
-        yield return yieldTime;
-    }
-
-}
-
-public class BasicAttackMove : BattleMoveController
-{
-
-    public override IEnumerator DoMove()
-    {
-
-        yield return yieldTime;
-    }
-}
+using System.Linq;
 
 
 
@@ -46,7 +15,6 @@ public enum BattleMoveTarget : byte
     EnemyBack = 5,
     EnemyTeam = 6,
 }
-
 
 
 
@@ -64,7 +32,71 @@ public class UnitBattleMoveSO : ScriptableObject
     [field: SerializeField] public AnimationNames animationName { get; private set; }
     [field: SerializeField] public BattleMoveTarget target { get; private set; }
     [field: SerializeField] public float moveTime { get; private set; }
- 
+
+
+    public IEnumerable<Unit> GetTargets(Unit unit, bool isHero)
+    {
+        if (isHero) return GetTargetsForHeroTeam(unit);
+        else return GetTargetsForEnemyTeam(unit);
+    }
+    private IEnumerable<Unit> GetTargetsForHeroTeam(Unit hero)
+    {
+        switch (target)
+        {
+            case BattleMoveTarget.self: return new List<Unit> { hero };
+
+            case BattleMoveTarget.teamFront:
+                return new List<Unit> { hero.battleManager.heroes.First((x) => x.unitVitals.currentHealth > 0) };
+
+            case BattleMoveTarget.teamBack:
+                return new List<Unit> { hero.battleManager.heroes.Last((x) => x.unitVitals.currentHealth > 0) };
+
+            case BattleMoveTarget.wholeTeam:
+                return hero.battleManager.heroes;
+
+            case BattleMoveTarget.EnemyFront:
+                return new List<Unit> { hero.battleManager.enemies.First((x) => x.unitVitals.currentHealth > 0) };
+
+            case BattleMoveTarget.EnemyBack:
+                return new List<Unit> { hero.battleManager.enemies.Last((x) => x.unitVitals.currentHealth > 0) };
+
+            case BattleMoveTarget.EnemyTeam:
+                return hero.battleManager.enemies;
+        }
+        return null;
+    }
+
+
+    private IEnumerable<Unit> GetTargetsForEnemyTeam(Unit enemy)
+    {
+        switch (target)
+        {
+            case BattleMoveTarget.self: return new List<Unit> { enemy };
+
+            case BattleMoveTarget.teamFront:
+                return new List<Unit> { enemy.battleManager.enemies.First((x) => x.unitVitals.currentHealth > 0) };
+
+            case BattleMoveTarget.teamBack:
+                return new List<Unit> { enemy.battleManager.enemies.Last((x) => x.unitVitals.currentHealth > 0) };
+
+            case BattleMoveTarget.wholeTeam:
+                return enemy.battleManager.enemies;
+
+            case BattleMoveTarget.EnemyFront:
+                return new List<Unit> { enemy.battleManager.heroes.First((x) => x.unitVitals.currentHealth > 0) };
+
+            case BattleMoveTarget.EnemyBack:
+                return new List<Unit> { enemy.battleManager.heroes.Last((x) => x.unitVitals.currentHealth > 0) };
+
+            case BattleMoveTarget.EnemyTeam:
+                return enemy.battleManager.heroes;
+        }
+        return null;
+    }
+
+
+
+
 }
 
-
+ 
