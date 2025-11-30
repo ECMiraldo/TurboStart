@@ -29,6 +29,8 @@ public class BattleManager : MonoBehaviour
 
 
         yield return new WaitForSeconds(1);
+
+
         while (currentFight < stage.numberFights)
         {
             Logger.LogBattle($"Fight {currentFight} Started");

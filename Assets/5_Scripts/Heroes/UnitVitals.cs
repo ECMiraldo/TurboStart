@@ -13,6 +13,14 @@ public class UnitVitals
     [JsonProperty] [field: SerializeField] public int currentMana { get; private set; }
 
     [JsonIgnore] private UnitStats unitStats;
+
+    public void FullRegen()
+    {
+        if (unitStats == null) return;
+        IncrementHealth(unitStats.stats[UnitStat.Health].ToInt());
+        IncrementMana(unitStats.stats[UnitStat.Mana].ToInt());
+    }
+
     public void InjectStats(UnitStats stats)
     {
         this.unitStats = stats;

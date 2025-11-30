@@ -53,9 +53,16 @@ namespace Persistence
 
         public void Delete()
         {
-            if (File.Exists(filePath))
+            try
             {
-                File.Delete(filePath);
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("File not found");
             }
         }
 

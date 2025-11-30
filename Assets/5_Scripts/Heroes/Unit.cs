@@ -1,18 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public struct Damage
-{
-    public int amount;
-
-}
-
-
-public class DamageCalculator
-{
-
-}
-
 
 public abstract class Unit : MonoBehaviour
 {
@@ -21,6 +9,11 @@ public abstract class Unit : MonoBehaviour
     public BattleManager battleManager { get; private set; }
     public abstract UnitStats stats { get; }
     public abstract UnitVitals unitVitals { get; }
+
+    protected virtual void Start()
+    {
+        unitVitals.FullRegen();
+    }
 
 
     public void SetBattleManager(BattleManager manager) => this.battleManager = manager; 

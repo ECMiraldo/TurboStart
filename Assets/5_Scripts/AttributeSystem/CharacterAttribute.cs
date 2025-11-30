@@ -1,4 +1,5 @@
 ﻿using AYellowpaper.SerializedCollections;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +11,8 @@ public class CharacterAttribute
 
     public event Action<float> OnValueChanged;
 
-    [field: SerializeField] protected float starterValue;
-    [field: SerializeField] protected float value;
+    [field: SerializeField][JsonProperty] protected float starterValue;
+    [field: SerializeField][JsonProperty] protected float value;
 
     public float Value => isDirty ? value = Recalculate() : value;
 
