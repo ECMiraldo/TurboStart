@@ -1,0 +1,11 @@
+﻿using UnityEngine;
+
+
+public abstract class ObjectPoolSettings : ScriptableObject
+{
+    [field: SerializeField] public GameObject prefab { get; private set; }
+    [field: SerializeField] public int prewarmAmount { get; private set; }
+
+}
+
+

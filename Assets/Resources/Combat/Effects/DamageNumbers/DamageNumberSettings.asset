@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d88ece2b13835d41b7deb9eb189d29d, type: 3}
-  m_Name: SettingsExample
+  m_Script: {fileID: 11500000, guid: 03db82e3eefb7854d933a97fbfb3a5a1, type: 3}
+  m_Name: DamageNumberSettings
   m_EditorClassIdentifier: 
-  <prefab>k__BackingField: {fileID: 1727451177207702896, guid: 1aff4c3ac0da7a44f8d03dbd87b3da89, type: 3}
-  <warmAmount>k__BackingField: 20
-  <maxCapacity>k__BackingField: 100
+  <prefab>k__BackingField: {fileID: 5285871318383097025, guid: 69e869281b86db3419cc886c7c56a9d1, type: 3}
+  <prewarmAmount>k__BackingField: 50
+  <despawnOnSceneChange>k__BackingField: 0
