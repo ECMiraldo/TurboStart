@@ -13,12 +13,19 @@ public class FloatingTextManager : Singleton<FloatingTextManager>
     [SerializeField] private List<ObjectPoolSettings> numberSettings;
 
     private ObjectPool objectPool;
-    private Camera cam;
+    private Camera _cam;
+    public Camera cam
+    {
+        get {
+            if (_cam == null) _cam = Camera.main;
+            return _cam;
+        }
+    }
 
     protected override void Awake()
     {
         objectPool = new(numberSettings, this);
-        cam = Camera.main;
+        _cam = Camera.main;
     }
 
     private void OnEnable()
@@ -36,8 +43,8 @@ public class FloatingTextManager : Singleton<FloatingTextManager>
         ObjectPoolSettings settings = numberSettings.First();
         foreach (Unit t in dmg.targets)
         {
-            Vector3 screenPos = cam.WorldToScreenPoint(t.transform.position);
-            DamageText obj = objectPool.Spawn(settings, screenPos).gameObject.GetComponent<DamageText>();
+            Vector3 position = t.transform.position + Vector3.up;
+            DamageText obj = objectPool.Spawn(settings, position).gameObject.GetComponent<DamageText>();
             obj.SetDamage(dmg, objectPool);
         }
     }

@@ -38,7 +38,8 @@ public class ObjectPool
         //Sets transform parent in hierarchy
         Transform transformParent = new GameObject(settings.name).transform;
         transformParent.SetParent(monoBehaviour.transform);
-
+        transformParent.localPosition = Vector3.zero;
+        transformParent.localScale = Vector3.one;
         //initializes lists
         transforms.Add(settings, transformParent);
         inactiveObjects.Add(settings, new());

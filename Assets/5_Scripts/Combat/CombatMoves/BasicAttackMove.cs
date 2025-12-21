@@ -7,7 +7,7 @@ public class BasicAttackMove : BattleMoveController
     {
         foreach (Unit target in targets)
         {
-            target.TakeDamage(new Damage { amount = 1 });
+            target.TakeDamage(new Damage (unit.stats.stats[UnitStat.Attack].ToInt(), unit, targets));
         }
         yield return null;
     }

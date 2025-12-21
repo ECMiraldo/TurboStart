@@ -7,9 +7,9 @@ public struct Damage
 
     public int amount;
     public Unit attacker;
-    public List<Unit> targets;
+    public IEnumerable<Unit> targets;
 
-    public Damage(int amount, Unit attacker, List<Unit> targets, bool canCrit = true, bool canMiss = false)
+    public Damage(int amount, Unit attacker, IEnumerable<Unit> targets, bool canCrit = true, bool canMiss = false)
     {
         this.amount = amount;
         this.attacker = attacker;
