@@ -5,40 +5,41 @@ public class AttackBehavior : GridUnitBehaviourSO
 {
     public override void Tick(UnitContext ctx)
     {
-        // if (ctx.Status.IsStunned) return;
-        if (ctx.IsEngaged())
+        if (!SetTarget(ctx)) return;
+
+        if (ctx.IsInRange(ctx.Target.Grid.anchorCell))
         {
-            ctx.Grid.ClearPath();
+            ctx.Grid.ClearDesiredStep();
             PerformAttack(ctx);
             return;
         }
-
-        Team otherTeam = ctx.Stats.team.GetOpposite();
-        ctx.Target = MovementSystem.Instance.FindClosestUnit(otherTeam);
-        if (ctx.Target == null) return;
-
-
-        if (!ctx.Attack.IsInRange(
-            ctx.Grid.anchorCell,
-            ctx.Target.Grid.anchorCell))
-        {
-            if (MovementSystem.Instance.gridPathFinder.TryFindPathToRange(
-                ctx.Grid, ctx.Grid.anchorCell, ctx.Target.Grid.anchorCell, ctx.Stats.attackRange, out var path)
-                )
-            {
-                ctx.Grid.SetPath(path);
-            }
-        }
         else
         {
-            ctx.Grid.ClearPath();
-            PerformAttack(ctx);
+            if (MovementSystem.Instance.gridPathFinder.TryGetNextStep(
+                ctx.Grid,
+                ctx.Grid.anchorCell,
+                ctx.Target.Grid.anchorCell,
+                out var step))
+            {
+                ctx.Grid.SetDesiredStep(step);
+            }
+            ctx.Target = null;
         }
+
+       
     }
 
     public bool CanAttack(UnitContext ctx)
     {
         return Time.time >= ctx.Stats.lastAttackTime + 1 / ctx.Stats.attackSpeed;
+    }
+
+    public bool SetTarget(UnitContext ctx)
+    {
+        if (ctx.IsEngaged()) return true;
+        Team otherTeam = ctx.Stats.team.GetOpposite();
+        ctx.Target = MovementSystem.Instance.FindClosestUnit(ctx.Grid.anchorCell, otherTeam);
+        return ctx.Target != null;
     }
     
     public void PerformAttack(UnitContext ctx)
@@ -51,7 +52,7 @@ public class AttackBehavior : GridUnitBehaviourSO
         DamageNumberManager.ShowNumber(ctx.Target.Grid.transform.position, ctx.Stats.attackDamage.ToString());
 
         ctx.Visuals.OnAttack(ctx);
-        if (ctx.Target.Health.IsDead)
+        if (ctx.Target.Health.IsDead || ctx.Target == null)
         {
             ctx.Target = null;
             ctx.Visuals.ResetVisuals();

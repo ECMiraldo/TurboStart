@@ -71,44 +71,29 @@ public class MovementSystem : MonoBehaviour
         // Step 1: clear expired reservations
         CleanupReservations();
 
-        // Step 2: resolve movement intentions
-        foreach (var unitCtx in activeUnits)
+        foreach (var ctx in activeUnits)
         {
-            var unit = unitCtx.Grid;
-            if (!unit.HasPlannedPath || unitCtx.IsEngaged())
+            var unit = ctx.Grid;
+            if (!unit.HasDesiredStep)
                 continue;
 
-            Vector2Int nextCell = unit.PeekNextPathCell();
+            Vector2Int next = unit.ConsumeDesiredStep();
 
             if (grid.CanReserveFootprint(
-                nextCell,
+                next,
                 unit.footprintOffsets,
                 unit,
                 currentTick + 1))
             {
                 grid.ReserveFootprint(
-                    nextCell,
+                    next,
                     unit.footprintOffsets,
                     unit,
                     currentTick + 1);
 
-                unit.ConfirmStep();
+                grid.MoveUnit(unit, next);
+                unit.SyncVisualPosition(grid.GridToWorld(next));
             }
-            else
-            {
-                unit.OnMovementBlocked();
-            }
-        }
-
-        // Step 3: execute movement
-        foreach (var unitCtx in activeUnits)
-        {
-            var unit = unitCtx.Grid;
-            if (!unit.HasConfirmedStep)
-                continue;
-
-            grid.MoveUnit(unit, unit.ConsumeConfirmedStep());
-            unit.SyncVisualPosition(grid.GridToWorld(unit.anchorCell));
         }
     }
 
@@ -125,7 +110,7 @@ public class MovementSystem : MonoBehaviour
     }
 
     #region SpatialQueries
-    public UnitContext FindClosestUnit(Team whatTeam)
+    public UnitContext FindClosestUnit(Vector2Int currentPos, Team whatTeam)
     {
         UnitBrain closest = null;
         int bestDist = int.MaxValue;
@@ -136,8 +121,8 @@ public class MovementSystem : MonoBehaviour
             if (unit.Context.Health.IsDead) continue;
             GridUnit gridUnit = unit.Context.Grid;
 
-            int dist = Mathf.Abs(gridUnit.anchorCell.x - gridUnit.anchorCell.x)
-            + Mathf.Abs(gridUnit.anchorCell.y - gridUnit.anchorCell.y);
+            int dist = Mathf.Abs(gridUnit.anchorCell.x - currentPos.x)
+            + Mathf.Abs(gridUnit.anchorCell.y - currentPos.y);
 
             if (dist < bestDist)
             {

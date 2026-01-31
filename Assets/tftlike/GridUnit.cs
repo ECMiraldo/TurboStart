@@ -14,12 +14,11 @@ public class GridUnit : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private float moveLerpSpeed = 8f;
 
-    private readonly Queue<Vector2Int> plannedPath = new();
-    private Vector2Int? confirmedStep;
+    private Vector2Int? desiredStepThisTick;
+    public bool HasDesiredStep => desiredStepThisTick.HasValue;
+
     private Vector3 targetWorldPos;
 
-    public bool HasPlannedPath => plannedPath.Count > 0;
-    public bool HasConfirmedStep => confirmedStep.HasValue;
 
     private void Start()
     {
@@ -46,46 +45,18 @@ public class GridUnit : MonoBehaviour
 
     #region Path Control
 
-    public void SetPath(List<Vector2Int> path)
+    public void SetDesiredStep(Vector2Int step) => desiredStepThisTick = step;
+    public Vector2Int ConsumeDesiredStep()
     {
-        plannedPath.Clear();
-
-        // Skip first cell (current position)
-        for (int i = 1; i < path.Count; i++)
-            plannedPath.Enqueue(path[i]);
-    }
-
-    public Vector2Int PeekNextPathCell()
-    {
-        return plannedPath.Peek();
-    }
-
-    public void ConfirmStep()
-    {
-        confirmedStep = plannedPath.Peek();
-    }
-
-    public Vector2Int ConsumeConfirmedStep()
-    {
-        var step = confirmedStep.Value;
-        if (anchorCell.x != step.x) spriteRenderer.flipX = anchorCell.x > step.x;
-        plannedPath.Dequeue();
-        confirmedStep = null;
+        var step = desiredStepThisTick.Value;
+        desiredStepThisTick = null;
         anchorCell = step;
         return step;
     }
-    
-    public void ClearPath()
-    {
-        plannedPath.Clear();
-        confirmedStep = null;
-    }
 
-    public void OnMovementBlocked()
+    public void ClearDesiredStep()
     {
-        // Simple behavior: clear path and wait
-        plannedPath.Clear();
-        confirmedStep = null;
+        desiredStepThisTick = null;
     }
 
     #endregion

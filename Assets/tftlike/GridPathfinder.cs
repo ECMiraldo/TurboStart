@@ -10,24 +10,26 @@ public class GridPathfinder
         this.grid = grid;
     }
 
-    public bool TryFindPath(
+    public bool TryGetNextStep(
         GridUnit unit,
         Vector2Int start,
         Vector2Int goal,
-        out List<Vector2Int> path,
-        int maxIterations = 1000)
+        out Vector2Int nextStep,
+        int maxIterations = 100)
     {
-        path = null;
+        nextStep = start;
 
         var openSet = new PriorityQueue<Vector2Int>();
         var cameFrom = new Dictionary<Vector2Int, Vector2Int>();
-
         var gScore = new Dictionary<Vector2Int, int>
         {
             [start] = 0
         };
 
-        openSet.Enqueue(start, Heuristic(start, goal));
+        int bestHeuristic = Heuristic(start, goal);
+        Vector2Int bestNode = start;
+
+        openSet.Enqueue(start, bestHeuristic);
 
         int iterations = 0;
 
@@ -35,10 +37,11 @@ public class GridPathfinder
         {
             var current = openSet.Dequeue();
 
-            if (current == goal)
+            int h = Heuristic(current, goal);
+            if (h < bestHeuristic)
             {
-                path = ReconstructPath(cameFrom, current);
-                return true;
+                bestHeuristic = h;
+                bestNode = current;
             }
 
             foreach (var neighbor in grid.GetNeighbors(current))
@@ -52,63 +55,37 @@ public class GridPathfinder
                 {
                     cameFrom[neighbor] = current;
                     gScore[neighbor] = tentativeG;
-                    int fScore = tentativeG + Heuristic(neighbor, goal);
-                    openSet.Enqueue(neighbor, fScore);
+                    int f = tentativeG + Heuristic(neighbor, goal);
+                    openSet.Enqueue(neighbor, f);
                 }
             }
+        }
+
+        if (bestNode != start)
+        {
+            nextStep = ReconstructFirstStep(start, bestNode, cameFrom);
+            return true;
         }
 
         return false;
     }
 
-    public bool TryFindPathToRange(
-        GridUnit unit,
+    private static Vector2Int ReconstructFirstStep(
         Vector2Int start,
-        Vector2Int target,
-        int range,
-        out List<Vector2Int> path)
+        Vector2Int end,
+        Dictionary<Vector2Int, Vector2Int> cameFrom)
     {
-        path = null;
+        Vector2Int current = end;
 
-        var validTargets = new HashSet<Vector2Int>();
-        foreach (var cell in grid.GetCellsInRange(target, range))
+        while (cameFrom.TryGetValue(current, out var prev))
         {
-            if (grid.CanPlaceFootprint(cell, unit.footprintOffsets, unit))
-                validTargets.Add(cell);
+            if (prev == start)
+                return current;
+
+            current = prev;
         }
 
-        if (validTargets.Count == 0)
-            return false;
-
-        var openSet = new Queue<Vector2Int>();
-        var cameFrom = new Dictionary<Vector2Int, Vector2Int>();
-        var visited = new HashSet<Vector2Int>();
-
-        openSet.Enqueue(start);
-        visited.Add(start);
-
-        while (openSet.Count > 0)
-        {
-            var current = openSet.Dequeue();
-
-            if (validTargets.Contains(current))
-            {
-                path = ReconstructPath(cameFrom, current);
-                return true;
-            }
-
-            foreach (var neighbor in grid.GetNeighbors(current))
-            {
-                if (visited.Contains(neighbor)) continue;
-                if (!grid.CanPlaceFootprint(neighbor, unit.footprintOffsets, unit)) continue;
-
-                visited.Add(neighbor);
-                cameFrom[neighbor] = current;
-                openSet.Enqueue(neighbor);
-            }
-        }
-
-        return false;
+        return start;
     }
 
     private static int Heuristic(Vector2Int a, Vector2Int b)
@@ -116,22 +93,8 @@ public class GridPathfinder
         int dx = Mathf.Abs(a.x - b.x);
         int dy = Mathf.Abs(a.y - b.y);
 
-        return dx + dy + (dx > dy ? 0 : 1);
+        // Chebyshev + slight vertical penalty
+        return Mathf.Max(dx, dy) * 10 + dy;
     }
 
-    private static List<Vector2Int> ReconstructPath(
-        Dictionary<Vector2Int, Vector2Int> cameFrom,
-        Vector2Int current)
-    {
-        var path = new List<Vector2Int> { current };
-
-        while (cameFrom.TryGetValue(current, out var prev))
-        {
-            current = prev;
-            path.Add(current);
-        }
-
-        path.Reverse();
-        return path;
-    }
 }

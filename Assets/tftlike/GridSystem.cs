@@ -49,18 +49,6 @@ public class GridSystem : MonoBehaviour
     public bool IsInsideGrid(Vector2Int cell)
         => cells.ContainsKey(cell);
 
-    public bool IsCellFree(Vector2Int cell)
-        => IsInsideGrid(cell) && cells[cell].IsFree;
-
-    public bool IsCellOccupied(Vector2Int cell)
-        => IsInsideGrid(cell) && cells[cell].Occupant != null;
-
-    public bool IsCellReserved(Vector2Int cell)
-        => IsInsideGrid(cell) && cells[cell].ReservedBy != null;
-
-    public GridUnit GetUnitAtCell(Vector2Int cell)
-        => IsInsideGrid(cell) ? cells[cell].Occupant : null;
-
     #endregion
 
     #region Footprint Validation
@@ -130,15 +118,6 @@ public class GridSystem : MonoBehaviour
 
     #region Movement
 
-    public bool CanMoveUnitTo(GridUnit unit, Vector2Int targetAnchorCell)
-    {
-        return CanPlaceFootprint(
-            targetAnchorCell,
-            unit.footprintOffsets,
-            ignoreUnit: unit
-        );
-    }
-
     public void MoveUnit(GridUnit unit, Vector2Int newAnchorCell)
     {
         RemoveUnit(unit);
@@ -205,18 +184,18 @@ public class GridSystem : MonoBehaviour
     {
         static IEnumerable<Vector2Int> Cardinal()
         {
-            yield return Vector2Int.up;
-            yield return Vector2Int.down;
             yield return Vector2Int.left;
             yield return Vector2Int.right;
+            yield return Vector2Int.up;
+            yield return Vector2Int.down;
         }
 
         static IEnumerable<Vector2Int> Diagonal()
         {
-            yield return new Vector2Int(1, 1);
-            yield return new Vector2Int(-1, 1);
             yield return new Vector2Int(1, -1);
             yield return new Vector2Int(-1, -1);
+            yield return new Vector2Int(1, 1);
+            yield return new Vector2Int(-1, 1);
         }
 
         foreach (var dir in Cardinal())
@@ -233,23 +212,6 @@ public class GridSystem : MonoBehaviour
             if (IsInsideGrid(n)) yield return n;
         }
     }
-
-    public IEnumerable<Vector2Int> GetCellsInRange(Vector2Int center, int range)
-    {
-        for (int dx = -range; dx <= range; dx++)
-        {
-            for (int dy = -range; dy <= range; dy++)
-            {
-                if (Mathf.Abs(dx) + Mathf.Abs(dy) > range)
-                    continue;
-
-                var pos = center + new Vector2Int(dx, dy);
-                if (IsInsideGrid(pos))
-                    yield return pos;
-            }
-        }
-    }
-
     #endregion
 
     #region World Conversion

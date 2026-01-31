@@ -37,7 +37,7 @@ public class UnitBrain : MonoBehaviour
     private void HandleDeath()
     {
         Context.Visuals?.ResetVisuals();
-        Context.Grid.ClearPath();
+        Context.Grid.ClearDesiredStep();
         GridSystem.Instance.RemoveUnit(Context.Grid);
         enabled = false;
         Destroy(this.gameObject);

@@ -59,52 +59,15 @@ public class CombatVisuals : MonoBehaviour
         // Intra-cell offset
         desiredOffset = Vector3.zero;
 
-        if (horizontalCombat)
+        Vector2 dir = (target - self);
+
+        if (dir.sqrMagnitude > 0.0001f)
         {
-            desiredOffset.x = delta.x < 0 ? -offsetAmount : offsetAmount;
+            dir.Normalize();
+            desiredOffset = new Vector3(dir.x, dir.y, 0f) * offsetAmount;
         }
-        else
-        {
-            desiredOffset.y = delta.y < 0 ? -offsetAmount : offsetAmount;
-        }
-        
     
     }
-
-
-    //public void UpdateVisuals(Vector2Int self, Vector2Int target)
-    //{
-    //    Vector2 delta = target - self;
-    //    bool horizontalCombat = Mathf.Abs(delta.x) >= Mathf.Abs(delta.y);
-    //    if (self.x != target.x) spriteRenderer.flipX = self.x > target.x;
-
-    //    // Vertical lean
-    //    float vertical = Mathf.Clamp(delta.y, -1, 1);
-    //    int multiplier = spriteRenderer.flipX? 1 : -1;
-    //    float lean = vertical * maxLeanAngle * multiplier;
-    //    transform.localRotation = Quaternion.Euler(0, 0, lean);
-
-
-    //    // Intra-cell offset
-    //    Vector3 desiredOffset = Vector3.zero;
-
-    //    if (horizontalCombat)
-    //    {
-    //        desiredOffset.x = delta.x < 0 ? -offsetAmount : offsetAmount;
-    //    }
-    //    else
-    //    {
-    //        desiredOffset.y = delta.y < 0 ? -offsetAmount : offsetAmount;
-    //    }
-
-    //    transform.localPosition = Vector3.Lerp(
-    //        transform.localPosition,
-    //        desiredOffset,
-    //        Time.deltaTime * offsetLerpSpeed
-    //    );
-    //}
-
-
     public void ResetVisuals()
     {
          transform.localRotation = Quaternion.Lerp(
