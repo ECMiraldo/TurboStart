@@ -1,46 +1,91 @@
-﻿using UnityEngine.Pool;
-using UnityUtils;
-using AYellowpaper.SerializedCollections;
-using UnityEngine;
 using System.Collections.Generic;
-
-namespace ObjectPooling
+using UnityEngine;
+/// <summary>
+/// Basic ObjectPool controller that must be attached to some MonoBehaviour.
+/// Receives a list of ObjectPoolSettings that is used to prewarm the pool at creation.
+/// Can be used with objects that are not on the list, but those will NOT be prewarmed.
+/// </summary>
+public class ObjectPool
 {
-    public class ObjectPool : Singleton<ObjectPool>
+    private readonly Dictionary<ObjectPoolSettings, List<IPooledObject>> activeObjects;
+    private readonly Dictionary<ObjectPoolSettings, List<IPooledObject>> inactiveObjects;
+    private readonly Dictionary<ObjectPoolSettings, Transform> transforms;
+    private readonly MonoBehaviour monoBehaviour;
+
+    public ObjectPool(IEnumerable<ObjectPoolSettings> settings, MonoBehaviour parent)
     {
-        private SerializedDictionary<ObjectPoolSettings, IObjectPool<GameObject>> pools = new();
+        monoBehaviour = parent;
+        activeObjects = new();
+        inactiveObjects = new();
+        transforms = new();
 
-        private void Start()
-        {
-            CreatePools();
-        }
-        private void CreatePools()
-        {
-            var allPoolSettings = Resources.LoadAll<ObjectPoolSettings>("ObjectPooling");
-            foreach (ObjectPoolSettings poolSettings in allPoolSettings)
-            {
-                IObjectPool<GameObject> pool;
-                pool = new ObjectPool<GameObject>(
-                    poolSettings.Create,
-                    poolSettings.OnGet,
-                    poolSettings.OnRelease,
-                    poolSettings.OnDestroyPoolObject,
-                    true,
-                    poolSettings.defaultCapacity,
-                    poolSettings.maxCapacity
-                );
-                pools.Add(poolSettings, pool);
-            }
-        }
 
-        public static GameObject Spawn(ObjectPoolSettings settings) => instance.pools[settings]?.Get();
-        public static void ReturnToPool(GameObject go)
+        foreach (ObjectPoolSettings poolSettings in settings)
         {
-            if (go.TryGetComponent(out IPooledObject pooledObject))
+            CreateObjectPool(poolSettings);
+            //prewarms inactives
+            for (int i = 0; i < poolSettings.prewarmAmount; i++)
             {
-                instance.pools[pooledObject.PoolSettings]?.Release(go);
+                IPooledObject newObject = GameObject.Instantiate(poolSettings.prefab, transforms[poolSettings]).GetComponent<IPooledObject>();
+                inactiveObjects[poolSettings].Add(newObject);
+                newObject.gameObject.SetActive(false);
             }
         }
     }
-}
 
+    private void CreateObjectPool(ObjectPoolSettings settings)
+    {
+        //Sets transform parent in hierarchy
+        Transform transformParent = new GameObject(settings.name).transform;
+        transformParent.SetParent(monoBehaviour.transform);
+
+        //initializes lists
+        transforms.Add(settings, transformParent);
+        inactiveObjects.Add(settings, new());
+        activeObjects.Add(settings, new());
+
+    }
+
+    public IPooledObject Spawn(ObjectPoolSettings settings, Vector3? position)
+    {
+        if (!activeObjects.ContainsKey(settings)) CreateObjectPool(settings);
+
+        Vector3 finalPos = position.HasValue ? position.Value : Vector3.zero;
+
+        IPooledObject maybeObject = inactiveObjects[settings].Count > 0 ? inactiveObjects[settings][0] : null;
+        if (maybeObject == null)
+        {
+            maybeObject = GameObject.Instantiate(settings.prefab, finalPos, Quaternion.identity, transforms[settings]).GetComponent<IPooledObject>();
+            activeObjects[settings].Add(maybeObject);
+        }
+        else
+        {
+            inactiveObjects[settings].RemoveAt(0);
+            activeObjects[settings].Add(maybeObject);
+            maybeObject.transform.position = finalPos;
+            maybeObject.gameObject.SetActive(true);
+        }
+        return maybeObject;
+    }
+
+    public void Despawn(IPooledObject pooledObject)
+    {
+        ObjectPoolSettings settings = pooledObject.poolSettings;
+        if (activeObjects[settings].Contains(pooledObject)) activeObjects[settings].Remove(pooledObject);
+        inactiveObjects[settings].Add(pooledObject);
+        pooledObject.gameObject.SetActive(false);
+    }
+
+    public void DespawnAll()
+    {
+        foreach (var pool in activeObjects.Values)
+        {
+
+            while (pool.Count > 0)
+            {
+                Despawn(pool[0]);
+            }
+        }
+    }
+
+}
