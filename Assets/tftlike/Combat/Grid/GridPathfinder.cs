@@ -11,7 +11,7 @@ public class GridPathfinder
     }
 
     public bool TryGetNextStep(
-        GridUnit unit,
+        GridComponent unit,
         Vector2Int start,
         Vector2Int goal,
         out Vector2Int nextStep,

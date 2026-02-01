@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 // Base unit class for grid-based movement & tactics
-public class GridUnit : MonoBehaviour
+public class GridComponent : MonoBehaviour
 {
     [Header("Grid")]
     [field: SerializeField] public Vector2Int anchorCell;
@@ -75,9 +75,9 @@ public class GridUnit : MonoBehaviour
 // Extension for debug access
 public static class GridUnitDebugExtensions
 {
-    public static IEnumerable<Vector2Int> DebugPath(this GridUnit unit)
+    public static IEnumerable<Vector2Int> DebugPath(this GridComponent unit)
     {
-        var field = typeof(GridUnit)
+        var field = typeof(GridComponent)
             .GetField("plannedPath", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
         if (field == null) yield break;

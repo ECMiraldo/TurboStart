@@ -44,7 +44,7 @@ public class GridDebugDrawer : MonoBehaviour
         }
 
         // Draw unit paths
-        foreach (var unit in FindObjectsByType<GridUnit>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
+        foreach (var unit in FindObjectsByType<GridComponent>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
         {
             var pos = grid.GridToWorld(unit.anchorCell);
             Gizmos.color = pathColor;

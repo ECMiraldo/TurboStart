@@ -119,7 +119,7 @@ public class MovementSystem : MonoBehaviour
         {
             if (unit == this) continue;
             if (unit.Context.Health.IsDead) continue;
-            GridUnit gridUnit = unit.Context.Grid;
+            GridComponent gridUnit = unit.Context.Grid;
 
             int dist = Mathf.Abs(gridUnit.anchorCell.x - currentPos.x)
             + Mathf.Abs(gridUnit.anchorCell.y - currentPos.y);

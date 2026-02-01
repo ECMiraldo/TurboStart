@@ -17,11 +17,9 @@ public enum Team : byte
     Player,
     Enemy,
     Neutral
-
-
 }
 
-public class GridUnitStats : MonoBehaviour
+public class UnitStats : MonoBehaviour
 {
     public Team team;
     public int maxHealth = 100;

@@ -4,8 +4,8 @@ using UnityEngine;
 public class GridCell
 {
     public Vector2Int Position { get; }
-    public GridUnit Occupant;
-    public GridUnit ReservedBy;
+    public GridComponent Occupant;
+    public GridComponent ReservedBy;
     public int ReservedUntilTick;
     public bool IsFree => Occupant == null && ReservedBy == null;
 

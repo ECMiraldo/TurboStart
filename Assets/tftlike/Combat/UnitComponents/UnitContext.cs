@@ -4,15 +4,15 @@ using UnityEngine;
 [Serializable]
 public sealed class UnitContext
 {
-    public readonly GridUnit Grid;
+    public readonly GridComponent Grid;
 
 
-    public readonly GridUnitStats Stats;
+    public readonly UnitStats Stats;
     //public StatusController Status;
 
 
-    public readonly GridHealthComponent Health;
-    public readonly GridAttackComponent Attack;
+    public readonly HealthComponent Health;
+   // public readonly GridAttackComponent Attack;
 
 
     public readonly CombatVisuals Visuals;
@@ -23,11 +23,11 @@ public sealed class UnitContext
 
     public UnitContext(UnitBrain brain)
     {
-        Grid = brain.GetComponent<GridUnit>();
-        Stats = brain.GetComponent<GridUnitStats>();
+        Grid = brain.GetComponent<GridComponent>();
+        Stats = brain.GetComponent<UnitStats>();
         // Status = GetComponent<StatusController>(),
-        Health = brain.GetComponent<GridHealthComponent>();
-        Attack = brain.GetComponent<GridAttackComponent>();
+        Health = brain.GetComponent<HealthComponent>();
+       // Attack = brain.GetComponent<GridAttackComponent>();
         Visuals = brain.GetComponentInChildren<CombatVisuals>();
     }
 

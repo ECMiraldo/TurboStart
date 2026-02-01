@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class GridHealthComponent : MonoBehaviour
+public class HealthComponent : MonoBehaviour
 {
 
     [SerializeField] private int maxHealth = 10;

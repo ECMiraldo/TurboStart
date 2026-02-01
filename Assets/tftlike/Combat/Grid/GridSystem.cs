@@ -11,7 +11,7 @@ public class GridSystem : MonoBehaviour
     [SerializeField] private float cellSize = 1f;
 
     private readonly Dictionary<Vector2Int, GridCell> cells = new();
-    private readonly Dictionary<GridUnit, List<Vector2Int>> unitOccupiedCells = new();
+    private readonly Dictionary<GridComponent, List<Vector2Int>> unitOccupiedCells = new();
 
     private void Awake()
     {
@@ -56,7 +56,7 @@ public class GridSystem : MonoBehaviour
     public bool CanPlaceFootprint(
         Vector2Int anchorCell,
         Vector2Int[] footprintOffsets,
-        GridUnit ignoreUnit = null)
+        GridComponent ignoreUnit = null)
     {
         foreach (var offset in footprintOffsets)
         {
@@ -80,7 +80,7 @@ public class GridSystem : MonoBehaviour
 
     #region Placement / Removal
 
-    public bool PlaceUnit(GridUnit unit, Vector2Int anchorCell, Vector2Int[] footprintOffsets)
+    public bool PlaceUnit(GridComponent unit, Vector2Int anchorCell, Vector2Int[] footprintOffsets)
     {
         if (!CanPlaceFootprint(anchorCell, footprintOffsets))
             return false;
@@ -99,7 +99,7 @@ public class GridSystem : MonoBehaviour
         return true;
     }
 
-    public void RemoveUnit(GridUnit unit)
+    public void RemoveUnit(GridComponent unit)
     {
         if (!unitOccupiedCells.TryGetValue(unit, out var occupied))
             return;
@@ -118,7 +118,7 @@ public class GridSystem : MonoBehaviour
 
     #region Movement
 
-    public void MoveUnit(GridUnit unit, Vector2Int newAnchorCell)
+    public void MoveUnit(GridComponent unit, Vector2Int newAnchorCell)
     {
         RemoveUnit(unit);
         PlaceUnit(unit, newAnchorCell, unit.footprintOffsets);
@@ -131,7 +131,7 @@ public class GridSystem : MonoBehaviour
     public bool CanReserveFootprint(
         Vector2Int anchorCell,
         Vector2Int[] footprintOffsets,
-        GridUnit reservingUnit,
+        GridComponent reservingUnit,
         int untilTick)
     {
         foreach (var offset in footprintOffsets)
@@ -152,7 +152,7 @@ public class GridSystem : MonoBehaviour
     public void ReserveFootprint(
         Vector2Int anchorCell,
         Vector2Int[] footprintOffsets,
-        GridUnit reservingUnit,
+        GridComponent reservingUnit,
         int untilTick)
     {
         foreach (var offset in footprintOffsets)
@@ -164,7 +164,7 @@ public class GridSystem : MonoBehaviour
         }
     }
 
-    public void ClearReservations(GridUnit unit)
+    public void ClearReservations(GridComponent unit)
     {
         foreach (var cell in cells.Values)
         {
