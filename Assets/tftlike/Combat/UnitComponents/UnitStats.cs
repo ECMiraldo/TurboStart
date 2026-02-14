@@ -21,6 +21,7 @@ public enum Team : byte
 
 public class UnitStats : MonoBehaviour
 {
+
     public Team team;
     public int maxHealth = 100;
     public int currentHealth = 100;

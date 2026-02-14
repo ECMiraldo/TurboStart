@@ -6,32 +6,23 @@ public class GridComponent : MonoBehaviour
 {
     [Header("Grid")]
     [field: SerializeField] public Vector2Int anchorCell;
+    [field: SerializeField] public Vector2Int starterCell;
 
     [Tooltip("Footprint offsets relative to anchor cell")]
     [field: SerializeField] public Vector2Int[] footprintOffsets { get; private set; } = { Vector2Int.zero };
 
     [Header("Visuals")]
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private CombatVisuals combatVisuals;
     [SerializeField] private float moveLerpSpeed = 8f;
 
-    private Vector2Int? desiredStepThisTick;
-    public bool HasDesiredStep => desiredStepThisTick.HasValue;
-
+    public Vector2Int desiredCell { get; set; }
     private Vector3 targetWorldPos;
 
 
     private void Start()
     {
-        anchorCell = GridSystem.Instance.WorldToGrid(transform.position);
-        GridSystem.Instance.PlaceUnit(this, anchorCell, footprintOffsets);
         targetWorldPos = GridSystem.Instance.GridToWorld(anchorCell);
-        transform.position = targetWorldPos;
-    }
-
-    private void OnDestroy()
-    {
-        if (GridSystem.Instance != null)
-            GridSystem.Instance.RemoveUnit(this);
+        starterCell = anchorCell;
     }
 
     private void Update()
@@ -43,29 +34,35 @@ public class GridComponent : MonoBehaviour
             Time.deltaTime * moveLerpSpeed);
     }
 
+
     #region Path Control
 
-    public void SetDesiredStep(Vector2Int step) => desiredStepThisTick = step;
-    public Vector2Int ConsumeDesiredStep()
+    public void JumpToCell(Vector2Int cell)
     {
-        var step = desiredStepThisTick.Value;
-        desiredStepThisTick = null;
-        anchorCell = step;
-        return step;
+        GridSystem.Instance.RemoveUnit(this);
+        GridSystem.Instance.PlaceUnit(this, cell, footprintOffsets);
+        anchorCell = cell;
+        targetWorldPos = GridSystem.Instance.GridToWorld(cell);
+        desiredCell = cell;
+        combatVisuals.UpdateVisuals(cell, cell);
     }
 
-    public void ClearDesiredStep()
+    public void WalkTowardsCell(Vector2Int cell)
     {
-        desiredStepThisTick = null;
+        desiredCell = cell;
     }
 
-    #endregion
-
-    #region Visual Sync
-
-    public void SyncVisualPosition(Vector3 worldPos)
+    public void ResetMovement()
     {
-        targetWorldPos = worldPos;
+        desiredCell = anchorCell;
+    }
+
+    public void MoveToStep(Vector2Int cell)
+    {
+        combatVisuals.UpdateVisuals(anchorCell, cell);
+        targetWorldPos = GridSystem.Instance.GridToWorld(cell);
+        anchorCell = cell;
+        desiredCell = cell;
     }
 
     #endregion

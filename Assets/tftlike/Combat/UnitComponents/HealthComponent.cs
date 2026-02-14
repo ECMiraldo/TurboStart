@@ -1,22 +1,25 @@
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class HealthComponent : MonoBehaviour
 {
+    public event Action OnDeath;
+
 
     [SerializeField] private int maxHealth = 10;
+    [SerializeField] private Slider bar;
     public int CurrentHealth { get; private set; }
 
 
     public bool IsDead => CurrentHealth <= 0;
 
 
-    public event System.Action OnDeath;
-
 
     private void Awake()
     {
         CurrentHealth = maxHealth;
+        UpdateUi();
     }
 
 
@@ -33,5 +36,13 @@ public class HealthComponent : MonoBehaviour
             CurrentHealth = 0;
             OnDeath?.Invoke();
         }
+        UpdateUi();
+    }
+
+    private void UpdateUi()
+    {
+        bar.enabled = !IsDead;
+        bar.maxValue = maxHealth;
+        bar.value = CurrentHealth;
     }
 }

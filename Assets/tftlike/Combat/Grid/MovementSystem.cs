@@ -15,8 +15,7 @@ public class MovementSystem : MonoBehaviour
     private int currentTick;
     private float tickTimer;
 
-    private readonly List<UnitContext> activeUnits = new();
-    private Dictionary<Team, List<UnitBrain>> unitsByTeam = new();
+    private List<UnitContext> activeUnits = new();
     private void Awake()
     {
         if (Instance != null)
@@ -25,15 +24,23 @@ public class MovementSystem : MonoBehaviour
             return;
         }
         Instance = this;
-        unitsByTeam[Team.Enemy] = new ();
-        unitsByTeam[Team.Player] = new ();
-        unitsByTeam[Team.Neutral] = new ();
     }
 
     private void Start()
     {
         grid = GridSystem.Instance;
         gridPathFinder = new(grid);
+    }
+
+    public void SetActiveUnits(IEnumerable<UnitBrain> units)
+    {
+        var activeUnits = units.Select(u => u.Context).Distinct().ToList();
+        
+        foreach (var unit in activeUnits)
+        {
+            if (!this.activeUnits.Contains(unit))
+                this.activeUnits.Add(unit);
+        }
     }
 
     private void Update()
@@ -48,52 +55,41 @@ public class MovementSystem : MonoBehaviour
         }
     }
 
-    public void RegisterUnit(UnitBrain unit, Team team)
-    {
-        if (!activeUnits.Contains(unit.Context))
-        {
-            activeUnits.Add(unit.Context);
-            unitsByTeam[team].Add(unit);
-        }
-
-    }
-
-    public void UnregisterUnit(UnitBrain unit, Team team)
-    {
-        activeUnits.Remove(unit.Context);
-        unitsByTeam[team].Remove(unit);
-    }
-
     private void Tick()
     {
         currentTick++;
 
+
+        var duplicates = activeUnits
+    .GroupBy(u => u)
+    .Where(g => g.Count() > 1)
+    .Select(g => g.Key);
+
+        foreach (var d in duplicates)
+            Debug.LogError($"Duplicate active unit: {d.Grid.gameObject.name}");
+
         // Step 1: clear expired reservations
         CleanupReservations();
 
+        Dictionary<UnitContext, Vector2Int> intents = new();
+
         foreach (var ctx in activeUnits)
         {
-            var unit = ctx.Grid;
-            if (!unit.HasDesiredStep)
-                continue;
-
-            Vector2Int next = unit.ConsumeDesiredStep();
-
-            if (grid.CanReserveFootprint(
-                next,
-                unit.footprintOffsets,
-                unit,
-                currentTick + 1))
+            if (gridPathFinder.TryGetNextStep(ctx.Grid, ctx.Grid.anchorCell, ctx.Grid.desiredCell, out Vector2Int step))
             {
-                grid.ReserveFootprint(
-                    next,
-                    unit.footprintOffsets,
-                    unit,
-                    currentTick + 1);
-
-                grid.MoveUnit(unit, next);
-                unit.SyncVisualPosition(grid.GridToWorld(next));
+                if (grid.CanReserveFootprint(ctx.Grid, step, ctx.Grid.footprintOffsets, currentTick))
+                {
+                    grid.ReserveFootprint(ctx.Grid, step, ctx.Grid.footprintOffsets, currentTick);
+                    intents[ctx] = step;
+                }
             }
+        }
+        foreach (var ctx in intents.Keys)
+        {
+            Logger.LogGrid($"moving {ctx.Grid.gameObject.name} to reserverd cell {intents[ctx]} ");
+            
+            grid.MoveUnit(ctx.Grid, intents[ctx]);
+            ctx.Grid.MoveToStep(intents[ctx]);
         }
     }
 
@@ -103,9 +99,12 @@ public class MovementSystem : MonoBehaviour
         {
             if (cell.ReservedBy != null && cell.ReservedUntilTick <= currentTick)
             {
+                Logger.LogGrid($"cell {cell.Position} cleaned reservation ");
+
                 cell.ReservedBy = null;
                 cell.ReservedUntilTick = 0;
             }
+
         }
     }
 
@@ -115,7 +114,8 @@ public class MovementSystem : MonoBehaviour
         UnitBrain closest = null;
         int bestDist = int.MaxValue;
 
-        foreach (var unit in unitsByTeam[whatTeam].Concat(unitsByTeam[Team.Neutral]))
+        foreach (var unit in CombatSessionManager.Instance.unitsByTeam[whatTeam].Concat(
+                                        CombatSessionManager.Instance.unitsByTeam[Team.Neutral]))
         {
             if (unit == this) continue;
             if (unit.Context.Health.IsDead) continue;

@@ -53,6 +53,9 @@ MonoBehaviour:
   <poolSettings>k__BackingField: {fileID: 11400000, guid: 4e53defc5a332524ca47a7852b90b4b8, type: 2}
   textmeshPro: {fileID: 1175791692740297318}
   possibleImage: {fileID: 0}
+  yIncrease: 30
+  scaleMultiply: 0.2
+  animationDuration: 1
 --- !u!222 &5379870703168305536
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -108,8 +111,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

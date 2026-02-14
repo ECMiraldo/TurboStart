@@ -10,12 +10,7 @@ public class GridPathfinder
         this.grid = grid;
     }
 
-    public bool TryGetNextStep(
-        GridComponent unit,
-        Vector2Int start,
-        Vector2Int goal,
-        out Vector2Int nextStep,
-        int maxIterations = 100)
+    public bool TryGetNextStep(GridComponent unit,Vector2Int start,Vector2Int goal,out Vector2Int nextStep,int maxIterations = 100)
     {
         nextStep = start;
 
@@ -46,7 +41,7 @@ public class GridPathfinder
 
             foreach (var neighbor in grid.GetNeighbors(current))
             {
-                if (!grid.CanPlaceFootprint(neighbor, unit.footprintOffsets, unit))
+                if (!grid.CanPlaceFootprint(neighbor, unit.footprintOffsets))
                     continue;
 
                 int tentativeG = gScore[current] + 1;
@@ -69,6 +64,29 @@ public class GridPathfinder
 
         return false;
     }
+
+    //public bool CanPathThrough(
+    //Vector2Int anchorCell,
+    //Vector2Int[] footprintOffsets,
+    //GridComponent unit,
+    //int targetTick)
+    //{
+    //    foreach (var offset in footprintOffsets)
+    //    {
+    //        var cellPos = anchorCell + offset;
+    //        var cell = grid.cells[cellPos];
+
+    //        if (cell.Occupant != null && cell.Occupant != unit)
+    //            return false;
+
+    //        if (cell.ReservedBy != null &&
+    //            cell.ReservedBy != unit &&
+    //            cell.ReservedUntilTick >= targetTick)
+    //            return false;
+    //    }
+
+    //    return true;
+    //}
 
     private static Vector2Int ReconstructFirstStep(
         Vector2Int start,

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0817a75d33ef5d48bf3c54e2dd9cf6e, type: 3}
+  m_Name: Hero1
+  m_EditorClassIdentifier: 
+  <id>k__BackingField: 4b3f15f1-5416-4150-8558-648141f34956
+  <icon>k__BackingField: {fileID: -994389326, guid: a56052930dad6264ea0112445d9dc75e, type: 3}
+  <mainSprite>k__BackingField: {fileID: -994389326, guid: a56052930dad6264ea0112445d9dc75e, type: 3}
+  <animationController>k__BackingField: {fileID: 0}
+  <battlePrefab>k__BackingField: {fileID: 4281402545991561159, guid: 3769bd1f051aeef41a3378a4b50c0da2, type: 3}
+  <footprint>k__BackingField: []

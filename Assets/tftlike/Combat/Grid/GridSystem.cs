@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 // Core grid authority. Owns occupancy & reservations.
 public class GridSystem : MonoBehaviour
 {
@@ -10,8 +11,10 @@ public class GridSystem : MonoBehaviour
     [SerializeField] private int height = 5;
     [SerializeField] private float cellSize = 1f;
 
-    private readonly Dictionary<Vector2Int, GridCell> cells = new();
-    private readonly Dictionary<GridComponent, List<Vector2Int>> unitOccupiedCells = new();
+    [field: SerializeField] public List<GridCell> debugCells => cells.Values.ToList();
+
+    public readonly Dictionary<Vector2Int, GridCell> cells = new();
+    public readonly Dictionary<GridComponent, List<Vector2Int>> unitOccupiedCells = new();
 
     private void Awake()
     {
@@ -53,10 +56,7 @@ public class GridSystem : MonoBehaviour
 
     #region Footprint Validation
 
-    public bool CanPlaceFootprint(
-        Vector2Int anchorCell,
-        Vector2Int[] footprintOffsets,
-        GridComponent ignoreUnit = null)
+    public bool CanPlaceFootprint(Vector2Int anchorCell,Vector2Int[] footprintOffsets,GridComponent ignoreUnit = null)
     {
         foreach (var offset in footprintOffsets)
         {
@@ -82,6 +82,7 @@ public class GridSystem : MonoBehaviour
 
     public bool PlaceUnit(GridComponent unit, Vector2Int anchorCell, Vector2Int[] footprintOffsets)
     {
+        print($"Placing unit   '''   Unit occupied cells {unitOccupiedCells}");
         if (!CanPlaceFootprint(anchorCell, footprintOffsets))
             return false;
 
@@ -101,6 +102,8 @@ public class GridSystem : MonoBehaviour
 
     public void RemoveUnit(GridComponent unit)
     {
+        print($"Removing unit   '''   Unit occupied cells {unitOccupiedCells}");
+
         if (!unitOccupiedCells.TryGetValue(unit, out var occupied))
             return;
 
@@ -128,39 +131,34 @@ public class GridSystem : MonoBehaviour
 
     #region Reservations
 
-    public bool CanReserveFootprint(
-        Vector2Int anchorCell,
-        Vector2Int[] footprintOffsets,
-        GridComponent reservingUnit,
-        int untilTick)
+    public bool CanReserveFootprint(GridComponent reservingUnit, Vector2Int cell, Vector2Int[] footprintOffsets, int untilTick)
     {
         foreach (var offset in footprintOffsets)
         {
-            var cellPos = anchorCell + offset;
-            if (!IsInsideGrid(cellPos)) return false;
+            Logger.LogGrid($"{reservingUnit.gameObject.name} trying to reserve cell {cell} ");
+            var cellPos = cell + offset;
+            var offsetCell = cells[cellPos];
 
-            var cell = cells[cellPos];
-            if (cell.Occupant != null && cell.Occupant != reservingUnit)
+            if (offsetCell.Occupant != null && offsetCell.Occupant != reservingUnit)
                 return false;
 
-            if (cell.ReservedBy != null && cell.ReservedBy != reservingUnit)
+            if (offsetCell.ReservedBy != null &&
+                offsetCell.ReservedBy != reservingUnit &&
+                offsetCell.ReservedUntilTick >= untilTick)
                 return false;
         }
         return true;
     }
 
-    public void ReserveFootprint(
-        Vector2Int anchorCell,
-        Vector2Int[] footprintOffsets,
-        GridComponent reservingUnit,
-        int untilTick)
+    public void ReserveFootprint(GridComponent reservingUnit, Vector2Int cell, Vector2Int[] footprintOffsets, int untilTick)
     {
         foreach (var offset in footprintOffsets)
         {
-            var cellPos = anchorCell + offset;
-            var cell = cells[cellPos];
-            cell.ReservedBy = reservingUnit;
-            cell.ReservedUntilTick = untilTick;
+            Logger.LogGrid($"{reservingUnit.gameObject.name} reerverd cell {cell} ");
+            var cellPos = cell + offset;
+            var offsetCell = cells[cellPos];
+            offsetCell.ReservedBy = reservingUnit;
+            offsetCell.ReservedUntilTick = untilTick;
         }
     }
 

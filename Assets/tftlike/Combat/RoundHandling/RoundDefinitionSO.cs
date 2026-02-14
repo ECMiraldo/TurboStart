@@ -4,7 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Combat/Round")]
 public class RoundDefinitionSO : ScriptableObject
 {
-    public int roundIndex;
+    [Header("General")]
+    public Sprite icon;
 
     [Header("Difficulty")]
     public float difficultyMultiplier = 1f;

@@ -15,17 +15,46 @@ public class CombatSpawner : MonoBehaviour
         {
             for (int i = 0; i < intent.count; i++)
             {
-                Vector2Int cell = FindFreeSpawnCell(intent.monster);
-                SpawnEnemy(intent.monster, cell, round.difficultyMultiplier);
+                SpawnEnemy(intent.monster, round.difficultyMultiplier);
             }
         }
     }
 
-    private void SpawnEnemy(EnemyDataSO data, Vector2Int cell, float difficulty)
+    public bool PlaceHero(HeroData data, Vector2 worldPos)
+    {
+        print(worldPos);
+
+        var cell = GridSystem.Instance.WorldToGrid(worldPos);
+
+        print(cell);
+        if (GridSystem.Instance.CanPlaceFootprint(cell, data.template.footprint))
+        {
+            var go = Instantiate(data.template.battlePrefab, transform);
+            GridComponent unitGridComponent = go.GetComponent<GridComponent>();
+            GridSystem.Instance.PlaceUnit(unitGridComponent, cell, data.template.footprint);
+            var targetWorldPos = GridSystem.Instance.GridToWorld(cell);
+            go.transform.position = targetWorldPos;
+            return true;
+        }
+        return false;
+
+    }
+
+    private void SpawnEnemy(EnemyDataSO data, float difficulty, Vector2Int? cell = null)
     {
         var stats = MonsterScaler.Scale(data, difficulty);
-        var go = Instantiate(data.prefab);
+        var go = Instantiate(data.prefab, transform);
         // init grid + stats here
+
+
+        Vector2Int anchorCell;
+        if (cell == null) anchorCell = FindFreeSpawnCell(data);
+        else anchorCell = cell.Value;
+
+        GridComponent unitGridComponent = go.GetComponent<GridComponent>();
+        GridSystem.Instance.PlaceUnit(unitGridComponent, anchorCell, data.footprintOffsets);
+        var targetWorldPos = GridSystem.Instance.GridToWorld(anchorCell);
+        go.transform.position = targetWorldPos;
     }
 
     private Vector2Int FindFreeSpawnCell(EnemyDataSO enemy)
@@ -51,10 +80,7 @@ public class CombatSpawner : MonoBehaviour
         // Pick first valid
         foreach (var cell in candidates)
         {
-            if (GridSystem.Instance.CanPlaceFootprint(
-                cell,
-                enemy.footprintOffsets,
-                null))
+            if (GridSystem.Instance.CanPlaceFootprint(cell,enemy.footprintOffsets))
             {
                 return cell;
             }

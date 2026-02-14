@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Units/Behaviors/Attack")]
+[CreateAssetMenu(menuName = "Combat/Behaviors/Attack")]
 public class AttackBehavior : GridUnitBehaviourSO
 {
     public override void Tick(UnitContext ctx)
@@ -9,21 +9,12 @@ public class AttackBehavior : GridUnitBehaviourSO
 
         if (ctx.IsInRange(ctx.Target.Grid.anchorCell))
         {
-            ctx.Grid.ClearDesiredStep();
             PerformAttack(ctx);
             return;
         }
         else
         {
-            if (MovementSystem.Instance.gridPathFinder.TryGetNextStep(
-                ctx.Grid,
-                ctx.Grid.anchorCell,
-                ctx.Target.Grid.anchorCell,
-                out var step))
-            {
-                ctx.Grid.SetDesiredStep(step);
-            }
-            ctx.Target = null;
+            ctx.Grid.WalkTowardsCell(ctx.Target.Grid.anchorCell);
         }
 
        
@@ -45,6 +36,7 @@ public class AttackBehavior : GridUnitBehaviourSO
     public void PerformAttack(UnitContext ctx)
     {
         if (!CanAttack(ctx)) return;
+        ctx.Grid.ResetMovement();
         ctx.Stats.lastAttackTime = Time.time;
 
 

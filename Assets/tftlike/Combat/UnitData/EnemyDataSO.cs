@@ -16,7 +16,7 @@ public class EnemyDataSO : ScriptableObject
 
     [Header("Positioning")]
     public Positioning positioning;
-    public Vector2Int[] footprintOffsets;
+    [field: SerializeField] public Vector2Int[] footprintOffsets { get; private set; }
 
     [Header("Prefab")]
     public GameObject prefab;

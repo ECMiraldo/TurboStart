@@ -1,13 +1,19 @@
 ﻿using UnityEngine;
+using System;
 
 [DefaultExecutionOrder(+10)]
 public class UnitBrain : MonoBehaviour
 {
+    public static event Action<UnitBrain, Team> onUnitSpawned;
+    public static event Action<UnitBrain, Team> onUnitDespawned;
+
+
     [Header("Behavior")]
     [SerializeField] private GridUnitBehaviourSO behavior;
 
     [field: SerializeReference] public UnitContext Context { get; private set; }
-
+    [field: SerializeReference] public bool isEnabled { get; private set; }
+    public void SetEnabled(bool enabled) => isEnabled = enabled;
     private void Awake()
     {
         Context = new(this);
@@ -16,17 +22,20 @@ public class UnitBrain : MonoBehaviour
 
     private void OnEnable()
     {
-        MovementSystem.Instance.RegisterUnit(this, Context.Stats.team);
+        onUnitSpawned?.Invoke(this, Context.Stats.team);
     }
 
     private void OnDisable()
     {
-        MovementSystem.Instance.UnregisterUnit(this, Context.Stats.team);
+        onUnitDespawned?.Invoke(this, Context.Stats.team);
     }
 
+   
 
     private void Update()
     {
+        if (!isEnabled) return;
+
         if (Context.Health.IsDead) return;
 
 
@@ -37,7 +46,7 @@ public class UnitBrain : MonoBehaviour
     private void HandleDeath()
     {
         Context.Visuals?.ResetVisuals();
-        Context.Grid.ClearDesiredStep();
+        Context.Grid.ResetMovement();
         GridSystem.Instance.RemoveUnit(Context.Grid);
         enabled = false;
         Destroy(this.gameObject);
