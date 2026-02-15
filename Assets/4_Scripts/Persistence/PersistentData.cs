@@ -15,6 +15,7 @@ namespace Persistence
 
         public List<HeroData> heroes = new();
 
+        public int gold;
         public Inventory inventory;
 
         public PersistentData()

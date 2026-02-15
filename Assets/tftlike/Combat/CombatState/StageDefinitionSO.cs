@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 
 [CreateAssetMenu(menuName = "Combat/Stage")]
-public class StageDefinitionSO : ScriptableObject
+public class StageDefinitionSO : IDScriptableObject
 {
-    public string stageId;
+    public int requiredLevel;
+    public string stageName;
     public List<RoundDefinitionSO> rounds;
 }

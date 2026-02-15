@@ -4,6 +4,13 @@ using UnityEngine;
 
 public enum EquipmentSlot : byte
 {
+    Head = 0,
+    Body = 1,
+    Pants = 2,
+    Boots = 3,
+    MainHand = 4,
+    Offhand = 5,
+    Cape = 6
 
 }
 

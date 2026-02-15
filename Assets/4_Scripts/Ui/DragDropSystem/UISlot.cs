@@ -2,17 +2,12 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-
-
-
-
-
-
 public abstract class UiSlotBase : MonoBehaviour
 {
     [field: SerializeField] public Image itemImage { get; protected set; }
     public abstract object item { get; }
 }
+
 
 public abstract class UiSlot<T> : UiSlotBase, IDropHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler where T : class, IDraggable
 {

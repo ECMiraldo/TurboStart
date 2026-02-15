@@ -6,22 +6,11 @@ public class UIHeroBoard : MonoBehaviour
     [SerializeField] private Transform listContent;
     [SerializeField] private GameObject heroCardPrefab;
 
-    private void Start()
-    {
-        gameObject.SetActive(false);
-        CombatSessionManager.onStateChanged += OnStateChanged;
-    }
-
     // from ui button
     public void StartRound()
     {
         CombatSessionManager.Instance.BeginNextRound();
-    }
-
-    private void OnStateChanged(CombatState state)
-    {
-        if (state == CombatState.StageSetup) gameObject.SetActive(true);
-        if (state == CombatState.Spawning) gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 
     void OnEnable()
@@ -34,7 +23,6 @@ public class UIHeroBoard : MonoBehaviour
     {
         ClearHeroCards();
     }
-
 
 
     private void CreateHeroCards()
