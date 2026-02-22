@@ -1,86 +1,99 @@
 using Persistence;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class Tavern : MonoBehaviour
 {
-
-    [SerializeField] private Transform heroCardPrefab;
-
     [Header("UiRefs")]
-    [SerializeField] private Image itemIcon;
-    [SerializeField] private TextMeshProUGUI heroNameText;
-    [SerializeField] private TextMeshProUGUI costText;
-    [SerializeField] private Button hireButton;
-    [SerializeField] public ToggleGroup heroListToggleGroup { get; private set; }
-    [SerializeField] private Transform heroListContent;
+    [SerializeField] private GameObject playerHeroCardPrefab;
+    [SerializeField] private Transform playerHeroListContent;
+    [SerializeField] private List<TavernHeroCard> forHireHeroCards;
+    [SerializeField] private TextMeshProUGUI timeRemaining;
 
+    public readonly Dictionary<HeroData, GameObject> heroIcons = new();
+    private PersistentData data;
+    private TavernData tavernData;
 
-    PersistentData profileData;
-    TavernHero selectedHero;
-    TavernData tavernData;
-    private Dictionary<TavernHero, TavernHeroCard> heroCards = new();
-
-    private void Start()
+    private void Awake()
     {
-        profileData = SaveLoadSystem.Instance.data;
-        //tavernData = profileData.tavernData;
+        data = SaveLoadSystem.Instance.data;
+        tavernData = data.tavernData;
+    }
 
-        //tavernData.availableHeroes.RemoveAll(
-        //    (x) => 
-        //                x.hero == null
-        //            || x.hero.Action == null 
-        //            || x.hero.Action.currentTick == x.hero.Action.durationInTicks
-        //            );
+    private void OnEnable()
+    {
+        TickManager.OnTick += OnTick;
+        CheckRefresh();
+        UpdateRemainingTime();
+        RefreshPlayerHeroList();
 
+    }
+    private void OnTick()
+    {
+        CheckRefresh();
+        UpdateRemainingTime();
+    }
 
-        if (tavernData.availableHeroes.Count < 3)
+    private void OnDisable()
+    {
+        TickManager.OnTick -= OnTick;
+    }
+
+    private void CheckRefresh()
+    {
+        if (tavernData.nextRefresh <= data.lastTickTime) RefreshList();
+    }
+
+    private void RefreshList()
+    {
+        tavernData.availableHeroes.Clear();
+        for (int i = 0; i < tavernData.nCardsShown; i++)
         {
-            tavernData.AddHero();
-            tavernData.AddHero();
+            forHireHeroCards[i].gameObject.SetActive(true);
+            (HeroData, long) heroCost = tavernData.CreateHero();
+            forHireHeroCards[i].Init(heroCost);
         }
-
-        foreach (TavernHero th in tavernData.availableHeroes)
+        tavernData.nextRefresh = DateTimeOffset.UtcNow.AddHours(tavernData.durationInHours).ToUnixTimeSeconds();
+        for (int i = tavernData.nCardsShown; i < forHireHeroCards.Count; i++)
         {
-            InstantiateHeroCard(th);
+            forHireHeroCards[i].gameObject.SetActive(false);
         }
-        SelectHero(tavernData.availableHeroes[0]);
     }
 
-
-   
-    private void InstantiateHeroCard(TavernHero hero)
+    private void UpdateRemainingTime()
     {
-        TavernHeroCard heroCard = Instantiate(heroCardPrefab, heroListContent).GetComponent<TavernHeroCard>();
-        heroCard.Init(this, hero);
-        heroCards.Add(hero, heroCard);
+        timeRemaining.text = Utils.FormatTime(tavernData.nextRefresh - DateTimeOffset.UtcNow.ToUnixTimeSeconds());
     }
 
-    public void SelectHero(TavernHero tavernHero)
+    private void RefreshPlayerHeroList()
     {
-        selectedHero = tavernHero;
-        heroNameText.text = tavernHero.hero.name;
-        costText.text = tavernHero.cost.ToString();
-        itemIcon.sprite = tavernHero.hero.template.mainSprite;
-        hireButton.interactable = profileData.gold >= tavernHero.cost;
+        foreach (HeroData h in data.heroes)
+        {
+            if (heroIcons.ContainsKey(h) && heroIcons[h] != null) continue;
+
+            GameObject go = Instantiate(playerHeroCardPrefab, playerHeroListContent);
+           // tg.onValueChanged.AddListener((x) => SelectHero(h));
+            Image img = go.GetComponent<Image>();
+            img.sprite = h.template.mainSprite;
+            heroIcons.Add(h, go);
+        }
     }
+
 
     public void HireHero()
     {
 
-        profileData.gold -= selectedHero.cost;
-        profileData.heroes.Add(selectedHero.hero);
-        tavernData.availableHeroes.Remove(selectedHero);
+        //profileData.gold -= selectedHero.cost;
+        //profileData.heroes.Add(selectedHero.hero);
+        //tavernData.availableHeroes.Remove(selectedHero);
       
 
-        Destroy(heroCards[selectedHero].gameObject);
-        heroCards.Remove(selectedHero);
-
-        if (tavernData.availableHeroes.Count > 0)
-            SelectHero(tavernData.availableHeroes[0]);
+        //Destroy(heroCards[selectedHero].gameObject);
+        //heroCards.Remove(selectedHero);
     }
 
 

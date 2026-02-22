@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using AYellowpaper.SerializedCollections;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
@@ -12,23 +11,32 @@ public class Inventory
     public event Action<ItemSO, int> onItemRemoved;
 
     [field: SerializeField] public List<InventoryEntry> items { get; private set; }
-
-    [JsonConstructor]
-    public Inventory(List<InventoryEntry> items)
+    [field: SerializeField] public int maxItems { get; private set; }
+    
+    public static Inventory CreateDefault()
     {
-        this.items = items;
+        var inv = new Inventory
+        {
+            maxItems = 30,
+            items = new List<InventoryEntry>()
+        };
+
+        for (int i = 0; i < inv.maxItems; i++)
+        {
+            inv.items.Add(new InventoryEntry(i));
+        }
+
+        return inv;
     }
-
-    public Inventory()
+    public void IncreaseCapacity(int amount = 6)
     {
-        int maxItems = 100;
-        items = new(maxItems);
-        //initialize dictionary
-        for (int i = 0; i < items.Capacity; i++)
+        for (int i = maxItems; i < maxItems + amount; i++)
         {
             items.Add(new InventoryEntry(i));
         }
+        maxItems += amount;
     }
+
 
     public void SwapEntries(int a, int b)
     {

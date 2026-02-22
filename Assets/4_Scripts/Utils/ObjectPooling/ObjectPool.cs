@@ -12,6 +12,24 @@ public class ObjectPool
     private readonly Dictionary<ObjectPoolSettings, Transform> transforms;
     private readonly MonoBehaviour monoBehaviour;
 
+    public ObjectPool(ObjectPoolSettings settings, MonoBehaviour parent)
+    {
+        monoBehaviour = parent;
+        activeObjects = new();
+        inactiveObjects = new();
+        transforms = new();
+
+        CreateObjectPool(settings);
+        //prewarms inactives
+        for (int i = 0; i < settings.prewarmAmount; i++)
+        {
+            IPooledObject newObject = GameObject.Instantiate(settings.prefab, transforms[settings]).GetComponent<IPooledObject>();
+            inactiveObjects[settings].Add(newObject);
+            newObject.gameObject.SetActive(false);
+        }
+
+    }
+
     public ObjectPool(IEnumerable<ObjectPoolSettings> settings, MonoBehaviour parent)
     {
         monoBehaviour = parent;

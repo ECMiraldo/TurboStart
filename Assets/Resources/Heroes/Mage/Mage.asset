@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0817a75d33ef5d48bf3c54e2dd9cf6e, type: 3}
+  m_Name: Mage
+  m_EditorClassIdentifier: 
+  <id>k__BackingField: 706ee56c-2dba-4992-9755-c59c69b14acb
+  <icon>k__BackingField: {fileID: -1950549372, guid: e5e5a2d45670f9944a914e056d270344, type: 3}
+  <mainSprite>k__BackingField: {fileID: -1950549372, guid: e5e5a2d45670f9944a914e056d270344, type: 3}
+  <animationController>k__BackingField: {fileID: 0}
+  <battlePrefab>k__BackingField: {fileID: 6026820173551302727, guid: 7da44aa43dd5c3b40a9b230565931a58, type: 3}
+  <footprint>k__BackingField:
+  - {x: 0, y: 0}

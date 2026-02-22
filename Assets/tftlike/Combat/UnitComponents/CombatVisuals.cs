@@ -1,27 +1,50 @@
 ﻿using UnityEngine;
+using System;
 
-[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(SpriteRenderer), typeof(Animator))]
 public class CombatVisuals : MonoBehaviour
 {
+    [SerializeField] private AttackAnimator attackAnimator;
     [SerializeField] private float maxLeanAngle = 20f;
     [SerializeField] private float offsetAmount = 0.25f;
     [SerializeField] private float offsetLerpSpeed = 12f;
     [SerializeField] private float leanLerpSpeed = 10f;
-
-
+   
     private Vector3 desiredOffset = Vector3.zero;
     private Quaternion targetRotation = Quaternion.identity;
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
+
+    private int moveHash = Animator.StringToHash("IsMoving");
+    private int specialHash = Animator.StringToHash("Special");
+    private int hurtHash = Animator.StringToHash("Hurt");
+    private int diedHash = Animator.StringToHash("Died");
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         ResetVisuals();
     }
 
-    public void OnAttack(UnitContext ctx)
+    public void OnAttack(UnitContext ctx, Action<UnitContext> callback)
     {
         UpdateVisuals(ctx.Grid.anchorCell, ctx.Target.Grid.anchorCell);
+        if (attackAnimator != null) 
+            StartCoroutine(attackAnimator.OnAttack(ctx, callback));
+    }
+
+    public void OnDamageTaken(UnitContext ctx)
+    {
+        if (ctx.Health.IsDead)
+        {
+            animator.SetTrigger(diedHash);
+        }
+        else
+        {
+            animator.SetTrigger(hurtHash);
+        }
+
     }
 
     private void Update()

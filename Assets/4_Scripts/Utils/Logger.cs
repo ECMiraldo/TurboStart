@@ -2,23 +2,23 @@
 using UnityUtils;
 
 
-public class Logger : Singleton<Logger>
+public static class Logger 
 {
-    [SerializeField] private bool logScenes = true;
-    [SerializeField] private bool logPersistence = true;
-    [SerializeField] private bool logGrid= true;
+    [SerializeField] private static bool logScenes = true;
+    [SerializeField] private static bool logPersistence = true;
+    [SerializeField] private static bool logGrid = true;
     public static void LogScenes(string message)
     {
-        if (instance.logScenes) Debug.Log(message);
+        if (logScenes) Debug.Log(message);
     }
 
     public static void LogPersistence(string message)
     {
-        if (instance.logPersistence) Debug.Log(message); 
+        if (logPersistence) Debug.Log(message); 
     }
 
     public static void LogGrid(string message)
     {
-        if (instance.logGrid) Debug.Log(message);
+        if (logGrid) Debug.Log(message);
     }
 }

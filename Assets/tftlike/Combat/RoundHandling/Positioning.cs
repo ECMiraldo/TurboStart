@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public enum Positioning
 {
     FRONT_LINE,
@@ -26,6 +28,7 @@ public struct PositionSpan
 
 public static class PositioningTable
 {
+
     public static readonly Dictionary<Positioning, PositionSpan> Spans
         = new()
     {

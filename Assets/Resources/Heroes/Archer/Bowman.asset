@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0817a75d33ef5d48bf3c54e2dd9cf6e, type: 3}
+  m_Name: Bowman
+  m_EditorClassIdentifier: 
+  <id>k__BackingField: 04e92124-be5d-4ede-9c2b-1795ffd63793
+  <icon>k__BackingField: {fileID: -1685186724, guid: a7005b5fc032081439ca0aca2eefdb00, type: 3}
+  <mainSprite>k__BackingField: {fileID: -1685186724, guid: a7005b5fc032081439ca0aca2eefdb00, type: 3}
+  <animationController>k__BackingField: {fileID: 0}
+  <battlePrefab>k__BackingField: {fileID: 299566147979908073, guid: bf5b7f2383a259a45a8465f5338af77a, type: 3}
+  <footprint>k__BackingField:
+  - {x: 0, y: 0}

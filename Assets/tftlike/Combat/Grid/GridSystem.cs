@@ -10,6 +10,7 @@ public class GridSystem : MonoBehaviour
     [SerializeField] private int width = 10;
     [SerializeField] private int height = 5;
     [SerializeField] private float cellSize = 1f;
+    [SerializeField] private Transform grid_0_pos;
 
     [field: SerializeField] public List<GridCell> debugCells => cells.Values.ToList();
 
@@ -216,14 +217,17 @@ public class GridSystem : MonoBehaviour
 
     public Vector3 GridToWorld(Vector2Int cell)
     {
-        return new Vector3(cell.x * cellSize, cell.y * cellSize, 0f);
+        return grid_0_pos.position +
+          new Vector3(cell.x * cellSize, cell.y * cellSize, 0f);
     }
 
     public Vector2Int WorldToGrid(Vector3 worldPos)
     {
+        var local = worldPos - grid_0_pos.position;
+
         return new Vector2Int(
-            Mathf.RoundToInt(worldPos.x / cellSize),
-            Mathf.RoundToInt(worldPos.y / cellSize)
+            Mathf.RoundToInt(local.x / cellSize),
+            Mathf.RoundToInt(local.y / cellSize)
         );
     }
 

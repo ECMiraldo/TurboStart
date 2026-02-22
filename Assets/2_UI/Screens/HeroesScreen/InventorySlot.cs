@@ -7,13 +7,10 @@ public class InventorySlot : UiSlot<Item>
 {
     [field: SerializeField] private TextMeshProUGUI quantityText;
     public InventoryEntry entry { get; private set; }
-
-    private void Start()
-    {
-        entry = SaveLoadSystem.Instance.data.inventory.items[transform.GetSiblingIndex()];
-    }
+   
     private void OnEnable()
     {
+        entry = SaveLoadSystem.Instance.data.inventory.items[transform.GetSiblingIndex()];
         entry.OnEntryChanged += OnEntryChanged;
         OnEntryChanged();
     }

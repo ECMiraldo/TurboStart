@@ -19,11 +19,6 @@ public class HeroScreenUI : MonoBehaviour
     private List<HeroData> heroList;
     private Dictionary<HeroData, GameObject> heroIcons = new();
     private int currentHero;
-
-    private void Awake()
-    {
-        heroList = SaveLoadSystem.Instance.data.heroes;
-    }
     private void Start()
     {
         SelectHero(0);
@@ -31,6 +26,7 @@ public class HeroScreenUI : MonoBehaviour
 
     public void OnEnable()
     {
+        heroList = SaveLoadSystem.Instance.data.heroes;
         InstantiateHeroCards();
     }
 
@@ -39,7 +35,6 @@ public class HeroScreenUI : MonoBehaviour
         if (currentHero + 1 == heroList.Count) currentHero = 0;
         else currentHero++;
         SelectHero(currentHero);
-        heroNameText.text = heroList[currentHero].name;
 
     }
 
@@ -47,7 +42,7 @@ public class HeroScreenUI : MonoBehaviour
     {
         if (currentHero - 1 < 0) currentHero = heroList.Count - 1;
         else currentHero--;
-        heroNameText.text = heroList[currentHero].name;
+        SelectHero(currentHero);
     }
 
     private void InstantiateHeroCards()

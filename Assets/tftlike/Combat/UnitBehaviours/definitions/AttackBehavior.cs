@@ -16,8 +16,6 @@ public class AttackBehavior : GridUnitBehaviourSO
         {
             ctx.Grid.WalkTowardsCell(ctx.Target.Grid.anchorCell);
         }
-
-       
     }
 
     public bool CanAttack(UnitContext ctx)
@@ -38,16 +36,20 @@ public class AttackBehavior : GridUnitBehaviourSO
         if (!CanAttack(ctx)) return;
         ctx.Grid.ResetMovement();
         ctx.Stats.lastAttackTime = Time.time;
+        ctx.Visuals.OnAttack(ctx, ResolveAttack);
+    }
 
-
-        ctx.Target.Health.TakeDamage(ctx.Stats.attackDamage);
-        DamageNumberManager.ShowNumber(ctx.Target.Grid.transform.position, ctx.Stats.attackDamage.ToString());
-
-        ctx.Visuals.OnAttack(ctx);
-        if (ctx.Target.Health.IsDead || ctx.Target == null)
+    public void ResolveAttack(UnitContext ctx)
+    {
+        if (ctx.Target == null || ctx.Target.Health.IsDead)
         {
             ctx.Target = null;
             ctx.Visuals.ResetVisuals();
+            return;
         }
+        ctx.Target.Health.TakeDamage(ctx.Stats.attackDamage);
+        DamageNumberManager.ShowNumber(ctx.Target.Grid.transform.position, ctx.Stats.attackDamage.ToString());
+
+       
     }
 }

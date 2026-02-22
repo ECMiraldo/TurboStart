@@ -8,14 +8,16 @@ using UnityUtils;
 
 namespace Persistence
 {
+    [DefaultExecutionOrder(-10)]
     public class SaveLoadSystem : Singleton<SaveLoadSystem>
     {
         [field: SerializeField] public PersistentData data { get; private set; }
 
         private string filePath;
         private JsonSerializerSettings serializerSettings;
-        private void Start()
+        protected override void Awake()
         {
+            base.Awake();
             filePath = Application.persistentDataPath + "/PersistentData.json";
             serializerSettings = new JsonSerializerSettings
             {
@@ -48,6 +50,9 @@ namespace Persistence
             string loadedData = File.ReadAllText(filePath);
             Logger.LogPersistence($"Loaded Data: {loadedData}");
             data = JsonConvert.DeserializeObject<PersistentData>(loadedData);
+
+            //bypass loading for now
+            data = CreateNewGame();            
         }
 
         public void Delete()
@@ -85,7 +90,7 @@ namespace Persistence
             else
             {
                 Logger.LogPersistence("No saved data found");
-                data = new();
+                data = CreateNewGame();
             }
         }
 
@@ -93,6 +98,25 @@ namespace Persistence
         {
             SaveProfile();
             return true;
+        }
+
+
+
+        static PersistentData CreateNewGame()
+        {
+            return new PersistentData
+            {
+                inventory = Inventory.CreateDefault(),
+                gold = 0,
+                heroes = new List<HeroData>
+                {
+                    new HeroData("4b3f15f1-5416-4150-8558-648141f34956"), //warrior
+                    new HeroData("04e92124-be5d-4ede-9c2b-1795ffd63793"), //archer 
+                    new HeroData("706ee56c-2dba-4992-9755-c59c69b14acb"), //mage
+                },
+                tavernData = new TavernData(),
+                lastTickTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
+            };
         }
     }
 }

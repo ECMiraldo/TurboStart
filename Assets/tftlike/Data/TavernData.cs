@@ -11,28 +11,23 @@ using UnityUtils;
 [Serializable]
 public class TavernData
 {
-    public List<TavernHero> availableHeroes;
-    [JsonProperty] private int totalCreatedHeroes;
-
-    public TavernData()
+    public List<(HeroData, long)> availableHeroes = new();
+    public int nCardsShown = 3;
+    public double durationInHours = 6;
+    public long nextRefresh;
+        
+    public (HeroData,long) CreateHero()
     {
-        availableHeroes = new();
+        HeroTemplateSO template = Utils.GetRandomFromList(Database.heroTemplates.Values.ToList());
+        HeroData data = new HeroData(template);
+        long cost = GetHeroCost();
+        availableHeroes.Add((data,cost));
+        return (data, cost);
     }
 
-    [JsonConstructor]
-    public TavernData(List<TavernHero> availableHeroes)
+    private long GetHeroCost()
     {
-        this.availableHeroes = availableHeroes;
-    }
-
-
-    public void AddHero()
-    {
-        //TavernHero newHero = new TavernHero(GetNewHeroTicks(), HeroFactory.CreateRandomHero(totalCreatedHeroes));
-       // availableHeroes.Add(newHero);
-       // newHero.hero.AssignAction(new HeroAction(GetNewHeroTicks(), HeroActionType.Tavern));
-        //check when action finishes then remove hero
-        totalCreatedHeroes++;
+        return 100;
     }
 
     private int GetNewHeroTicks()

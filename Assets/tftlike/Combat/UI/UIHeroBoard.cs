@@ -25,6 +25,7 @@ public class UIHeroBoard : MonoBehaviour
     }
 
 
+
     private void CreateHeroCards()
     {
         foreach (HeroData data in SaveLoadSystem.Instance.data.heroes)
