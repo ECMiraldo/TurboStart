@@ -30,12 +30,12 @@ public class AttributeModifier
         OnChanged?.Invoke(newValue);
     }
 
-    public void Apply(UnitStats holder)
+    public void Apply(StatsComponent holder)
     {
         holder.stats[stat]?.AddModifier(this);
     }
 
-    public void Remove(UnitStats holder)
+    public void Remove(StatsComponent holder)
     {
         holder.stats[stat]?.RemoveModifier(this);
     }

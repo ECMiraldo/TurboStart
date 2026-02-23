@@ -23,11 +23,13 @@ public class CombatSpawner : MonoBehaviour
     public bool PlaceHero(HeroData data, Vector2 worldPos)
     {
         var cell = GridSystem.Instance.WorldToGrid(worldPos);
-        if (GridSystem.Instance.CanPlaceFootprint(cell, data.template.footprint))
+        if (GridSystem.Instance.CanPlaceFootprint(cell, data.template.footprintOffsets))
         {
-            var go = Instantiate(data.template.battlePrefab, transform);
+            var go = Instantiate(data.template.prefab, transform);
             GridComponent unitGridComponent = go.GetComponent<GridComponent>();
-            GridSystem.Instance.PlaceUnit(unitGridComponent, cell, data.template.footprint);
+            HeroStatsComponent heroStatsComponent = go.GetComponent<HeroStatsComponent>();
+            heroStatsComponent.SetHeroData(data);
+            GridSystem.Instance.PlaceUnit(unitGridComponent, cell, data.template.footprintOffsets);
             var targetWorldPos = GridSystem.Instance.GridToWorld(cell);
             go.transform.position = targetWorldPos;
             return true;

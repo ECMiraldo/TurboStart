@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a973e1be182744f8d0e11eae8f99c0, type: 3}
   m_Name: TestEnemy
   m_EditorClassIdentifier: 
-  id: 
+  <id>k__BackingField: a047c8f6-eaa5-4436-8ab9-8684be24b92e
+  prefab: {fileID: 4281402545991561159, guid: 0b9ce886d72e38144b302208158e49e4, type: 3}
+  <icon>k__BackingField: {fileID: 0}
+  <footprintOffsets>k__BackingField: []
   baseHP: 3000
   baseDamage: 10
   attackSpeed: 1
   attackRange: 1
   powerCost: 1
   positioning: 0
-  footprintOffsets: []
-  prefab: {fileID: 4281402545991561159, guid: 0b9ce886d72e38144b302208158e49e4, type: 3}

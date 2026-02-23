@@ -78,7 +78,7 @@ public class Tavern : MonoBehaviour
             GameObject go = Instantiate(playerHeroCardPrefab, playerHeroListContent);
            // tg.onValueChanged.AddListener((x) => SelectHero(h));
             Image img = go.GetComponent<Image>();
-            img.sprite = h.template.mainSprite;
+            img.sprite = h.template.icon;
             heroIcons.Add(h, go);
         }
     }

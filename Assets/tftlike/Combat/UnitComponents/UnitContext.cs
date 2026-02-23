@@ -7,7 +7,7 @@ public sealed class UnitContext
     public readonly GridComponent Grid;
 
 
-    public readonly UnitStats Stats;
+    public readonly StatsComponent Stats;
     //public StatusController Status;
 
 
@@ -24,11 +24,10 @@ public sealed class UnitContext
     public UnitContext(UnitBrain brain)
     {
         Grid = brain.GetComponent<GridComponent>();
-        Stats = brain.GetComponent<UnitStats>();
-        // Status = GetComponent<StatusController>(),
+        Stats = brain.GetComponent<StatsComponent>();
         Health = brain.GetComponent<HealthComponent>();
-       // Attack = brain.GetComponent<GridAttackComponent>();
         Visuals = brain.GetComponentInChildren<CombatVisuals>();
+        Stats.Init(this);
     }
 
 

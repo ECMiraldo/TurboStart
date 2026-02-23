@@ -56,7 +56,7 @@ public class HeroScreenUI : MonoBehaviour
             tg.group = heroScrollToggleGroup;
             tg.onValueChanged.AddListener((x) => SelectHero(h));
             Image img = go.GetComponent<Image>();
-            img.sprite = h.template.mainSprite;
+            img.sprite = h.template.icon;
             heroIcons.Add(h, go);
         }
     }

@@ -107,7 +107,7 @@ public class Equipment : Item
     //    enchantItems.Add(enchantmentItem);
     //}
 
-    public void OnEquip(UnitStats stats)
+    public void OnEquip(StatsComponent stats)
     {
         EquipmentSO so = SO<EquipmentSO>();
 
@@ -151,7 +151,7 @@ public class Equipment : Item
 
     }
 
-    public void OnUnequip(UnitStats stats)
+    public void OnUnequip(StatsComponent stats)
     {
         EquipmentSO so = SO<EquipmentSO>();
 

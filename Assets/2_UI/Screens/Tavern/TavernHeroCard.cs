@@ -16,7 +16,7 @@ public class TavernHeroCard : MonoBehaviour
     public void Init((HeroData, long) heroAndCost)
     {
         this.heroAndCost = heroAndCost;
-        this.icon.sprite = heroAndCost.Item1.template.mainSprite;
+        this.icon.sprite = heroAndCost.Item1.template.icon;
         this.nameText.text = "add hero names dumbass";
         this.costText.text = heroAndCost.Item2.ToString();
     }

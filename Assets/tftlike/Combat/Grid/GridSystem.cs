@@ -1,6 +1,17 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+
+public static class GridConstants
+{
+    public static Team GetOpposite(this Team self)
+    {
+        if (self == Team.Player) return Team.Enemy;
+        else if (self == Team.Enemy) return Team.Player;
+        else return Team.Neutral;
+    }
+}
+
 // Core grid authority. Owns occupancy & reservations.
 public class GridSystem : MonoBehaviour
 {

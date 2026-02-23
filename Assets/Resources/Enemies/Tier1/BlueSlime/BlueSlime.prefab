@@ -78,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: d326c27fc3a8ce44b845e4066ea0dc75, type: 2}
     - target: {fileID: 4281402545991561159, guid: 0b9ce886d72e38144b302208158e49e4, type: 3}
       propertyPath: m_Name
-      value: EnemyPrefabBase Variant
+      value: BlueSlime
       objectReference: {fileID: 0}
     - target: {fileID: 7507217802591453966, guid: 0b9ce886d72e38144b302208158e49e4, type: 3}
       propertyPath: m_Sprite
