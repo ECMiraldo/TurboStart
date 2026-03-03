@@ -121,11 +121,6 @@ MonoBehaviour:
   <stats>k__BackingField:
     _serializedList: []
   lastAttackTime: 0
-  maxHealth: 100
-  currentHealth: 100
-  attackDamage: 10
-  attackSpeed: 2
-  attackRange: 1
   enemyDataSO: {fileID: 11400000, guid: d6bfd3bdbbcf25344940bc1071b15163, type: 2}
 --- !u!1 &6139257663077270108
 GameObject:
@@ -140,7 +135,7 @@ GameObject:
   - component: {fileID: 7507217802591453966}
   - component: {fileID: 3786275212960196914}
   m_Layer: 0
-  m_Name: Triangle
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -223,7 +218,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: -994389326, guid: a56052930dad6264ea0112445d9dc75e, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0

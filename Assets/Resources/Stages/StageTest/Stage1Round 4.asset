@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d36248ab1174b714fbcf097bdf610484, type: 3}
   m_Name: Stage1Round 4
   m_EditorClassIdentifier: 
+  icon: {fileID: 0}
   difficultyMultiplier: 1
-  totalPowerBudget: 5
+  totalPowerBudget: 7
   monsterPool:
-  - {fileID: 11400000, guid: d6bfd3bdbbcf25344940bc1071b15163, type: 2}
+  - {fileID: 11400000, guid: fee897728b19bcf448f73dc88c37dcaf, type: 2}
+  - {fileID: 11400000, guid: 867a245b74ca75e4fb76f85045ebb898, type: 2}
+  - {fileID: 11400000, guid: be507b0b04316f949a9b4c59c4dfccb0, type: 2}
   isBossRound: 0
   isEndurance: 0

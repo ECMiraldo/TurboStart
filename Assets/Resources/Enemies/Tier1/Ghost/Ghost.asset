@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a973e1be182744f8d0e11eae8f99c0, type: 3}
+  m_Name: Ghost
+  m_EditorClassIdentifier: 
+  <id>k__BackingField: d4689534-681b-4ea5-84bb-856130a7e70f
+  prefab: {fileID: 6823403044727778458, guid: ca42488ad5e5d4d458602358df653c5f, type: 3}
+  <icon>k__BackingField: {fileID: 0}
+  <footprintOffsets>k__BackingField:
+  - {x: 0, y: 0}
+  attack: 10
+  magicAttack: 25
+  attackSpeed: 1
+  attackRange: 3
+  accuracy: 20
+  critChance: 0
+  health: 100
+  mana: 60
+  defense: 15
+  magicDefense: 30
+  evasion: 50
+  powerCost: 2
+  positioning: 3

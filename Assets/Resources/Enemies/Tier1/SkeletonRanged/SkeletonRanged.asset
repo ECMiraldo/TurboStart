@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a973e1be182744f8d0e11eae8f99c0, type: 3}
+  m_Name: SkeletonRanged
+  m_EditorClassIdentifier: 
+  <id>k__BackingField: 32895656-5640-475b-9dcf-de9b096163df
+  prefab: {fileID: 3473115147642238066, guid: 5cd8130d8b12286439638a4a551fda42, type: 3}
+  <icon>k__BackingField: {fileID: 0}
+  <footprintOffsets>k__BackingField:
+  - {x: 0, y: 0}
+  attack: 30
+  magicAttack: 15
+  attackSpeed: 1.2
+  attackRange: 2
+  accuracy: 40
+  critChance: 0
+  health: 200
+  mana: 10
+  defense: 20
+  magicDefense: 20
+  evasion: 25
+  powerCost: 3
+  positioning: 1

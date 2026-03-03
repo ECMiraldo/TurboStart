@@ -17,7 +17,14 @@ MonoBehaviour:
   <icon>k__BackingField: {fileID: -1950549372, guid: e5e5a2d45670f9944a914e056d270344, type: 3}
   <footprintOffsets>k__BackingField:
   - {x: 0, y: 0}
-  baseHP: 0
-  baseDamage: 0
-  attackSpeed: 0
-  attackRange: 0
+  attack: 15
+  magicAttack: 35
+  attackSpeed: 0.8
+  attackRange: 5
+  accuracy: 20
+  critChance: 0
+  health: 200
+  mana: 100
+  defense: 10
+  magicDefense: 20
+  evasion: 5
