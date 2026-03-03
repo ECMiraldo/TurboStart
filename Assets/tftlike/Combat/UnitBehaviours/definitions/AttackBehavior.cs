@@ -20,7 +20,7 @@ public class AttackBehavior : GridUnitBehaviourSO
 
     public bool CanAttack(UnitContext ctx)
     {
-        return Time.time >= ctx.Stats.lastAttackTime + 1 / ctx.Stats.attackSpeed;
+        return Time.time >= ctx.Stats.lastAttackTime + 1 / ctx.Stats.stats[UnitStat.AttackSpeed].Value;
     }
 
     public bool SetTarget(UnitContext ctx)
@@ -47,8 +47,8 @@ public class AttackBehavior : GridUnitBehaviourSO
             ctx.Visuals.ResetVisuals();
             return;
         }
-        ctx.Target.Health.TakeDamage(ctx.Stats.attackDamage);
-        DamageNumberManager.ShowNumber(ctx.Target.Grid.transform.position, ctx.Stats.attackDamage.ToString());
+        ctx.Target.Health.TakeDamage(ctx.Stats.stats[UnitStat.Attack].ToInt());
+        DamageNumberManager.ShowNumber(ctx.Target.Grid.transform.position, ctx.Stats.stats[UnitStat.Attack].ToInt().ToString());
 
        
     }

@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Warrior
   m_EditorClassIdentifier: 
   <id>k__BackingField: 4b3f15f1-5416-4150-8558-648141f34956
+  prefab: {fileID: 8340286288904268168, guid: 7928372d038aa364583feb40752b306f, type: 3}
   <icon>k__BackingField: {fileID: 1388075006, guid: 90b1ab723504fb64d945ff85a03197d3, type: 3}
-  <mainSprite>k__BackingField: {fileID: 1388075006, guid: 90b1ab723504fb64d945ff85a03197d3, type: 3}
-  <animationController>k__BackingField: {fileID: 0}
-  <battlePrefab>k__BackingField: {fileID: 8340286288904268168, guid: 7928372d038aa364583feb40752b306f, type: 3}
-  <footprint>k__BackingField:
+  <footprintOffsets>k__BackingField:
   - {x: 0, y: 0}
+  baseHP: 0
+  baseDamage: 0
+  attackSpeed: 0
+  attackRange: 0

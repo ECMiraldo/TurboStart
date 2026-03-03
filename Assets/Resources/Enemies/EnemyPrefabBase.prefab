@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 7171581292478472464}
   - component: {fileID: 2312811653962111864}
   - component: {fileID: 6702365608550735891}
-  - component: {fileID: 4757897144441053533}
   - component: {fileID: 2362743183640295347}
+  - component: {fileID: 502999178571237595}
   m_Layer: 0
   m_Name: EnemyPrefabBase
   m_TagString: Untagged
@@ -91,25 +91,6 @@ MonoBehaviour:
   - {x: 0, y: 0}
   combatVisuals: {fileID: 7576673171116506433}
   moveLerpSpeed: 8
---- !u!114 &4757897144441053533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4281402545991561159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceed93f62d5f1024cae8dfa0d18e26d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 1
-  maxHealth: 5000
-  currentHealth: 100
-  attackDamage: 10
-  attackSpeed: 2
-  attackRange: 1
-  lastAttackTime: 0
 --- !u!114 &2362743183640295347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +105,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3786275212960196914}
   damageDelay: 0
+--- !u!114 &502999178571237595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4281402545991561159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6665db7a3159c9a4ab53fca7308f25a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <team>k__BackingField: 1
+  <stats>k__BackingField:
+    _serializedList: []
+  lastAttackTime: 0
+  maxHealth: 100
+  currentHealth: 100
+  attackDamage: 10
+  attackSpeed: 2
+  attackRange: 1
+  enemyDataSO: {fileID: 11400000, guid: d6bfd3bdbbcf25344940bc1071b15163, type: 2}
 --- !u!1 &6139257663077270108
 GameObject:
   m_ObjectHideFlags: 0

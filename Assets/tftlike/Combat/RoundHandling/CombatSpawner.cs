@@ -40,10 +40,7 @@ public class CombatSpawner : MonoBehaviour
 
     private void SpawnEnemy(EnemyDataSO data, float difficulty, Vector2Int? cell = null)
     {
-        var stats = MonsterScaler.Scale(data, difficulty);
         var go = Instantiate(data.prefab, transform);
-        // init grid + stats here
-
 
         Vector2Int anchorCell;
         if (cell == null) anchorCell = FindFreeSpawnCell(data);

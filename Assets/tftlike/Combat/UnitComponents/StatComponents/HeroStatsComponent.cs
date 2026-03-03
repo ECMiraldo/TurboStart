@@ -11,6 +11,7 @@ public class HeroStatsComponent : StatsComponent
 
     public void SetHeroData(HeroData data)
     {
+        this.heroData = data;
 
     }
 

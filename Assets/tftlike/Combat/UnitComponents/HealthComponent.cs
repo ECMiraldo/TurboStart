@@ -11,17 +11,14 @@ public class HealthComponent : MonoBehaviour
     [SerializeField] private Slider bar;
     public int CurrentHealth { get; private set; }
 
-
     public bool IsDead => CurrentHealth <= 0;
 
-
-
-    private void Awake()
+    public void Init(StatsComponent stats)
     {
+        maxHealth = stats.stats[UnitStat.Health].ToInt();
         CurrentHealth = maxHealth;
         UpdateUi();
     }
-
 
     public void TakeDamage(int amount)
     {

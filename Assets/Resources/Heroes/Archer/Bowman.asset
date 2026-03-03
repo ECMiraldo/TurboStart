@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Bowman
   m_EditorClassIdentifier: 
   <id>k__BackingField: 04e92124-be5d-4ede-9c2b-1795ffd63793
+  prefab: {fileID: 299566147979908073, guid: bf5b7f2383a259a45a8465f5338af77a, type: 3}
   <icon>k__BackingField: {fileID: -1685186724, guid: a7005b5fc032081439ca0aca2eefdb00, type: 3}
-  <mainSprite>k__BackingField: {fileID: -1685186724, guid: a7005b5fc032081439ca0aca2eefdb00, type: 3}
-  <animationController>k__BackingField: {fileID: 0}
-  <battlePrefab>k__BackingField: {fileID: 299566147979908073, guid: bf5b7f2383a259a45a8465f5338af77a, type: 3}
-  <footprint>k__BackingField:
+  <footprintOffsets>k__BackingField:
   - {x: 0, y: 0}
+  baseHP: 0
+  baseDamage: 0
+  attackSpeed: 0
+  attackRange: 0

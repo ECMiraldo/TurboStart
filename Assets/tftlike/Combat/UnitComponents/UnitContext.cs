@@ -28,6 +28,7 @@ public sealed class UnitContext
         Health = brain.GetComponent<HealthComponent>();
         Visuals = brain.GetComponentInChildren<CombatVisuals>();
         Stats.Init(this);
+        Health.Init(Stats);
     }
 
 
@@ -41,7 +42,7 @@ public sealed class UnitContext
 
     public bool IsInRange(Vector2Int to, float range = 0)
     {
-        if (range == 0) range = Stats.attackRange;
+        if (range == 0) range = Stats.stats[UnitStat.AttackRange].Value;
 
         int dx = Mathf.Abs(Grid.anchorCell.x - to.x);
         int dy = Mathf.Abs(Grid.anchorCell.y - to.y);
