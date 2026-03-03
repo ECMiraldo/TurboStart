@@ -19,6 +19,9 @@ public enum CombatState
 public class CombatSessionManager : MonoBehaviour
 {
     public static event Action<CombatState> onStateChanged;
+    public static event Action onRoundWon;
+    public static event Action onStageWon;
+    public static event Action onStageLost;
     public static CombatSessionManager Instance { get; private set; }
 
     [field: SerializeField] public CombatSpawner spawner { get; private set; }
@@ -48,7 +51,6 @@ public class CombatSessionManager : MonoBehaviour
     {
         UnitBrain.onUnitSpawned += RegisterUnit;
         UnitBrain.onUnitDespawned += UnregisterUnit;
-        StartStage(currentStage);
     }
 
     private void OnDisable()
@@ -131,18 +133,25 @@ public class CombatSessionManager : MonoBehaviour
 
         if (unitsByTeam[Team.Enemy].Count == 0)
         {
-            //Handle Victory
+            onRoundWon?.Invoke();
         }
         else
         {
-
+            HandleDefeat();
+            yield break;
         }
+        
         yield return new WaitForSeconds(postRoundDelay / 2);
         ResetHeroUnitsPosition();
         yield return new WaitForSeconds(postRoundDelay);
 
         // NEXT ROUND
         BeginNextRound();
+    }
+
+    private void HandleDefeat()
+    {
+        onStageLost?.Invoke();
     }
 
     private bool IsRoundOver()

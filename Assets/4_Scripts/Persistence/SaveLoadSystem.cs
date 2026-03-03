@@ -110,9 +110,9 @@ namespace Persistence
                 gold = 0,
                 heroes = new List<HeroData>
                 {
-                    new HeroData("4b3f15f1-5416-4150-8558-648141f34956"), //warrior
-                    new HeroData("04e92124-be5d-4ede-9c2b-1795ffd63793"), //archer 
-                    new HeroData("706ee56c-2dba-4992-9755-c59c69b14acb"), //mage
+                    new HeroData(Database.heroTemplates["4b3f15f1-5416-4150-8558-648141f34956"]), //warrior
+                    new HeroData(Database.heroTemplates["04e92124-be5d-4ede-9c2b-1795ffd63793"]), //archer 
+                    new HeroData(Database.heroTemplates["706ee56c-2dba-4992-9755-c59c69b14acb"]), //mage
                 },
                 tavernData = new TavernData(),
                 lastTickTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),

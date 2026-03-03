@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - RootCanvas
+  - Toggle Bg
+  - OnText
+  - Handle
+  - Off Text
   layers:
   - Default
   - TransparentFX
@@ -12,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - GameLayer
   - 
   - 
   - 

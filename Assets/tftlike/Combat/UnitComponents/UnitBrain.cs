@@ -14,23 +14,18 @@ public class UnitBrain : MonoBehaviour
     [field: SerializeReference] public UnitContext Context { get; private set; }
     [field: SerializeReference] public bool isEnabled { get; private set; }
     public void SetEnabled(bool enabled) => isEnabled = enabled;
-    private void Awake()
+    private void Start()
     {
         Context = new(this);
         Context.Health.OnDeath += HandleDeath;
-    }
-
-    private void OnEnable()
-    {
         onUnitSpawned?.Invoke(this, Context.Stats.team);
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         onUnitDespawned?.Invoke(this, Context.Stats.team);
-    }
 
-   
+    }
 
     private void Update()
     {
