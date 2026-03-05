@@ -35,30 +35,30 @@ public static class PositioningTable
         {
             Positioning.FRONT_LINE,
             new PositionSpan(
-                new Vector2Int(13, 14),   // X
-                new Vector2Int(2, 5)       // Y
+                new Vector2Int(11, 12),   // X
+                new Vector2Int(1, 4)       // Y
             )
         },
         {
             Positioning.FLANK,
             new PositionSpan(
-                new Vector2Int(14, 16),
-                new Vector2Int(0, 2),      // lower lane
-                new Vector2Int(6, 8)       // upper lane
+                new Vector2Int(12, 13),
+                new Vector2Int(0, 1),      // lower lane
+                new Vector2Int(4, 5)       // upper lane
             )
         },
         {
             Positioning.MIDDLE,
             new PositionSpan(
-                new Vector2Int(14, 16),
-                new Vector2Int(2, 5)
+                new Vector2Int(13, 14),
+                new Vector2Int(1, 4)
             )
         },
         {
             Positioning.BACK_LINE,
             new PositionSpan(
-                new Vector2Int(17, 17),
-                new Vector2Int(0, 8)
+                new Vector2Int(14, 15),
+                new Vector2Int(0, 5)
             )
         }
     };

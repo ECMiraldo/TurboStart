@@ -19,16 +19,18 @@ public enum CombatState
 public class CombatSessionManager : MonoBehaviour
 {
     public static event Action<CombatState> onStateChanged;
+    public static event Action<bool> onAutoplayToggled;
     public static event Action onRoundWon;
     public static event Action onStageWon;
     public static event Action onStageLost;
     public static CombatSessionManager Instance { get; private set; }
 
     [field: SerializeField] public CombatSpawner spawner { get; private set; }
-    [field: SerializeField, /*ReadOnly*/] public StageDefinitionSO currentStage { get; private set; }
+    [field: SerializeField] public StageDefinitionSO currentStage { get; private set; }
     [field: SerializeField, ReadOnly] public int currentRoundIndex { get; private set; }
     [field: SerializeField, ReadOnly] public RoundDefinitionSO currentRound { get; private set; }
 
+    [field: SerializeField] public bool isAutoplay { get; private set; }
     
     [SerializeField] private float preRoundDelay = 1.5f;
     [SerializeField] private float postRoundDelay = 2f;
@@ -45,6 +47,12 @@ public class CombatSessionManager : MonoBehaviour
         unitsByTeam[Team.Enemy] = new();
         unitsByTeam[Team.Player] = new();
         unitsByTeam[Team.Neutral] = new();
+    }
+
+    public void SetAutoplay(bool autoplay)
+    {
+        this.isAutoplay = autoplay;
+        onAutoplayToggled?.Invoke(this);
     }
 
     private void OnEnable()
@@ -138,7 +146,18 @@ public class CombatSessionManager : MonoBehaviour
         else
         {
             HandleDefeat();
+        }
+        if (!isAutoplay)
+        {
             yield break;
+        }
+        else
+        {
+            ResetStage();
+            yield return new WaitForSeconds(postRoundDelay / 2);
+            BeginNextRound();
+            yield break;
+
         }
         
         yield return new WaitForSeconds(postRoundDelay / 2);
@@ -172,5 +191,17 @@ public class CombatSessionManager : MonoBehaviour
         {
             unit.SetEnabled(val);
         }
+    }
+
+    private void ResetStage()
+    {
+        foreach (UnitBrain ctx in unitsByTeam[Team.Enemy].Concat(unitsByTeam[Team.Neutral]))
+        {
+            Destroy(ctx.gameObject);
+        }
+        //check the heroes that are alive and reset them
+        ResetHeroUnitsPosition();
+        StartStage(currentStage);
+       
     }
 }
