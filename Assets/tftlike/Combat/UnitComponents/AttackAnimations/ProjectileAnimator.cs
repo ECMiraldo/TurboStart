@@ -36,10 +36,11 @@ public class ProjectileAnimator : AttackAnimator
         obj.transform.position = spawnPos.position;
 
         float elapsed = 0f;
-        if (ctx.Target == null || ctx.Target.Health.IsDead)
+        if (ctx.Target == null || ctx.Target.Grid == null || ctx.Target.Health.IsDead)
         {
             callback?.Invoke(ctx);
             objectPool.Despawn(obj);
+            yield break;
         }
 
         Vector3 targetPos = ctx.Target.Grid.transform.position;

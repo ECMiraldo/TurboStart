@@ -9,6 +9,7 @@ public class AutoplayToggle : MonoBehaviour
     private void Awake()
     {
         toggle = GetComponent<Toggle>();
+        toggle.onValueChanged.AddListener(OnToggle);
     }
 
     private void OnEnable()

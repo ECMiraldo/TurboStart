@@ -8,7 +8,7 @@ public struct SpawnIntent
 public class CombatSpawner : MonoBehaviour
 {
 
-    private Dictionary<HeroData, Vector2> heroStartPositions;
+    private Dictionary<HeroData, Vector2> heroStartPositions = new();
     public void SpawnRound(RoundDefinitionSO round)
     {
         var intents = RoundBuilder.Build(round);
@@ -34,7 +34,8 @@ public class CombatSpawner : MonoBehaviour
             GridSystem.Instance.PlaceUnit(unitGridComponent, cell, data.template.footprintOffsets);
             var targetWorldPos = GridSystem.Instance.GridToWorld(cell);
             go.transform.position = targetWorldPos;
-            heroStartPositions[data] = worldPos;
+            if (!heroStartPositions.ContainsKey(data))
+                heroStartPositions[data] = worldPos;
             return true;
         }
         return false;
@@ -98,8 +99,12 @@ public class CombatSpawner : MonoBehaviour
         }
     }
 
-    public void ReplaceHeroes(HeroData data)
+    public void ReplaceHeroes()
     {
-        PlaceHero(data, heroStartPositions[data]);
+        foreach (HeroData data in heroStartPositions.Keys)
+        {
+            PlaceHero(data, heroStartPositions[data]);
+        }
+
     }
 }

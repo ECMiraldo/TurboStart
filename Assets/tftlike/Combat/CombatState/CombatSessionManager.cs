@@ -104,6 +104,7 @@ public class CombatSessionManager : MonoBehaviour
         if (currentRoundIndex >= currentStage.rounds.Count)
         {
             SetState(CombatState.StageComplete);
+            if (isAutoplay) ResetStage();
             return;
         }
         
@@ -139,27 +140,27 @@ public class CombatSessionManager : MonoBehaviour
        
         ToggleUnits(false);
 
+        //ROUND WON
         if (unitsByTeam[Team.Enemy].Count == 0)
         {
             onRoundWon?.Invoke();
         }
+        //ROUND LOST
         else
         {
-            HandleDefeat();
+            if (isAutoplay)
+            {
+                ResetStage();
+                yield return new WaitForSeconds(postRoundDelay / 2);
+                BeginNextRound();
+                yield break;
+            }
+            else
+            {
+                yield break;
+            }
         }
-        if (!isAutoplay)
-        {
-            yield break;
-        }
-        else
-        {
-            ResetStage();
-            yield return new WaitForSeconds(postRoundDelay / 2);
-            BeginNextRound();
-            yield break;
-
-        }
-        
+             
         yield return new WaitForSeconds(postRoundDelay / 2);
         ResetHeroUnitsPosition();
         yield return new WaitForSeconds(postRoundDelay);
@@ -195,12 +196,12 @@ public class CombatSessionManager : MonoBehaviour
 
     private void ResetStage()
     {
-        foreach (UnitBrain ctx in unitsByTeam[Team.Enemy].Concat(unitsByTeam[Team.Neutral]))
+        foreach (UnitBrain ctx in unitsByTeam[Team.Enemy].Concat(unitsByTeam[Team.Neutral]).Concat(unitsByTeam[Team.Player]))
         {
             Destroy(ctx.gameObject);
         }
+        spawner.ReplaceHeroes();
         //check the heroes that are alive and reset them
-        ResetHeroUnitsPosition();
         StartStage(currentStage);
        
     }

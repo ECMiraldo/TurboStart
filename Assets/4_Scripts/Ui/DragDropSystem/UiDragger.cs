@@ -40,14 +40,23 @@ public class UiDragger : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
         originalAnchorMin = rectTransform.anchorMin;
         originalAnchorMax = rectTransform.anchorMax;
         transform.SetParent(rootCanvas.transform);
-        transform.SetAsLastSibling();
+        transform.SetAsFirstSibling();
         icon.raycastTarget = false;
         onBeginDrag?.Invoke(eventData);
     }
 
     public virtual void OnDrag(PointerEventData eventData)
     {
-        if (isDragging) transform.position = eventData.position;
+        if (!isDragging) return;
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            rootCanvas.transform as RectTransform,
+            eventData.position,
+            eventData.pressEventCamera,
+            out Vector2 localPoint
+        );
+
+        rectTransform.localPosition = localPoint;
     }
 
     public virtual void OnEndDrag(PointerEventData eventData)
