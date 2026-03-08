@@ -7,13 +7,13 @@ public class GoldCounter : MonoBehaviour
 
     private void OnEnable()
     {
-        PersistentData.onGoldChanged += OnGoldChanged;
-        OnGoldChanged(Persistence.SaveLoadSystem.Instance.data.gold);
+        ResourceData.onGoldChanged += OnGoldChanged;
+        OnGoldChanged(Persistence.SaveLoadSystem.Instance.data.resourceData.gold);
     }
 
     private void OnDisable()
     {
-        PersistentData.onGoldChanged -= OnGoldChanged;
+        ResourceData.onGoldChanged -= OnGoldChanged;
     }
 
     private void OnGoldChanged(long amount)

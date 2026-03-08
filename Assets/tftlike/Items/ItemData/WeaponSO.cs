@@ -16,7 +16,7 @@ public class WeaponSO : EquipmentSO
     //[field: SerializeField] public RollableInt maxAttack { get; private set; }
     [field: SerializeField] public float Range { get; private set; }
     [field: SerializeField] public float AttackSpeed { get; private set; }
-    [field: SerializeField, ReadOnly] public override EquipmentSlot Slot => EquipmentSlot.MainHand;
+    [field: SerializeField, ReadOnly] public override EquipmentSlot Slot => EquipmentSlot.Weapon;
     //[field: SerializeField] public WeaponType WeaponType { get; private set; }
     //[field: SerializeField] public Element Element { get; private set; }
     [field: SerializeField] public bool IsTwoHanded { get; private set; }

@@ -6,16 +6,12 @@ public enum EquipmentSlot : byte
 {
     Head = 0,
     Body = 1,
-    Pants = 2,
-    Boots = 3,
-    MainHand = 4,
-    Offhand = 5,
-    Cape = 6
-
+    Boots = 2,
+    Weapon = 3,
 }
 
-
-public  class EquipmentSO : ItemSO
+[CreateAssetMenu(menuName = "Items/Equipment")]
+public class EquipmentSO : ItemSO
 {
     [field: Space(25)]
     [field: Header("Equipment")]

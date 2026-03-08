@@ -1,12 +1,19 @@
 using UnityEngine;
 
+
+
+
+
 [CreateAssetMenu(menuName = "Combat/Enemy")]
 public class EnemyDataSO : UnitDataSO
 {
-    [Header("Spawn Cost")]
+    [Header("Spawning")]
     public int powerCost = 1; // lower = fodder, higher = elite
-
-    [Header("Positioning")]
     public Positioning positioning;
+
+    [Header("Rewards")]
+    public int goldReward;
+    public LootTable lootTable;
+
 
 }

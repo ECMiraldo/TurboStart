@@ -2,7 +2,7 @@
 
 public class EnemyStatsComponent : StatsComponent
 {
-    [field: SerializeField] private EnemyDataSO enemyDataSO;
+    [field: SerializeField] public EnemyDataSO enemyDataSO { get; private set; }
     
     public override void Init(UnitContext ctx)
     {

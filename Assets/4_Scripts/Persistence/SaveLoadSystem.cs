@@ -107,7 +107,6 @@ namespace Persistence
             return new PersistentData
             {
                 inventory = Inventory.CreateDefault(),
-                gold = 0,
                 heroes = new List<HeroData>
                 {
                     new HeroData(Database.heroTemplates["4b3f15f1-5416-4150-8558-648141f34956"]), //warrior
@@ -115,6 +114,7 @@ namespace Persistence
                     new HeroData(Database.heroTemplates["706ee56c-2dba-4992-9755-c59c69b14acb"]), //mage
                 },
                 tavernData = new TavernData(),
+                resourceData = new ResourceData(),
                 lastTickTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
             };
         }
