@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[ExecuteInEditMode]
+[ExecuteInEditMode, RequireComponent(typeof(Camera))]
 public class CameraScreenResolution : MonoBehaviour
 {
     void Start()
@@ -8,12 +8,15 @@ public class CameraScreenResolution : MonoBehaviour
         SetAspect();
     }
 
+
+
+#if UNITY_EDITOR
     void Update()
     {
-#if UNITY_EDITOR
-        SetAspect(); // update in editor
-#endif
+        SetAspect();
     }
+#endif
+
 
     void SetAspect()
     {

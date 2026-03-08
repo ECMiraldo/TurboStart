@@ -15,11 +15,12 @@ public class AutoplayToggle : MonoBehaviour
     private void OnEnable()
     {
         CombatSessionManager.onAutoplayToggled += OnAutoplayToggled;
+        OnAutoplayToggled(CombatSessionManager.Instance.isAutoplay);
     }
 
     private void OnDisable()
     {
-        CombatSessionManager.onAutoplayToggled += OnAutoplayToggled;
+        CombatSessionManager.onAutoplayToggled -= OnAutoplayToggled;
     }
 
     public void OnToggle(bool val) => CombatSessionManager.Instance.SetAutoplay(val);

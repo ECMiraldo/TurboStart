@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 
-public class AdventureMap : MonoBehaviour
+public class AdventureMap : UIPanelController 
 {
     public static AdventureMap Instance;
 
     [field: SerializeField] public AdventureMapStageDetails stageDetails { get; private set; }
     [field: SerializeField] public CombatSessionManager combatManager { get; private set; }
     [field: SerializeField] public GameObject fightUi { get; private set; }
+    //TEMPORARY SHIT
+    [field: SerializeField] public GameObject background { get; private set; }
 
     private StageDefinitionSO currentStage;
     private void Awake()
@@ -28,11 +30,17 @@ public class AdventureMap : MonoBehaviour
 
     public void StartStage()
     {   
-        combatManager.gameObject.SetActive(true);
         combatManager.StartStage(currentStage);
         fightUi.SetActive(true);
-        this.gameObject.SetActive(false);
+        background.SetActive(true);
+        Close();
+    }
 
+    public void LeaveStage()
+    {
+        fightUi.SetActive(false);
+        background.SetActive(false);
+        Open();
     }
 
 

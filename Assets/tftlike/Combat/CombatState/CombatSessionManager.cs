@@ -15,31 +15,34 @@ public enum CombatState
     PostRound,       // rewards UI
     StageComplete
 }
-
+[DefaultExecutionOrder(-1)]
 public class CombatSessionManager : MonoBehaviour
 {
     public static event Action<CombatState> onStateChanged;
     public static event Action<bool> onAutoplayToggled;
-    public static event Action onRoundWon;
-    public static event Action onStageWon;
-    public static event Action onStageLost;
+    public static event Action onRoundWon; 
+  //  public static event Action<float> onStageWon; //float is delay
+  //  public static event Action<float> onStageLost; //float is delay
     public static CombatSessionManager Instance { get; private set; }
 
     [field: SerializeField] public CombatSpawner spawner { get; private set; }
+    [field: SerializeField] public ResultUI resultUI { get; private set; }
     [field: SerializeField] public StageDefinitionSO currentStage { get; private set; }
     [field: SerializeField, ReadOnly] public int currentRoundIndex { get; private set; }
     [field: SerializeField, ReadOnly] public RoundDefinitionSO currentRound { get; private set; }
 
-    [field: SerializeField] public bool isAutoplay { get; private set; }
+    [field: SerializeField] public bool isAutoplay { get; private set; } = false;
     
     [SerializeField] private float preRoundDelay = 1.5f;
     [SerializeField] private float postRoundDelay = 2f;
     [SerializeField] private float spawningDelay = 2f;
+    [SerializeField] public float resultScreenTime = 3.0f;
 
     public readonly Dictionary<Team, List<UnitBrain>> unitsByTeam = new();
     public IEnumerable<UnitBrain> allUnits => unitsByTeam[Team.Player].Concat(unitsByTeam[Team.Enemy]).Concat(unitsByTeam[Team.Neutral]);
     [field: SerializeField, ReadOnly] public CombatState State { get; private set; }
 
+    private Coroutine currentRoutine;
     private void Awake()
     {
         if (Instance != null) Destroy(Instance);
@@ -52,7 +55,7 @@ public class CombatSessionManager : MonoBehaviour
     public void SetAutoplay(bool autoplay)
     {
         this.isAutoplay = autoplay;
-        onAutoplayToggled?.Invoke(this);
+        onAutoplayToggled?.Invoke(autoplay);
     }
 
     private void OnEnable()
@@ -104,14 +107,16 @@ public class CombatSessionManager : MonoBehaviour
         if (currentRoundIndex >= currentStage.rounds.Count)
         {
             SetState(CombatState.StageComplete);
-            if (isAutoplay) ResetStage();
+            if (currentRoutine != null) StopCoroutine(currentRoutine);
+            currentRoutine = StartCoroutine(HandleVictory());
             return;
         }
         
         currentRound = currentStage.rounds[currentRoundIndex];
         currentRoundIndex++;
 
-        StartCoroutine(RoundFlow());
+        if (currentRoutine != null) StopCoroutine(currentRoutine);
+        currentRoutine = StartCoroutine(RoundFlow());
     }
 
 
@@ -141,24 +146,16 @@ public class CombatSessionManager : MonoBehaviour
         ToggleUnits(false);
 
         //ROUND WON
-        if (unitsByTeam[Team.Enemy].Count == 0)
+
+        //CHECK ROUND LOST FIRST HERE
+        if (unitsByTeam[Team.Player].Count == 0)
         {
-            onRoundWon?.Invoke();
+            yield return HandleDefeat();
+            yield break;
         }
-        //ROUND LOST
         else
         {
-            if (isAutoplay)
-            {
-                ResetStage();
-                yield return new WaitForSeconds(postRoundDelay / 2);
-                BeginNextRound();
-                yield break;
-            }
-            else
-            {
-                yield break;
-            }
+            onRoundWon?.Invoke();
         }
              
         yield return new WaitForSeconds(postRoundDelay / 2);
@@ -169,9 +166,41 @@ public class CombatSessionManager : MonoBehaviour
         BeginNextRound();
     }
 
-    private void HandleDefeat()
+    public void PlayerClickedRestart()
     {
-        onStageLost?.Invoke();
+        if (currentRoutine != null) StopCoroutine(currentRoutine);
+        ResetStage();
+        BeginNextRound();
+    }
+
+    public void PlayerClickedLeave()
+    {
+        DestroyUnits();
+        AdventureMap.Instance.LeaveStage();
+    }
+
+    private IEnumerator HandleDefeat()
+    {
+        resultUI.ShowDefeat();
+        yield return RestartStage();
+    }
+
+    private IEnumerator HandleVictory()
+    {
+        //onStageWon?.Invoke(resultScreenTime);
+        resultUI.ShowVictory();
+        yield return RestartStage();
+    }
+
+    private IEnumerator RestartStage()
+    {
+        if (isAutoplay)
+        {
+            yield return new WaitForSeconds(resultScreenTime);
+            ResetStage();
+            yield return null; //just wait a frame here
+            BeginNextRound();
+        }
     }
 
     private bool IsRoundOver()
@@ -196,13 +225,17 @@ public class CombatSessionManager : MonoBehaviour
 
     private void ResetStage()
     {
+        DestroyUnits();
+        spawner.ReplaceHeroes();
+        //check the heroes that are alive and reset them
+        StartStage(currentStage);
+    }
+
+    private void DestroyUnits()
+    {
         foreach (UnitBrain ctx in unitsByTeam[Team.Enemy].Concat(unitsByTeam[Team.Neutral]).Concat(unitsByTeam[Team.Player]))
         {
             Destroy(ctx.gameObject);
         }
-        spawner.ReplaceHeroes();
-        //check the heroes that are alive and reset them
-        StartStage(currentStage);
-       
     }
 }

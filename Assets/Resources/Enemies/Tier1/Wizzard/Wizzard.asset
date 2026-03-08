@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wizzard
   m_EditorClassIdentifier: 
   <id>k__BackingField: 369e875b-fdf1-41b9-9cc0-af98d5959abf
-  prefab: {fileID: 6741338821720825404, guid: 3c252f29be843d24fb892116662ffd6d, type: 3}
+  prefab: {fileID: 6401038709813873240, guid: e60aeba8e3aced545b612a223d672fc9, type: 3}
   <icon>k__BackingField: {fileID: 0}
   <footprintOffsets>k__BackingField:
   - {x: 0, y: 0}
