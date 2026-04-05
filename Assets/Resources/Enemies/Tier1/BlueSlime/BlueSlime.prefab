@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: enemyDataSO
       value: 
       objectReference: {fileID: 11400000, guid: 6fad356f086105340875455d001d05b5, type: 2}
+    - target: {fileID: 502999178571237595, guid: 0b9ce886d72e38144b302208158e49e4, type: 3}
+      propertyPath: <enemyDataSO>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 6fad356f086105340875455d001d05b5, type: 2}
     - target: {fileID: 789888545500864672, guid: 0b9ce886d72e38144b302208158e49e4, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

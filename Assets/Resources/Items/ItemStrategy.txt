@@ -1,0 +1,2 @@
+1 Unique item per monster
+1 item per monster class (slimers, orcs, skeletons, dark, etc..)

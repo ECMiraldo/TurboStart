@@ -30,3 +30,9 @@ MonoBehaviour:
   evasion: 10
   powerCost: 5
   positioning: 3
+  goldReward: 0
+  lootTable:
+    lootDict:
+      _serializedList:
+      - Key: {fileID: 11400000, guid: ac57e5b833de3dd48afdcf6eb36c2d12, type: 2}
+        Value: 80

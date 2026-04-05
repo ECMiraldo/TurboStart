@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad93023c445ce5045b53465e3a059066, type: 3}
+  m_Name: GhostCloth
+  m_EditorClassIdentifier: 
+  <id>k__BackingField: 0bf5b10f-39bb-4dbd-af16-8403669fd926
+  <Name>k__BackingField: Ghost Cloth
+  <Sprite>k__BackingField: {fileID: 1307894602, guid: 27bd325b29e918d48b55090a2a1958c7, type: 3}
+  <Description>k__BackingField: 
+  <BuyPrice>k__BackingField: 0
+  <SellPrice>k__BackingField: 0

@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: enemyDataSO
       value: 
       objectReference: {fileID: 11400000, guid: 870dce57bb821f94d8ecb6df7bc95136, type: 2}
+    - target: {fileID: 8793604821484039968, guid: 2314754e469a07d4ba8cb6ee1d0779be, type: 3}
+      propertyPath: <enemyDataSO>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 870dce57bb821f94d8ecb6df7bc95136, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

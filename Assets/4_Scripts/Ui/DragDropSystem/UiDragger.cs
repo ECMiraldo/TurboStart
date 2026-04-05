@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
-
+using NaughtyAttributes;
 
 [RequireComponent(typeof(Image))]
 public class UiDragger : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
@@ -10,7 +10,7 @@ public class UiDragger : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     public event Action<PointerEventData> onBeginDrag;
     public event Action<PointerEventData> onEndDrag;
 
-    private Transform parentAfterDrag;
+    [field: SerializeField, ReadOnly] public Transform parentObject { get; private set; }
     private Canvas rootCanvas;
     private Image icon;
 
@@ -25,7 +25,7 @@ public class UiDragger : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     {
         rectTransform = GetComponent<RectTransform>();
         icon = GetComponent<Image>();
-        parentAfterDrag = transform.parent;
+        parentObject = transform.parent;
         rootCanvas = GameObject.FindGameObjectWithTag("RootCanvas").GetComponent<Canvas>();
         if (rootCanvas == null) Debug.Log("Null canvas on " + transform.name);
     }
@@ -34,7 +34,7 @@ public class UiDragger : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     {
         if (icon == null) return;
         isDragging = true;
-        parentAfterDrag = transform.parent;
+        parentObject = transform.parent;
         originalOffsetMin = rectTransform.offsetMin;
         originalOffsetMax = rectTransform.offsetMax;
         originalAnchorMin = rectTransform.anchorMin;
@@ -62,7 +62,7 @@ public class UiDragger : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     public virtual void OnEndDrag(PointerEventData eventData)
     {
         icon.raycastTarget = true;
-        transform.SetParent(parentAfterDrag.transform, false);
+        transform.SetParent(parentObject.transform, false);
         rectTransform.anchorMin = originalAnchorMin;
         rectTransform.anchorMax = originalAnchorMax;
         rectTransform.offsetMin = originalOffsetMin;

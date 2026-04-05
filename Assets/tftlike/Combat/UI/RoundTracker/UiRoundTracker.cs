@@ -18,6 +18,7 @@ public class UiRoundTracker : MonoBehaviour
     private void OnEnable()
     {
         CombatSessionManager.onStateChanged += OnGameStateChanged;
+        
     }
 
     private void OnDisable()
@@ -32,7 +33,6 @@ public class UiRoundTracker : MonoBehaviour
         switch (state)
         {
             case CombatState.StageSetup:
-                gameObject.SetActive(true);
                 BuildForStage(session);
                 break;
 

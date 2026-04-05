@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: enemyDataSO
       value: 
       objectReference: {fileID: 11400000, guid: 867a245b74ca75e4fb76f85045ebb898, type: 2}
+    - target: {fileID: 502999178571237595, guid: 0b9ce886d72e38144b302208158e49e4, type: 3}
+      propertyPath: <enemyDataSO>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 867a245b74ca75e4fb76f85045ebb898, type: 2}
     - target: {fileID: 789888545500864672, guid: 0b9ce886d72e38144b302208158e49e4, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -74,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: f5c2f2faf17be7449b9faf961b6bb459, type: 2}
     - target: {fileID: 4281402545991561159, guid: 0b9ce886d72e38144b302208158e49e4, type: 3}
       propertyPath: m_Name
-      value: SkeletonMelee
+      value: SkeletonMelee Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7507217802591453966, guid: 0b9ce886d72e38144b302208158e49e4, type: 3}
       propertyPath: m_Sprite
