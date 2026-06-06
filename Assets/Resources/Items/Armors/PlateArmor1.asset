@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7df74aed6c8cb97499a91e0181fbb80e, type: 3}
+  m_Name: PlateArmor1
+  m_EditorClassIdentifier: 
+  <id>k__BackingField: b1e4c23f-9a7a-47dd-b9a8-1eac39ef5388
+  <Name>k__BackingField: Plate Armor
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 2aee213546a0f7747bd4d5c44473f3a1, type: 3}
+  <Description>k__BackingField: 
+  <BuyPrice>k__BackingField: 0
+  <SellPrice>k__BackingField: 0
+  <RequiredLevel>k__BackingField: 0
+  <Slot>k__BackingField: 1
+  <armorType>k__BackingField: 2
+  <EnchantmentSlots>k__BackingField: 0

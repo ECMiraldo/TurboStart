@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class InventorySlot : UiSlot<Item>
 {
     [field: SerializeField] private TextMeshProUGUI quantityText;
+    [field: SerializeField] public HeroScreenUI heroScreenUI;
     public InventoryEntry entry { get; private set; }
    
     private void OnEnable()
@@ -29,8 +30,17 @@ public class InventorySlot : UiSlot<Item>
 
     public override void OnDrop(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        var parentSlot = eventData.pointerDrag.GetComponent<UiDragger>().parentObject.GetComponent<EquipmentSlotUI>();
+        if (!parentSlot) return;
+        HeroData currentHero = heroScreenUI.GetCurrentHero();
+        Equipment equip = parentSlot.currentItem;
+        equip.Unequip(currentHero); // "backend" unequip
+        parentSlot.SetItem(null);
+        if (currentItem == null) entry.SetEntry(equip, 1);
+        else SaveLoadSystem.Instance.data.inventory.AddItem(equip);
     }
+
+   
 
 
 

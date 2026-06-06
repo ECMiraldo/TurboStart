@@ -28,3 +28,5 @@ MonoBehaviour:
   defense: 10
   magicDefense: 20
   evasion: 5
+  <usableArmors>k__BackingField: 00
+  <usableWeapons>k__BackingField: 00000000

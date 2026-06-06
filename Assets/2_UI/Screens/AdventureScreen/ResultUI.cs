@@ -25,7 +25,6 @@ public class ResultUI : UIPanelController
         resourceData = SaveLoadSystem.Instance.data.resourceData;
         inventory = SaveLoadSystem.Instance.data.inventory;
     }
-
     public override void Close()
     {
         base.Close();

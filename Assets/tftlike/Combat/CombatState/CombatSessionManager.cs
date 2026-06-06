@@ -43,6 +43,9 @@ public class CombatSessionManager : MonoBehaviour
     [field: SerializeField, ReadOnly] public CombatState State { get; private set; }
 
     private Coroutine currentRoutine;
+
+    private List<Item> itemRewards = new List<Item>();
+    private int goldRewards = 0;
     private void Awake()
     {
         if (Instance != null) Destroy(Instance);
@@ -97,7 +100,6 @@ public class CombatSessionManager : MonoBehaviour
     {
         currentStage = stage;
         currentRoundIndex = 0;
-
         SetState(CombatState.StageSetup); 
     }
 
@@ -175,8 +177,8 @@ public class CombatSessionManager : MonoBehaviour
 
     public void PlayerClickedLeave()
     {
-        DestroyUnits();
-        AdventureMap.Instance.LeaveStage();
+        DestroyUnits(unitsByTeam[Team.Enemy].Concat(unitsByTeam[Team.Neutral]));
+        AdventureMap.Instance.ShowHUD();
     }
 
     private IEnumerator HandleDefeat()
@@ -188,19 +190,25 @@ public class CombatSessionManager : MonoBehaviour
     private IEnumerator HandleVictory()
     {
         //onStageWon?.Invoke(resultScreenTime);
+
+        foreach (ItemSO item in currentStage.stageLootTable.GetDrops())
+        {
+            resultUI.AddItemToLoot(item.ToItem());
+        }
         resultUI.ShowVictory();
-        yield return RestartStage();
+        if (isAutoplay)
+        {
+            yield return RestartStage();
+        }
+       
     }
 
     private IEnumerator RestartStage()
     {
-        if (isAutoplay)
-        {
-            yield return new WaitForSeconds(resultScreenTime);
-            ResetStage();
-            yield return null; //just wait a frame here
-            BeginNextRound();
-        }
+        yield return new WaitForSeconds(resultScreenTime);
+        ResetStage();
+        yield return null; //just wait a frame here
+        BeginNextRound();
     }
 
     private bool IsRoundOver()
@@ -225,17 +233,18 @@ public class CombatSessionManager : MonoBehaviour
 
     private void ResetStage()
     {
-        DestroyUnits();
+        DestroyUnits(unitsByTeam[Team.Enemy].Concat(unitsByTeam[Team.Neutral]).Concat(unitsByTeam[Team.Player]));
         spawner.ReplaceHeroes();
         //check the heroes that are alive and reset them
         StartStage(currentStage);
     }
 
-    private void DestroyUnits()
+    private void DestroyUnits(IEnumerable<UnitBrain> brains)
     {
-        foreach (UnitBrain ctx in unitsByTeam[Team.Enemy].Concat(unitsByTeam[Team.Neutral]).Concat(unitsByTeam[Team.Player]))
+        foreach (UnitBrain ctx in brains)
         {
             Destroy(ctx.gameObject);
         }
     }
+
 }

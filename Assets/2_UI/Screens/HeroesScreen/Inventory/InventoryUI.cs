@@ -5,6 +5,7 @@ public class InventoryUI : MonoBehaviour
 {
     [SerializeField] private Transform slotsParent;
     [SerializeField] private GameObject slotsPrefab;
+    [SerializeField] private HeroScreenUI heroScreenUI;
 
     private Inventory inventory;
     private int nSlots = 0;
@@ -25,7 +26,8 @@ public class InventoryUI : MonoBehaviour
 
     private void InstantiateSlot()
     {
-        Instantiate(slotsPrefab, slotsParent);
+        InventorySlot slot = Instantiate(slotsPrefab, slotsParent).GetComponent<InventorySlot>();
+        slot.heroScreenUI = heroScreenUI;
     }
 
 }

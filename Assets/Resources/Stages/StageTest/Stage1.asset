@@ -18,3 +18,24 @@ MonoBehaviour:
   rounds:
   - {fileID: 11400000, guid: 2b80963d433f7134a8c19281f6a1eecb, type: 2}
   - {fileID: 11400000, guid: 6ec06a05912d2ab4e99a01ae9210bd68, type: 2}
+  stageLootTable:
+    lootDict:
+      _serializedList:
+      - Key: {fileID: 11400000, guid: b04297171e452c540bad01ef6e93abd0, type: 2}
+        Value: 100
+      - Key: {fileID: 11400000, guid: 8df564b48c49f6f4f8173447150e1b4f, type: 2}
+        Value: 0
+      - Key: {fileID: 11400000, guid: f32bf20424c161741acfa9f61bccce41, type: 2}
+        Value: 0
+      - Key: {fileID: 11400000, guid: 70e10280cd2da01419ce3cdfb63522dd, type: 2}
+        Value: 0
+      - Key: {fileID: 11400000, guid: 82081f074cf29914d9b2ee26b2f42744, type: 2}
+        Value: 0
+      - Key: {fileID: 11400000, guid: dcaa008a7639c844d886159850471684, type: 2}
+        Value: 100
+      - Key: {fileID: 11400000, guid: bb25cf28aafc6154eb241088499a2304, type: 2}
+        Value: 100
+      - Key: {fileID: 11400000, guid: b0c1ebb6d06f5b84e85f31fcb63d532d, type: 2}
+        Value: 0
+      - Key: {fileID: 11400000, guid: 28317335b5dd04246926674243bbfc14, type: 2}
+        Value: 0

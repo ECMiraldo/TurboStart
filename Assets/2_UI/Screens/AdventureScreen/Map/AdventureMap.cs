@@ -16,11 +16,14 @@ public class AdventureMap : UIPanelController
     {
         if (Instance == null) Instance = this;
         else Destroy(this.gameObject);
+        stageTracker.SetActive(false);
     }
 
     private void OnDisable()
     {
         stageDetails.gameObject.SetActive(false);
+        stageTracker.SetActive(false);
+
     }
 
     public void StageButtonClicked(StageDefinitionSO stageSO)
@@ -29,9 +32,15 @@ public class AdventureMap : UIPanelController
         currentStage = stageSO;
     }
 
+    public void ShowHUD()
+    {
+        heroBoard.SetActive(true);
+    }
+
     public void StartStage()
     {   
         combatManager.StartStage(currentStage);
+
         heroBoard.SetActive(true);
         stageTracker.SetActive(true);
         background.SetActive(true);
@@ -40,9 +49,7 @@ public class AdventureMap : UIPanelController
 
     public void LeaveStage()
     {
-        heroBoard.SetActive(false);
         stageTracker.SetActive(false);
-        background.SetActive(false);
         Open();
     }
 

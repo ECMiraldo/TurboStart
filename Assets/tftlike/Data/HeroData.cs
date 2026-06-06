@@ -61,6 +61,8 @@ public class HeroData
         this.statData = statData;
         this.equipmentData = equipmentData;
     }
+
+
 }
 
 [Serializable]
@@ -76,7 +78,4 @@ public class HeroEquipmentData
             equipments.Add(null);
         }
     }
-
-
-
 }

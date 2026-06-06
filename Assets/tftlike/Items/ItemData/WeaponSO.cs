@@ -3,6 +3,14 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
+public enum WeaponType
+{
+    Staff = 0,
+    Bow = 1,
+    Sword = 2,
+    
+}
+
 
 
 [CreateAssetMenu(menuName = "Items/Weapon")]
@@ -10,28 +18,23 @@ public class WeaponSO : EquipmentSO
 {
     [field: Space(25)]
     [field: Header("Weapon")]
-    [field: SerializeField] public RuntimeAnimatorController animationController { get; private set; }
-    //[field: SerializeField] public DamageType damageType { get; private set; }
     //[field: SerializeField] public RollableInt minAttack { get; private set; }
     //[field: SerializeField] public RollableInt maxAttack { get; private set; }
-    [field: SerializeField] public float Range { get; private set; }
     [field: SerializeField] public float AttackSpeed { get; private set; }
     [field: SerializeField, ReadOnly] public override EquipmentSlot Slot => EquipmentSlot.Weapon;
-    //[field: SerializeField] public WeaponType WeaponType { get; private set; }
-    //[field: SerializeField] public Element Element { get; private set; }
-    [field: SerializeField] public bool IsTwoHanded { get; private set; }
+    [field: SerializeField] public WeaponType WeaponType { get; private set; }
     public override Item ToItem() => new Weapon(this);
 
     public override bool CanEquip(HeroData heroData)
     {
-        return true;
+        HeroTemplateSO hero = heroData.template;
+        return hero.usableWeapons.Contains(WeaponType);
     }
 
     public override string GetFullDescription()
     {
         string text = $"{Description}\n\n\n";
 
-        if (IsTwoHanded) text += "TwoHanded\n";
         //text += $"Damage type: {damageType} \n";
         //text += $"DamageRange: {minAttack.min}/{minAttack.max} - {maxAttack.min}/{maxAttack.max} \n";
 
@@ -70,29 +73,6 @@ public class Weapon : Equipment
         //minAttackValue = Random.Range(weaponSO.minAttack.min, weaponSO.minAttack.max + 1);
         //maxAttackValue = Random.Range(weaponSO.maxAttack.min, weaponSO.maxAttack.max + 1);
 
-        //if (weaponSO.damageType == DamageType.Physical)
-        //{
-        //    baseModifiers.Add(new FixedAttributeModifier(minAttackValue, AttributeEnum.MIN_PHYSICAL_DMG, StatModType.Flat, weaponSO.Name));
-        //    baseModifiers.Add(new FixedAttributeModifier(maxAttackValue, AttributeEnum.MAX_PHYSICAL_DMG, StatModType.Flat, weaponSO.Name));
-        //    upgradeModifier = new FixedAttributeModifier(0.0f, AttributeEnum.MIN_PHYSICAL_DMG, StatModType.PercentAdd, "Weapon Upgrade");
-        //    upgradeModifierMax = new FixedAttributeModifier(0.0f, AttributeEnum.MAX_PHYSICAL_DMG, StatModType.PercentAdd, "Weapon Upgrade");
-
-        //}
-        //if (weaponSO.damageType == DamageType.Ranged)
-        //{
-        //    baseModifiers.Add(new FixedAttributeModifier(minAttackValue, AttributeEnum.MIN_RANGED_DMG, StatModType.Flat, weaponSO.Name));
-        //    baseModifiers.Add(new FixedAttributeModifier(maxAttackValue, AttributeEnum.MAX_RANGED_DMG, StatModType.Flat, weaponSO.Name));
-        //    upgradeModifier = new FixedAttributeModifier(0.0f, AttributeEnum.MIN_MAGICAL_DMG, StatModType.PercentAdd, "Weapon Upgrade");
-        //    upgradeModifierMax = new FixedAttributeModifier(0.0f, AttributeEnum.MAX_MAGICAL_DMG, StatModType.PercentAdd, "Weapon Upgrade");
-        //}
-        //if (weaponSO.damageType == DamageType.Magical)
-        //{
-        //    baseModifiers.Add(new FixedAttributeModifier(minAttackValue, AttributeEnum.MIN_MAGICAL_DMG, StatModType.Flat, weaponSO.Name));
-        //    baseModifiers.Add(new FixedAttributeModifier(maxAttackValue, AttributeEnum.MAX_MAGICAL_DMG, StatModType.Flat, weaponSO.Name));
-        //    upgradeModifier = new FixedAttributeModifier(0.0f, AttributeEnum.MIN_MAGICAL_DMG, StatModType.PercentAdd, "Weapon Upgrade");
-        //    upgradeModifierMax = new FixedAttributeModifier(0.0f, AttributeEnum.MAX_MAGICAL_DMG, StatModType.PercentAdd, "Weapon Upgrade");
-        //}
-
         //baseModifiers.Add(new FixedAttributeModifier(weaponSO.AttackSpeed, AttributeEnum.ATTACK_SPEED, StatModType.PercentMult, weaponSO.Name));
         //baseModifiers.Add(new FixedAttributeModifier(weaponSO.Range, AttributeEnum.RANGE, StatModType.Flat, weaponSO.Name));
         //baseModifiers.Add(upgradeModifierMax);
@@ -115,7 +95,6 @@ public class Weapon : Equipment
         WeaponSO so = SO<WeaponSO>();
         string text = $"{so.Description}\n\n\n";
 
-        if (so.IsTwoHanded) text += "TwoHanded\n";
         //text += $"Damage type: {so.damageType} \n";
         text += $"DamageRange: {minAttackValue} - {maxAttackValue} \n";
 
@@ -125,7 +104,6 @@ public class Weapon : Equipment
         //}
 
         text += $"Base ASPD: {1 + so.AttackSpeed}\n";
-        text += $"Range: {so.Range}\n";
         text += $"\nRequiredLevel: {so.RequiredLevel}\n\n";
 
 

@@ -1,12 +1,14 @@
 using UnityEngine;
 using Persistence;
-using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class HeroScreenUI : MonoBehaviour
 {
+    public event Action<HeroData> onHeroChanged;
+
     [Header("UiRefs")]
     [SerializeField] private TextMeshProUGUI heroNameText;
     [SerializeField] private Transform heroScrollContent;
@@ -65,9 +67,11 @@ public class HeroScreenUI : MonoBehaviour
     {
         currentHero = idx;
         heroNameText.text = heroList[currentHero].name;
-
         statsUI.UpdateStats(heroList[currentHero]);
+        onHeroChanged?.Invoke(heroList[currentHero]);
     }
 
     private void SelectHero(HeroData hero) => SelectHero(heroList.FindIndex((h) => h == hero));
+
+    public HeroData GetCurrentHero() => heroList[currentHero];
  }

@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Persistence;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,13 @@ public enum EquipmentSlot : byte
     Weapon = 3,
 }
 
+public enum ArmorType : byte
+{
+    Cloth = 0,
+    Leather = 1,
+    Plate = 2,
+}
+
 [CreateAssetMenu(menuName = "Items/Equipment")]
 public class EquipmentSO : ItemSO
 {
@@ -17,8 +25,8 @@ public class EquipmentSO : ItemSO
     [field: Header("Equipment")]
     [field: SerializeField] public int RequiredLevel { get; private set; }
     [field: SerializeField] public virtual EquipmentSlot Slot { get; private set; }
+    [field: SerializeField] public ArmorType armorType { get; private set; }
     [field: SerializeField] public int EnchantmentSlots { get; private set; }
-    //  [field: SerializeField] public List<ClassDataSO> usableClasses {get; private set;}
      //[field: SerializeField] public List<RollableAttributeModifier> attributeModifiers { get; private set; }
    // [field: SerializeField] public List<DamageModifierSO> offensiveDamageModifiers { get; private set; }
    // [field: SerializeField] public List<DamageModifierSO> defensiveDamageModifiers { get; private set; }
@@ -26,11 +34,13 @@ public class EquipmentSO : ItemSO
 
    // [field: SerializeField] public List<UpgradeRequirement> upgradeRequirements = new(Constants.MAX_UPGRADE_LEVEL);
     public override bool IsStackable => false;
+    public override Item ToItem() => new Equipment(this);
     public virtual bool CanEquip(HeroData characterData)
     {
-        return true;
-
+        HeroTemplateSO hero = characterData.template;
+        return hero.usableArmors.Contains(armorType);
     }
+
 
     public override string GetFullDescription()
     {
@@ -86,6 +96,20 @@ public class Equipment : Item
         //this.upgradeModifier = upgradeModifier;
     }
 
+
+    public void Equip(HeroData heroData, InventorySlot formerSlot)
+    {
+        HeroEquipmentData heroEquipmentData = heroData.equipmentData;
+        heroEquipmentData.equipments[(int)SO<EquipmentSO>().Slot] = this;
+        SaveLoadSystem.Instance.data.inventory.RemoveEntry(formerSlot.entry.index);
+    }
+    public void Unequip(HeroData heroData)
+    {
+        //little bit spaghetti here but backend data of inventory is dealt on the inventory slot
+        HeroEquipmentData heroEquipmentData = heroData.equipmentData;
+        heroEquipmentData.equipments[(int)SO<EquipmentSO>().Slot] = null;
+    }
+
     public string GetFullName()
     {
         if (upgradeLevel > 0) return SO<EquipmentSO>().Name + " +" + upgradeLevel.ToString() + $" [{enchantSlots}]";
@@ -102,93 +126,6 @@ public class Equipment : Item
     //{
     //    enchantItems.Add(enchantmentItem);
     //}
-
-    public void OnEquip(StatsComponent stats)
-    {
-        EquipmentSO so = SO<EquipmentSO>();
-
-        //foreach (AttributeModifier mod in baseModifiers)
-        //{
-        //    stats.stats[mod.StatDefinition].AddModifier(mod);
-        //}
-        //foreach (AttributeModifier mod in addedModifiers)
-        //{
-        //    stats.stats[mod.StatDefinition].AddModifier(mod);
-        //}
-        //foreach (DamageModifierSO dmgMod in so.offensiveDamageModifiers)
-        //{
-        //    stats.offensiveModifiers.Add(dmgMod);
-        //}
-        //foreach (DamageModifierSO dmgMod in so.defensiveDamageModifiers)
-        //{
-        //    stats.defensiveModifiers.Add(dmgMod);
-        //}
-
-
-        //foreach (EnchantmentItem enchant in enchantItems)
-        //{
-        //    foreach (AttributeModifier mod in enchant.Modifiers)
-        //    {
-        //        stats.stats[mod.StatDefinition].AddModifier(mod);
-        //    }
-        //    EnchantmentItemSO enchantmentSO = enchant.SO<EnchantmentItemSO>();
-
-        //    foreach (DamageModifierSO dmgMod in enchantmentSO.offensiveDamageModifiers)
-        //    {
-        //        stats.offensiveModifiers.Add(dmgMod);
-        //    }
-        //    foreach (DamageModifierSO dmgMod in enchantmentSO.defensiveDamageModifiers)
-        //    {
-        //        stats.defensiveModifiers.Add(dmgMod);
-        //    }
-
-        //}
-
-
-    }
-
-    public void OnUnequip(StatsComponent stats)
-    {
-        EquipmentSO so = SO<EquipmentSO>();
-
-        //foreach (AttributeModifier mod in baseModifiers)
-        //{
-        //    stats.stats[mod.StatDefinition].RemoveModifier(mod);
-        //}
-        //foreach (AttributeModifier mod in addedModifiers)
-        //{
-        //    stats.stats[mod.StatDefinition].RemoveModifier(mod);
-        //}
-        //foreach (DamageModifierSO dmgMod in so.offensiveDamageModifiers)
-        //{
-        //    stats.offensiveModifiers.Remove(dmgMod);
-        //}
-        //foreach (DamageModifierSO dmgMod in so.defensiveDamageModifiers)
-        //{
-        //    stats.defensiveModifiers.Remove(dmgMod);
-        //}
-
-
-        //foreach (EnchantmentItem enchant in enchantItems)
-        //{
-        //    foreach (AttributeModifier mod in enchant.Modifiers)
-        //    {
-        //        stats.stats[mod.StatDefinition].RemoveModifier(mod);
-        //    }
-        //    EnchantmentItemSO enchantmentSO = enchant.SO<EnchantmentItemSO>();
-
-        //    foreach (DamageModifierSO dmgMod in enchantmentSO.offensiveDamageModifiers)
-        //    {
-        //        stats.offensiveModifiers.Remove(dmgMod);
-        //    }
-        //    foreach (DamageModifierSO dmgMod in enchantmentSO.defensiveDamageModifiers)
-        //    {
-        //        stats.defensiveModifiers.Remove(dmgMod);
-        //    }
-
-        
-    }
-
 
     public override string GetFullDescription()
     {

@@ -40,7 +40,7 @@ public class UiDragger : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
         originalAnchorMin = rectTransform.anchorMin;
         originalAnchorMax = rectTransform.anchorMax;
         transform.SetParent(rootCanvas.transform);
-        transform.SetAsFirstSibling();
+        transform.SetAsLastSibling();
         icon.raycastTarget = false;
         onBeginDrag?.Invoke(eventData);
     }
@@ -62,6 +62,7 @@ public class UiDragger : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     public virtual void OnEndDrag(PointerEventData eventData)
     {
         icon.raycastTarget = true;
+        isDragging = false;
         transform.SetParent(parentObject.transform, false);
         rectTransform.anchorMin = originalAnchorMin;
         rectTransform.anchorMax = originalAnchorMax;
