@@ -11,6 +11,12 @@ public class PersistentData
     public Inventory inventory;
     public TavernData tavernData;
     public ResourceData resourceData;
-
+    public MapData mapData;
 }
 
+public class MapData
+{
+    public int currentLocationIndex;
+    public int destinationLocationIndex;
+    public int remainingTravelTicks;
+}

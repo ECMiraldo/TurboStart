@@ -1,17 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-
 [CreateAssetMenu(menuName = "Combat/Stage")]
-public class StageDefinitionSO : IDScriptableObject
+public class StageDefinitionSO : MapLocationSO
 {
     public int requiredLevel;
-    public string stageName;
     public List<RoundDefinitionSO> rounds;
     public LootTable stageLootTable;
-
-
-
     public List<Sprite> GetPossibleDropIcons()
     {
         List<Sprite> result = new List<Sprite>();

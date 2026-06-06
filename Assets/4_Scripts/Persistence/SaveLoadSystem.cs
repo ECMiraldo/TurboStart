@@ -116,6 +116,7 @@ namespace Persistence
                 tavernData = new TavernData(),
                 resourceData = new ResourceData(),
                 lastTickTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
+                mapData = new MapData(),
             };
         }
     }

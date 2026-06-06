@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 5369242312319255840}
   - component: {fileID: 4790395877828260733}
   m_Layer: 5
-  m_Name: Stage
+  m_Name: AdventureMapStage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -318,6 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bda699585bda4044b6be48ac10b9325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageSO: {fileID: 11400000, guid: 9780a9338686f8d4f856e947c536abf0, type: 2}
-  stageNameText: {fileID: 2083286727300809528}
+  stageDetails: {fileID: 0}
+  nameText: {fileID: 2083286727300809528}
   button: {fileID: 5198151529670931869}
+  stageDefinitionSO: {fileID: 11400000, guid: c1e2f7fc2fd688b44a7a3791e28be843, type: 2}

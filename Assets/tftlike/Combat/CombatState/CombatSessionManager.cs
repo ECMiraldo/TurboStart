@@ -18,34 +18,38 @@ public enum CombatState
 [DefaultExecutionOrder(-1)]
 public class CombatSessionManager : MonoBehaviour
 {
+    public static CombatSessionManager Instance { get; private set; }
+
+
     public static event Action<CombatState> onStateChanged;
     public static event Action<bool> onAutoplayToggled;
     public static event Action onRoundWon; 
-  //  public static event Action<float> onStageWon; //float is delay
-  //  public static event Action<float> onStageLost; //float is delay
-    public static CombatSessionManager Instance { get; private set; }
 
+    [Header("Refs")]
     [field: SerializeField] public CombatSpawner spawner { get; private set; }
     [field: SerializeField] public ResultUI resultUI { get; private set; }
     [field: SerializeField] public StageDefinitionSO currentStage { get; private set; }
-    [field: SerializeField, ReadOnly] public int currentRoundIndex { get; private set; }
-    [field: SerializeField, ReadOnly] public RoundDefinitionSO currentRound { get; private set; }
+    [field: SerializeField] public GameObject UI { get; private set; }
 
+    [Header("Configs")]
     [field: SerializeField] public bool isAutoplay { get; private set; } = false;
-    
     [SerializeField] private float preRoundDelay = 1.5f;
     [SerializeField] private float postRoundDelay = 2f;
     [SerializeField] private float spawningDelay = 2f;
     [SerializeField] public float resultScreenTime = 3.0f;
 
-    public readonly Dictionary<Team, List<UnitBrain>> unitsByTeam = new();
-    public IEnumerable<UnitBrain> allUnits => unitsByTeam[Team.Player].Concat(unitsByTeam[Team.Enemy]).Concat(unitsByTeam[Team.Neutral]);
+
+    [Header("State")]
+    [field: SerializeField, ReadOnly] public int currentRoundIndex { get; private set; }
+    [field: SerializeField, ReadOnly] public RoundDefinitionSO currentRound { get; private set; }
     [field: SerializeField, ReadOnly] public CombatState State { get; private set; }
 
-    private Coroutine currentRoutine;
+    public readonly Dictionary<Team, List<UnitBrain>> unitsByTeam = new();
 
-    private List<Item> itemRewards = new List<Item>();
-    private int goldRewards = 0;
+
+    public IEnumerable<UnitBrain> allUnits => unitsByTeam[Team.Player].Concat(unitsByTeam[Team.Enemy]).Concat(unitsByTeam[Team.Neutral]);
+
+    private Coroutine currentRoutine;
     private void Awake()
     {
         if (Instance != null) Destroy(Instance);
@@ -100,6 +104,7 @@ public class CombatSessionManager : MonoBehaviour
     {
         currentStage = stage;
         currentRoundIndex = 0;
+        UI.SetActive(true);
         SetState(CombatState.StageSetup); 
     }
 
@@ -178,7 +183,6 @@ public class CombatSessionManager : MonoBehaviour
     public void PlayerClickedLeave()
     {
         DestroyUnits(unitsByTeam[Team.Enemy].Concat(unitsByTeam[Team.Neutral]));
-        AdventureMap.Instance.ShowHUD();
     }
 
     private IEnumerator HandleDefeat()

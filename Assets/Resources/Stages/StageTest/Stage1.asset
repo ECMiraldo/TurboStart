@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Stage1
   m_EditorClassIdentifier: 
   <id>k__BackingField: 51a11e2c-6b69-47ed-9ae5-145f9bb4865f
+  displayName: Stage 1
+  description: 'Ipsum loren coiso e tal era um a vez '
   requiredLevel: 0
-  stageName: 
   rounds:
   - {fileID: 11400000, guid: 2b80963d433f7134a8c19281f6a1eecb, type: 2}
   - {fileID: 11400000, guid: 6ec06a05912d2ab4e99a01ae9210bd68, type: 2}
