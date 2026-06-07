@@ -68,6 +68,7 @@ public class ResultUI : UIPanelController
     public void OnLeaveClicked()
     {
         CombatSessionManager.Instance.PlayerClickedLeave();
+        AdventureMap.Instance.SetMapToWorld();
         Close();
     }
 

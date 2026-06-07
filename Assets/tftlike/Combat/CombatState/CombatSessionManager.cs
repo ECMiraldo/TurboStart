@@ -182,7 +182,8 @@ public class CombatSessionManager : MonoBehaviour
 
     public void PlayerClickedLeave()
     {
-        DestroyUnits(unitsByTeam[Team.Enemy].Concat(unitsByTeam[Team.Neutral]));
+        DestroyUnits(allUnits);
+        UI.SetActive(false);
     }
 
     private IEnumerator HandleDefeat()

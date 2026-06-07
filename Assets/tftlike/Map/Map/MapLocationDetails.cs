@@ -38,9 +38,16 @@ public class MapLocationDetails : MonoBehaviour
         if (playerParty.destination != null) return; //currentlyTravelling
 
         if (playerParty.currentLocation == location) //enter
-            actionButton.onClick.AddListener(() => location.Enter()); //travelling
+            actionButton.onClick.AddListener(() => {
+                AdventureMap.Instance.SetMapToWindow();
+                location.Enter();
+                this.gameObject.SetActive(false);
+            });
         else 
-            actionButton.onClick.AddListener(() => playerParty.CommitTravel(location)); //travelling
+            actionButton.onClick.AddListener(() => { //travelling
+                playerParty.CommitTravel(location);
+                this.gameObject.SetActive(false);
+            }); 
     }
   
 }

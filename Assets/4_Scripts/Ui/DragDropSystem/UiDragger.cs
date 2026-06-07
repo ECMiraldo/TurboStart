@@ -11,9 +11,11 @@ public class UiDragger : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     public event Action<PointerEventData> onEndDrag;
 
     [field: SerializeField, ReadOnly] public Transform parentObject { get; private set; }
-    private Canvas rootCanvas;
+    [field: SerializeField ] private Canvas rootCanvas;
+
     private Image icon;
 
+    private Vector2 pivot;
     private RectTransform rectTransform;
     private Vector2 originalOffsetMin;
     private Vector2 originalOffsetMax;
@@ -26,8 +28,10 @@ public class UiDragger : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
         rectTransform = GetComponent<RectTransform>();
         icon = GetComponent<Image>();
         parentObject = transform.parent;
-        rootCanvas = GameObject.FindGameObjectWithTag("RootCanvas").GetComponent<Canvas>();
+        pivot = rectTransform.pivot;
+        rootCanvas = GetComponentInParent<Canvas>()?.rootCanvas;
         if (rootCanvas == null) Debug.Log("Null canvas on " + transform.name);
+        
     }
 
     public virtual void OnBeginDrag(PointerEventData eventData)
@@ -43,6 +47,7 @@ public class UiDragger : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
         transform.SetAsLastSibling();
         icon.raycastTarget = false;
         onBeginDrag?.Invoke(eventData);
+        rectTransform.pivot = new Vector2(0.5f, 0.5f);
     }
 
     public virtual void OnDrag(PointerEventData eventData)
@@ -69,6 +74,7 @@ public class UiDragger : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
         rectTransform.offsetMin = originalOffsetMin;
         rectTransform.offsetMax = originalOffsetMax;
         transform.localScale = Vector3.one;
+        rectTransform.pivot = pivot;
         onEndDrag?.Invoke(eventData);
     }
 
