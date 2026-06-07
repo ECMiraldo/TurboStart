@@ -5,9 +5,9 @@
 public class AdventureMap : MonoBehaviour 
 {
     public static AdventureMap Instance;
-    [field: SerializeField] public Transform mapContent { get; private set; }
-    [field: SerializeField] public Transform mapViewport { get; private set; }
 
+    [field: SerializeField] public UIPanMap mapView { get; private set; }
+    [field: SerializeField] public Transform mapViewport { get; private set; }
     [field: SerializeField] public GameObject background { get; private set; }
     private void Awake()
     {
@@ -16,15 +16,17 @@ public class AdventureMap : MonoBehaviour
     }
     public void SetMapToWindow()
     {
-        mapContent.SetParent(mapViewport, true);
-        mapContent.localScale = Vector3.one;
+        mapView.transform.SetParent(mapViewport, false); ;
+        mapView.transform.localScale = Vector3.one;
+        mapView.SetViewport(mapViewport.GetComponent<RectTransform>());
     }
 
     public void SetMapToWorld()
     {
-        mapContent.SetParent(transform);
-        mapContent.SetAsFirstSibling();
-        mapContent.localScale = Vector3.one;
+        mapView.transform.SetParent(transform, false);
+        mapView.transform.SetAsFirstSibling();
+        mapView.transform.localScale = Vector3.one;
+        mapView.SetViewport(transform.GetComponent<RectTransform>());
 
     }
 

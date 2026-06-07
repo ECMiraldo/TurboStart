@@ -65,18 +65,6 @@ public class ResultUI : UIPanelController
             progressBar.gameObject.SetActive(false);
         }
     }
-    public void OnLeaveClicked()
-    {
-        CombatSessionManager.Instance.PlayerClickedLeave();
-        AdventureMap.Instance.SetMapToWorld();
-        Close();
-    }
-
-    public void OnRestartClicked()
-    {
-        CombatSessionManager.Instance.PlayerClickedRestart();
-        Close();
-    }
 
     public void AddItemToLoot(Item item)
     {

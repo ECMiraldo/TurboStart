@@ -6,7 +6,7 @@ public abstract class MapLocationButton : MonoBehaviour
 {
     [Header("Adventure Map Location")]
     [field: SerializeField] public virtual MapLocationSO mapLocationSO { get; }
-    [field: SerializeField] protected MapLocationDetails stageDetails;
+    [field: SerializeField] protected MapLocationDetails locationDetails;
     [SerializeField] protected TextMeshProUGUI nameText;
     [SerializeField] private Button button;
 
@@ -22,11 +22,11 @@ public abstract class MapLocationButton : MonoBehaviour
         nameText.text = mapLocationSO.displayName;
     }
 
-    protected virtual void ShowDetails() => stageDetails.ShowLocationDetails(this);
+    protected virtual void ShowDetails() => locationDetails.ShowLocationDetails(this);
     public int GetRequiredTicks(MapLocationButton sourceLocation)
     {
         float dist = Vector2.Distance(transform.position, sourceLocation.transform.position);
-        return Mathf.RoundToInt(dist * 10.0f);
+        return Mathf.RoundToInt(dist * GameManager.instance.TravelSpeedMultiplier);
     }
 
     public abstract void Enter();

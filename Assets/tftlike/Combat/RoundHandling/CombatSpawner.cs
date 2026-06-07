@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 public struct SpawnIntent
 {
     public EnemyDataSO monster;
@@ -22,7 +23,7 @@ public class CombatSpawner : MonoBehaviour
         }
     }
 
-    public bool PlaceHero(HeroData data, Vector2 worldPos)
+    public bool PlaceHero(HeroData data, Vector2 worldPos, bool savePos = true)
     {
         var cell = GridSystem.Instance.WorldToGrid(worldPos);
         if (GridSystem.Instance.CanPlaceFootprint(cell, data.template.footprintOffsets))
@@ -34,8 +35,7 @@ public class CombatSpawner : MonoBehaviour
             GridSystem.Instance.PlaceUnit(unitGridComponent, cell, data.template.footprintOffsets);
             var targetWorldPos = GridSystem.Instance.GridToWorld(cell);
             go.transform.position = targetWorldPos;
-            if (!heroStartPositions.ContainsKey(data))
-                heroStartPositions[data] = worldPos;
+            if (savePos) heroStartPositions[data] = worldPos;
             return true;
         }
         return false;
@@ -103,7 +103,8 @@ public class CombatSpawner : MonoBehaviour
     {
         foreach (HeroData data in heroStartPositions.Keys)
         {
-            PlaceHero(data, heroStartPositions[data]);
+           
+            PlaceHero(data, heroStartPositions[data], false);
         }
 
     }

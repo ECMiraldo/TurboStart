@@ -39,7 +39,6 @@ public class MapLocationDetails : MonoBehaviour
 
         if (playerParty.currentLocation == location) //enter
             actionButton.onClick.AddListener(() => {
-                AdventureMap.Instance.SetMapToWindow();
                 location.Enter();
                 this.gameObject.SetActive(false);
             });

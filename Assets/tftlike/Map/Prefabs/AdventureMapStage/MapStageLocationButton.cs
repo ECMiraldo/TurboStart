@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class MapStageLocationButton : MapLocationButton
 {
     [field: SerializeField] public StageDefinitionSO stageDefinitionSO;
+    [field: SerializeField] public CombatSessionManager combatSessionManager;
     public override MapLocationSO mapLocationSO => stageDefinitionSO;
 
     private void OnEnable()
@@ -14,7 +14,9 @@ public class MapStageLocationButton : MapLocationButton
 
     public override void Enter()
     {
-        CombatSessionManager.Instance.StartStage(stageDefinitionSO);
+        AdventureMap.Instance.SetMapToWindow();
+        combatSessionManager.gameObject.SetActive(true);
+        combatSessionManager.StartStage(stageDefinitionSO);
     }
 
     protected override void ShowDetails()
@@ -30,16 +32,16 @@ public class MapStageLocationButton : MapLocationButton
         int i = 0;
         for (i = 0; i < lootTypeSprites.Count; i++)
         {
-            stageDetails.lootTypeImages[i].sprite = lootTypeSprites[i];
-            if (i > stageDetails.lootTypeImages.Count - 1)
+            locationDetails.lootTypeImages[i].sprite = lootTypeSprites[i];
+            if (i > locationDetails.lootTypeImages.Count - 1)
                 Debug.LogError("Too many loot types for stage:" + stageDefinitionSO.name);
         }
 
-        for (int j = i; j < stageDetails.lootTypeImages.Count; j++)
+        for (int j = i; j < locationDetails.lootTypeImages.Count; j++)
         {
-            stageDetails.lootTypeImages[j].enabled = false;
+            locationDetails.lootTypeImages[j].enabled = false;
         }
-        stageDetails.lootTypeImagesParent.gameObject.SetActive(true);
+        locationDetails.lootTypeImagesParent.gameObject.SetActive(true);
 
     }
 

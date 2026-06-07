@@ -28,6 +28,7 @@ public class CombatSessionManager : MonoBehaviour
     [Header("Refs")]
     [field: SerializeField] public CombatSpawner spawner { get; private set; }
     [field: SerializeField] public ResultUI resultUI { get; private set; }
+    [field: SerializeField] public UIHeroBoard heroBoard { get; private set; }
     [field: SerializeField] public StageDefinitionSO currentStage { get; private set; }
     [field: SerializeField] public GameObject UI { get; private set; }
 
@@ -75,6 +76,7 @@ public class CombatSessionManager : MonoBehaviour
     {
         UnitBrain.onUnitSpawned -= RegisterUnit;
         UnitBrain.onUnitDespawned -= UnregisterUnit;
+        DestroyUnits(allUnits);
     }
 
     public void RegisterUnit(UnitBrain unit, Team team)
@@ -102,10 +104,11 @@ public class CombatSessionManager : MonoBehaviour
 
     public void StartStage(StageDefinitionSO stage)
     {
+        gameObject.SetActive(true);
         currentStage = stage;
         currentRoundIndex = 0;
-        UI.SetActive(true);
-        SetState(CombatState.StageSetup); 
+        SetState(CombatState.StageSetup);
+        heroBoard.gameObject.SetActive(true);
     }
 
 
@@ -141,6 +144,7 @@ public class CombatSessionManager : MonoBehaviour
         yield return new WaitForSeconds(spawningDelay); ; // one frame safety
 
         // COMBAT
+        heroBoard.gameObject.SetActive(false);
         MovementSystem.Instance.SetActiveUnits(allUnits);
         SetState(CombatState.Combat);
         ToggleUnits(true);
@@ -177,19 +181,25 @@ public class CombatSessionManager : MonoBehaviour
     {
         if (currentRoutine != null) StopCoroutine(currentRoutine);
         ResetStage();
-        BeginNextRound();
     }
 
     public void PlayerClickedLeave()
     {
-        DestroyUnits(allUnits);
-        UI.SetActive(false);
+        AdventureMap.Instance.SetMapToWorld();
+        gameObject.SetActive(false);
     }
 
     private IEnumerator HandleDefeat()
     {
         resultUI.ShowDefeat();
-        yield return RestartStage();
+        if (isAutoplay)
+        {
+            ResetStage();
+            yield return new WaitForSeconds(resultScreenTime);
+            spawner.ReplaceHeroes();
+            BeginNextRound();
+
+        }
     }
 
     private IEnumerator HandleVictory()
@@ -203,19 +213,13 @@ public class CombatSessionManager : MonoBehaviour
         resultUI.ShowVictory();
         if (isAutoplay)
         {
-            yield return RestartStage();
+            ResetStage();
+            yield return new WaitForSeconds(resultScreenTime);
+            spawner.ReplaceHeroes();
+            BeginNextRound();
         }
        
     }
-
-    private IEnumerator RestartStage()
-    {
-        yield return new WaitForSeconds(resultScreenTime);
-        ResetStage();
-        yield return null; //just wait a frame here
-        BeginNextRound();
-    }
-
     private bool IsRoundOver()
     {
         return unitsByTeam[Team.Enemy].Count == 0 || unitsByTeam[Team.Player].Count == 0;
@@ -238,9 +242,8 @@ public class CombatSessionManager : MonoBehaviour
 
     private void ResetStage()
     {
-        DestroyUnits(unitsByTeam[Team.Enemy].Concat(unitsByTeam[Team.Neutral]).Concat(unitsByTeam[Team.Player]));
-        spawner.ReplaceHeroes();
-        //check the heroes that are alive and reset them
+        DestroyUnits(allUnits);
+        resultUI.Close();
         StartStage(currentStage);
     }
 
