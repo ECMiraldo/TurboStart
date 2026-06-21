@@ -8,7 +8,7 @@ public class CityData
     public string id;
 
     [Header("State")]
-    public long lastSavedTick = 0;
+    public int lastVisitedDay = 0;
 
 
     [Header("Shop")]

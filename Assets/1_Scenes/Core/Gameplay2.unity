@@ -13436,7 +13436,7 @@ GameObject:
   - component: {fileID: 1036020574}
   - component: {fileID: 1036020573}
   - component: {fileID: 1036020572}
-  - component: {fileID: 1036020571}
+  - component: {fileID: 1036020575}
   m_Layer: 5
   m_Name: Shop
   m_TagString: Untagged
@@ -13466,21 +13466,6 @@ RectTransform:
   m_AnchoredPosition: {x: -244, y: -346.9999}
   m_SizeDelta: {x: 403.03003, y: 598}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1036020571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1036020569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d90cf20c546f7be4b8c463e02ee59799, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slotsParent: {fileID: 225741559}
-  slotsPrefab: {fileID: 4366331563431227342, guid: 5d42e5ea501e7b741a9e472f1bc8f8cd, type: 3}
-  heroScreenUI: {fileID: 100770040}
 --- !u!114 &1036020572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13539,6 +13524,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1036020569}
   m_CullTransparentMesh: 1
+--- !u!114 &1036020575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036020569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f6f8b111598b33498a90d7e6650580d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotsParent: {fileID: 225741559}
+  slotsPrefab: {fileID: 4366331563431227342, guid: 5d42e5ea501e7b741a9e472f1bc8f8cd, type: 3}
+  cityScreen: {fileID: 1182507870}
 --- !u!1 &1055090850
 GameObject:
   m_ObjectHideFlags: 0
@@ -13990,7 +13990,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1091468819}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1036020569}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1091468819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14881,6 +14893,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   child: {fileID: 260146257}
   <currentCity>k__BackingField: {fileID: 0}
+  <currentCityData>k__BackingField:
+    id: 
+    lastVisitedDay: 0
+    shopItems: []
 --- !u!224 &1182507871
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23003,6 +23019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <TravelSpeedMultiplier>k__BackingField: 0.1
+  <DaysToRefresh>k__BackingField: 10
 --- !u!4 &1893053868
 Transform:
   m_ObjectHideFlags: 0

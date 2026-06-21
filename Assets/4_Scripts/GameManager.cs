@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [field: SerializeField] public float TravelSpeedMultiplier { get; private set; } = 1.0f;
-    [field: SerializeField] public float DaysToRefresh {get; private set;}
+    [field: SerializeField] public int DaysToRefresh {get; private set;} = 10;
 
     private void Awake()
     {

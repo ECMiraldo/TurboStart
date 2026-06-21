@@ -1,16 +1,24 @@
 using UnityEngine;
+using Persistence;
 
 public class ShopUI : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private Transform slotsParent;
+    [SerializeField] private GameObject slotsPrefab;
+    [SerializeField] private CityScreenUI cityScreen;
+    private int nSlots = 0;
+
+    private void OnEnable()
     {
-        
+        var shopData = cityScreen.currentCityData.shopItems;
+        for (int i = 0; i < shopData.Count; i++)
+        {
+            
+        }
+    }
+    private void TrimSlots()
+    {
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
