@@ -12,6 +12,7 @@ public class PersistentData
     public TavernData tavernData;
     public ResourceData resourceData;
     public MapData mapData;
+    public List<CityData> cityData;
 }
 
 public class MapData

@@ -9,8 +9,8 @@ public class MapCityLocationButton : MapLocationButton
 
     public override void Enter()
     {
-        cityScreenUI.Open();
         cityScreenUI.SetCity(cityDefinitionSO);
+        cityScreenUI.Open();
 
         //CombatSessionManager.Instance.StartStage(stageDefinitionSO);
     }

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 442bd4ccdffbdc84a97455eee5339f7f, type: 3}
+  m_Name: Dialogue1
+  m_EditorClassIdentifier: 
+  dialogueEffects:
+  - rid: 5592807119262056576
+  dialogueName: Dialogue Text
+  story: {fileID: 4900000, guid: 81f9a0f35ee25b249b5e36f3b3c210ff, type: 3}
+  dialogueImage: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 5592807119262056576
+      type: {class: GiveGoldEffect, ns: , asm: Assembly-CSharp}
+      data:
+        tagID: Choice1
+        goldAmount: 50

@@ -117,6 +117,7 @@ namespace Persistence
                 resourceData = new ResourceData(),
                 lastTickTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
                 mapData = new MapData(),
+                cityData = new List<CityData>(),
             };
         }
     }
