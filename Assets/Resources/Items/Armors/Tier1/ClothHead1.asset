@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7df74aed6c8cb97499a91e0181fbb80e, type: 3}
-  m_Name: PlateBoots1
+  m_Name: ClothHead1
   m_EditorClassIdentifier: 
-  <id>k__BackingField: 830a9349-a17c-4ed7-bbd3-6829f50988a6
-  <Name>k__BackingField: PlateBoots
-  <Sprite>k__BackingField: {fileID: 21300000, guid: 1f07a2c1a55b22e4c84268cb38d3787d, type: 3}
+  _id: 16c708be-2212-4898-8d6d-f46b9c3eeecf
+  <Name>k__BackingField: ClothHead1
+  <Sprite>k__BackingField: {fileID: 21300000, guid: c3582568f2ec18747b94be17a540330a, type: 3}
   <Description>k__BackingField: 
-  <BuyPrice>k__BackingField: 0
-  <SellPrice>k__BackingField: 0
-  <RequiredLevel>k__BackingField: 0
-  <Slot>k__BackingField: 2
-  <armorType>k__BackingField: 2
+  <rarities>k__BackingField: 0001
+  <level>k__BackingField: 0
+  <Slot>k__BackingField: 0
+  <armorType>k__BackingField: 0
   <EnchantmentSlots>k__BackingField: 0
+  <equipmentArchetype>k__BackingField: {fileID: 11400000, guid: 2d7bb2c2452fe374fbfe4b29b6e139e2, type: 2}

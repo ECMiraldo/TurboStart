@@ -104,7 +104,7 @@ public class Weapon : Equipment
         //}
 
         text += $"Base ASPD: {1 + so.AttackSpeed}\n";
-        text += $"\nRequiredLevel: {so.RequiredLevel}\n\n";
+        text += $"\nRequiredLevel: {so.level}\n\n";
 
 
         return text;

@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 
-public class HeroScreenUI : MonoBehaviour
+public class HeroScreenUI : UIPanelController
 {
     public event Action<HeroData> onHeroChanged;
 
@@ -21,12 +21,13 @@ public class HeroScreenUI : MonoBehaviour
     private List<HeroData> heroList;
     private Dictionary<HeroData, GameObject> heroIcons = new();
     private int currentHero;
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         SelectHero(0);
     }
 
-    public void OnEnable()
+    protected void OnEnable()
     {
         heroList = SaveLoadSystem.Instance.data.heroes;
         InstantiateHeroCards();

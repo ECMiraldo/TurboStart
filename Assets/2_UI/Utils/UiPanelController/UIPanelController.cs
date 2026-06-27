@@ -4,13 +4,13 @@ public abstract class UIPanelController : MonoBehaviour
 {
     public static event Action<UIPanelController> OnPanelOpened;
     public static event Action<UIPanelController> OnPanelClosed;
-
+    [SerializeField] protected bool startActive = false;
     [SerializeField] protected GameObject child;
     public bool IsOpen { get; protected set; }
     protected virtual void Start()
     {
-        Close();
         if (child == null && transform.childCount == 1) child = transform.GetChild(0).gameObject;
+        if (!startActive) Close();
     }
 
 

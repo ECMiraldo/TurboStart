@@ -2,10 +2,12 @@
 using System;
 using UnityEngine;
 
-public enum ModifierSource
+public enum ModifierSource : byte
 {
+    Flat,
     skill,
     items,
+    
 
 }
 

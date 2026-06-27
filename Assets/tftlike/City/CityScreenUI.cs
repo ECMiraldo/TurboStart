@@ -19,9 +19,7 @@ public class CityScreenUI : UIPanelController
     public override void Open()
     {
         base.Open();
-        int currentDay = TickManager.Instance.CurrentDay;
         SyncCityData();
-        currentCity.UpdateShop(currentCityData, currentDay);
     }
 
     private void SyncCityData()

@@ -4,6 +4,8 @@ using System;
 [RequireComponent(typeof(SpriteRenderer), typeof(Animator))]
 public class CombatVisuals : MonoBehaviour
 {
+    public event Action<UnitContext> onAttack; //target
+
     [SerializeField] private AttackAnimator attackAnimator;
     [SerializeField] private float maxLeanAngle = 20f;
     [SerializeField] private float offsetAmount = 0.25f;

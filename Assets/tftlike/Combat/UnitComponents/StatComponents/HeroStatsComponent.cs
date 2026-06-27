@@ -12,6 +12,15 @@ public class HeroStatsComponent : StatsComponent
     {
         team = Team.Player;
         stats = heroData.statData.GetStatCopy();
+
+        foreach(Equipment equipment in heroData.equipmentData.equipments)
+        {
+            if (equipment == null) continue;
+            foreach (ItemEffect effect in equipment.effects)
+            {
+                effect.OnEnable(ctx);
+            }
+        }
     }
 
  

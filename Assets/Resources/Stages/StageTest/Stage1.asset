@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555d29156c7dbd447aa73b2611061d16, type: 3}
   m_Name: Stage1
   m_EditorClassIdentifier: 
-  <id>k__BackingField: 51a11e2c-6b69-47ed-9ae5-145f9bb4865f
+  _id: 
   displayName: Stage 1
   description: 'Ipsum loren coiso e tal era um a vez '
   requiredLevel: 0
@@ -25,18 +25,18 @@ MonoBehaviour:
       - Key: {fileID: 11400000, guid: b04297171e452c540bad01ef6e93abd0, type: 2}
         Value: 100
       - Key: {fileID: 11400000, guid: 8df564b48c49f6f4f8173447150e1b4f, type: 2}
-        Value: 0
+        Value: 100
       - Key: {fileID: 11400000, guid: f32bf20424c161741acfa9f61bccce41, type: 2}
-        Value: 0
+        Value: 100
       - Key: {fileID: 11400000, guid: 70e10280cd2da01419ce3cdfb63522dd, type: 2}
-        Value: 0
+        Value: 100
       - Key: {fileID: 11400000, guid: 82081f074cf29914d9b2ee26b2f42744, type: 2}
-        Value: 0
+        Value: 100
       - Key: {fileID: 11400000, guid: dcaa008a7639c844d886159850471684, type: 2}
         Value: 100
       - Key: {fileID: 11400000, guid: bb25cf28aafc6154eb241088499a2304, type: 2}
         Value: 100
       - Key: {fileID: 11400000, guid: b0c1ebb6d06f5b84e85f31fcb63d532d, type: 2}
-        Value: 0
+        Value: 100
       - Key: {fileID: 11400000, guid: 28317335b5dd04246926674243bbfc14, type: 2}
-        Value: 0
+        Value: 100

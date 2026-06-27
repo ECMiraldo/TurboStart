@@ -236,6 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ticksPerSecond: 1
+  ticksPerDay: 60
 --- !u!1 &1427433497
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +276,7 @@ MonoBehaviour:
       nCardsShown: 3
       durationInHours: 6
       nextRefresh: 0
+    cityData: []
 --- !u!4 &1427433499
 Transform:
   m_ObjectHideFlags: 0

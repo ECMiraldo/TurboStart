@@ -92,6 +92,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <itemImage>k__BackingField: {fileID: 2711609861446460849}
   quantityText: {fileID: 754159650623786668}
+  heroScreenUI: {fileID: 0}
+  itemDragger: {fileID: 327223665663021161}
 --- !u!1 &4690092516941643484
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <parentObject>k__BackingField: {fileID: 0}
+  rootCanvas: {fileID: 0}
   <isDragging>k__BackingField: 0
 --- !u!1 &6173330518137126799
 GameObject:

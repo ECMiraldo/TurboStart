@@ -8,16 +8,17 @@ public class CitySO : MapLocationSO
 
     public List<ShopEntry> possibleItems;
 
-    public void UpdateShop(CityData data, int currentDay)
+    public bool UpdateShop(CityData data, int currentDay)
     {
         int daysPassed = currentDay - (int)data.lastVisitedDay;
 
         // If no time passed, do nothing
         if (daysPassed <= 0 && data.shopItems != null && data.shopItems.Count > 0)
-            return;
+            return false;
 
         RefreshShop(data);
         data.lastVisitedDay = currentDay;
+        return true;
     }
 
     private void RefreshShop(CityData data)

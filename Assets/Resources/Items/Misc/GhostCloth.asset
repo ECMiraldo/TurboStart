@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad93023c445ce5045b53465e3a059066, type: 3}
   m_Name: GhostCloth
   m_EditorClassIdentifier: 
-  <id>k__BackingField: 0bf5b10f-39bb-4dbd-af16-8403669fd926
+  _id: 5cdae85a-f19a-4b66-a7d4-a60f77205b41
   <Name>k__BackingField: Ghost Cloth
   <Sprite>k__BackingField: {fileID: 1307894602, guid: 27bd325b29e918d48b55090a2a1958c7, type: 3}
   <Description>k__BackingField: 
-  <BuyPrice>k__BackingField: 0
-  <SellPrice>k__BackingField: 0
+  <rarities>k__BackingField: 00

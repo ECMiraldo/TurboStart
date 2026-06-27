@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad93023c445ce5045b53465e3a059066, type: 3}
   m_Name: SkeletonBone
   m_EditorClassIdentifier: 
-  <id>k__BackingField: 0902d15e-16d1-43cb-8937-695ffc7a6acf
+  _id: 1cd4c70b-2e15-47c5-b883-d85b06a42396
   <Name>k__BackingField: Skeleton Bone
   <Sprite>k__BackingField: {fileID: 1559570960, guid: 473ddd84034141f4a85cd990f26182ff, type: 3}
   <Description>k__BackingField: 
-  <BuyPrice>k__BackingField: 0
-  <SellPrice>k__BackingField: 0
+  <rarities>k__BackingField: 00

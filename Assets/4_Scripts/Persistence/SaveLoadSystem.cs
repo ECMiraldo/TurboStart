@@ -109,9 +109,9 @@ namespace Persistence
                 inventory = Inventory.CreateDefault(),
                 heroes = new List<HeroData>
                 {
-                    new HeroData(Database.heroTemplates["4b3f15f1-5416-4150-8558-648141f34956"]), //warrior
-                    new HeroData(Database.heroTemplates["04e92124-be5d-4ede-9c2b-1795ffd63793"]), //archer 
-                    new HeroData(Database.heroTemplates["706ee56c-2dba-4992-9755-c59c69b14acb"]), //mage
+                    new HeroData(Database.heroTemplates["dcd0c2cc-d3b5-448a-b037-0246cec20619"]), //warrior
+                    new HeroData(Database.heroTemplates["bd66c29c-56c1-4f96-91ac-d9071a6edcc1"]), //archer 
+                    new HeroData(Database.heroTemplates["2dd829e4-d585-4502-aab2-5a0d8bb6c697"]), //mage
                 },
                 tavernData = new TavernData(),
                 resourceData = new ResourceData(),

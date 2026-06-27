@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0817a75d33ef5d48bf3c54e2dd9cf6e, type: 3}
   m_Name: Warrior
   m_EditorClassIdentifier: 
-  <id>k__BackingField: 4b3f15f1-5416-4150-8558-648141f34956
+  _id: dcd0c2cc-d3b5-448a-b037-0246cec20619
   prefab: {fileID: 8340286288904268168, guid: 7928372d038aa364583feb40752b306f, type: 3}
   <icon>k__BackingField: {fileID: 1388075006, guid: 90b1ab723504fb64d945ff85a03197d3, type: 3}
   <footprintOffsets>k__BackingField:

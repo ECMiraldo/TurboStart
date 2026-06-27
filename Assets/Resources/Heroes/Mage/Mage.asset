@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0817a75d33ef5d48bf3c54e2dd9cf6e, type: 3}
   m_Name: Mage
   m_EditorClassIdentifier: 
-  <id>k__BackingField: 706ee56c-2dba-4992-9755-c59c69b14acb
+  _id: 2dd829e4-d585-4502-aab2-5a0d8bb6c697
   prefab: {fileID: 6026820173551302727, guid: 7da44aa43dd5c3b40a9b230565931a58, type: 3}
   <icon>k__BackingField: {fileID: -1950549372, guid: e5e5a2d45670f9944a914e056d270344, type: 3}
   <footprintOffsets>k__BackingField:

@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad93023c445ce5045b53465e3a059066, type: 3}
   m_Name: BlueSlimeTear
   m_EditorClassIdentifier: 
-  <id>k__BackingField: ab805d4b-5671-4dd5-8f11-6c9a40d11605
+  _id: ae62fa4e-0a1e-4395-a85c-deaa7df4730d
   <Name>k__BackingField: Blue Slime Tear
   <Sprite>k__BackingField: {fileID: -991058621, guid: 26a5c66dbbd2b2f499ffbefbe1a40a53, type: 3}
   <Description>k__BackingField: 
-  <BuyPrice>k__BackingField: 0
-  <SellPrice>k__BackingField: 0
+  <rarities>k__BackingField: 00

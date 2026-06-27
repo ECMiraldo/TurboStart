@@ -5,6 +5,42 @@ using AYellowpaper.SerializedCollections;
 using System;
 using System.Collections.Generic;
 
+
+
+[Serializable]
+public class HeroData
+{
+    [JsonProperty, SerializeField] public string templateId { get; private set; }
+    [JsonProperty, SerializeField] public string name { get; private set; }
+    [JsonProperty, SerializeField] public HeroStatData statData { get; private set; }
+    [JsonProperty, SerializeField] public HeroLevelData heroLevelData {get; private set; }
+    [JsonProperty, SerializeField] public HeroEquipmentData equipmentData { get; private set; }
+    [JsonIgnore] public HeroTemplateSO template => Database.heroTemplates[templateId];
+
+    public HeroData(HeroTemplateSO template)
+    {
+        this.templateId = template.id;
+        this.name = template.name;
+        this.statData = new(template);
+        this.heroLevelData = new();
+        this.equipmentData = new();
+
+
+    }
+
+    [JsonConstructor]
+    public HeroData(string templateId, string name, HeroStatData statData, HeroLevelData heroLevelData, HeroEquipmentData equipmentData)
+    {
+        this.templateId = templateId;
+        this.name = name;
+        this.statData = statData;
+        this.heroLevelData = heroLevelData;
+        this.equipmentData = equipmentData;
+    }
+
+
+}
+
 [Serializable]
 public class HeroStatData
 {
@@ -36,34 +72,6 @@ public class HeroStatData
 
 }
 
-[Serializable]
-public class HeroData
-{
-    [JsonProperty, SerializeField] public string templateId { get; private set; }
-    [JsonProperty, SerializeField] public string name { get; private set; }
-    [JsonProperty, SerializeField] public HeroStatData statData { get; private set; }
-    [JsonProperty, SerializeField] public HeroEquipmentData equipmentData { get; private set; }
-    [JsonIgnore] public HeroTemplateSO template => Database.heroTemplates[templateId];
-
-    public HeroData(HeroTemplateSO template)
-    {
-        this.templateId = template.id;
-        this.statData = new(template);
-        this.equipmentData = new HeroEquipmentData();
-
-
-    }
-
-    [JsonConstructor]
-    public HeroData(string templateId, HeroStatData statData, HeroEquipmentData equipmentData)
-    {
-        this.templateId = templateId;
-        this.statData = statData;
-        this.equipmentData = equipmentData;
-    }
-
-
-}
 
 [Serializable]
 public class HeroEquipmentData
@@ -78,4 +86,10 @@ public class HeroEquipmentData
             equipments.Add(null);
         }
     }
+}
+
+[Serializable]
+public class HeroLevelData
+{
+    [JsonProperty, SerializeField] public int level {get; set; }
 }

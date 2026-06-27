@@ -1,6 +1,8 @@
 using Newtonsoft.Json;
 using Persistence;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum EquipmentSlot : byte
@@ -18,19 +20,17 @@ public enum ArmorType : byte
     Plate = 2,
 }
 
+
 [CreateAssetMenu(menuName = "Items/Equipment")]
 public class EquipmentSO : ItemSO
 {
     [field: Space(25)]
     [field: Header("Equipment")]
-    [field: SerializeField] public int RequiredLevel { get; private set; }
+    [field: SerializeField] public int level { get; private set; }
     [field: SerializeField] public virtual EquipmentSlot Slot { get; private set; }
     [field: SerializeField] public ArmorType armorType { get; private set; }
     [field: SerializeField] public int EnchantmentSlots { get; private set; }
-     //[field: SerializeField] public List<RollableAttributeModifier> attributeModifiers { get; private set; }
-   // [field: SerializeField] public List<DamageModifierSO> offensiveDamageModifiers { get; private set; }
-   // [field: SerializeField] public List<DamageModifierSO> defensiveDamageModifiers { get; private set; }
-
+    [field: SerializeField] public EquipmentArchetypeSO equipmentArchetype {get; private set;}
 
    // [field: SerializeField] public List<UpgradeRequirement> upgradeRequirements = new(Constants.MAX_UPGRADE_LEVEL);
     public override bool IsStackable => false;
@@ -55,45 +55,38 @@ public class EquipmentSO : ItemSO
 
 public class Equipment : Item
 {
-    //[field: SerializeField] public List<FixedAttributeModifier> baseModifiers { get; private set; }
-    //[field: SerializeField] public List<FixedAttributeModifier> addedModifiers { get; private set; }
-    [field: SerializeField] public int upgradeLevel { get; private set; }
+    [field: SerializeField] public int level { get; private set; }
     [field: SerializeField] public int enchantSlots { get; private set; }
+    [field: SerializeField] public List<ItemEffect> effects {get; private set;}
+    [field: SerializeField] public List<AttributeModifier> modifiers {get; private set;}
+    [field: SerializeField] public ItemRarity rarity {get; private set; }
     //[field: SerializeField] public List<EnchantmentItem> enchantItems { get; private set; }
-    //[field: SerializeField] public FixedAttributeModifier upgradeModifier { get; protected set; }
-
 
     public Equipment(EquipmentSO equipmentSO) : base(equipmentSO.id)
     {
-        //baseModifiers = new();
-        //addedModifiers = new();
-        //enchantItems = new();
-        upgradeLevel = 0;
+        //SaveLoadSystem.Instance.data.heroes.Sum((x) => x.heroLevelData.level);
+        level = equipmentSO.level;
+        rarity = equipmentSO.equipmentArchetype.RollRarity(equipmentSO);
+        effects = equipmentSO.equipmentArchetype.RollEffects(level, rarity);
+        modifiers = equipmentSO.equipmentArchetype.RollStats(level, rarity);
         enchantSlots = equipmentSO.EnchantmentSlots;
-
-        //foreach (RollableAttributeModifier mod in equipmentSO.attributeModifiers)
-        //{
-        //    addedModifiers.Add(new FixedAttributeModifier(mod));
-        //}
     }
 
     [JsonConstructor]
     public Equipment(
-        //List<FixedAttributeModifier> baseModifiers,
-        //List<FixedAttributeModifier> addedModifiers,
-        int upgradeLevel,
+        int level,
         int enchantSlots,
-        //List<EnchantmentItem> enchantItems,
+        List<ItemEffect> effects,
+        List<AttributeModifier> modifiers,
+        ItemRarity rarity,
         string SoId
-        //FixedAttributeModifier upgradeModifier)
         ): base(SoId)
     {
-        //this.baseModifiers = baseModifiers;
-        //this.addedModifiers = addedModifiers;
+        this.level = level;
         this.enchantSlots = enchantSlots;
-        this.upgradeLevel = upgradeLevel;
-        //this.enchantItems = enchantItems;
-        //this.upgradeModifier = upgradeModifier;
+        this.effects = effects;
+        this.modifiers = modifiers;
+        this.rarity = rarity;
     }
 
 
@@ -112,13 +105,13 @@ public class Equipment : Item
 
     public string GetFullName()
     {
-        if (upgradeLevel > 0) return SO<EquipmentSO>().Name + " +" + upgradeLevel.ToString() + $" [{enchantSlots}]";
-        else return SO<EquipmentSO>().Name;
+        // if (upgradeLevel > 0) return SO<EquipmentSO>().Name + " +" + upgradeLevel.ToString() + $" [{enchantSlots}]";
+        // else 
+        return SO<EquipmentSO>().Name;
     }
 
     public virtual void Upgrade()
     {
-        upgradeLevel++;
         //upgradeModifier.ChangeValue(upgradeModifier.Value + Mathf.Floor(upgradeLevel / 2));
     }
 
@@ -136,7 +129,7 @@ public class Equipment : Item
         //    text += modifier.ToString() + "\n";
         //}
         text += $"\nSlot: {so.Slot}\n\n";
-        text += $"RequiredLevel: {so.RequiredLevel}\n\n";
+        text += $"RequiredLevel: {so.level}\n\n";
         //text += $"Weight: {Weight}";
         return text;
     }

@@ -3,6 +3,14 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System;
 
+public enum ItemRarity : byte
+{
+    Normal = 0,
+    Uncommon = 1,
+    Rare = 2,
+    Epic = 3,
+    Legendary = 4,
+}
 
 [CreateAssetMenu(menuName = "Items/Misc")]
 public class ItemSO : IDScriptableObject
@@ -11,9 +19,8 @@ public class ItemSO : IDScriptableObject
     [field: SerializeField] public string Name { get; private set; }
     [field: SerializeField] public Sprite Sprite { get; private set; }
     [field: SerializeField] public string Description { get; private set; }
-    [field: SerializeField] public int BuyPrice { get; private set; }
-    [field: SerializeField] public int SellPrice { get; private set; }
     [field: SerializeField, ReadOnly] public virtual bool IsStackable { get; } = true;
+    [field: SerializeField] public ItemRarity[] rarities {get; private set;} = {ItemRarity.Normal};
 
     public virtual Item ToItem() => new Item(this.id);
     public virtual string GetFullDescription() => Description;

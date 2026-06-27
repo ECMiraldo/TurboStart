@@ -8,6 +8,16 @@ public static class Database
     public static readonly Dictionary<string, ItemSO> items = new();
     public static readonly Dictionary<ArmorType, Dictionary<EquipmentSlot, Sprite>> armorTypeIcons = new();
     public static readonly Dictionary<WeaponType,Sprite > weaponTypeIcons = new();
+
+    public static readonly Dictionary<ItemRarity, float> rarityWeights = new()
+    {
+        { ItemRarity.Normal, 1.0f },
+        { ItemRarity.Uncommon, 0.3f },
+        { ItemRarity.Rare, 0.1f },
+        { ItemRarity.Epic, 0.02f },
+        { ItemRarity.Legendary, 0.005f },
+
+    };
     
     static Database()
     {

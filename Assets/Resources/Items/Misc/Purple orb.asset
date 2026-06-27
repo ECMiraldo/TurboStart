@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad93023c445ce5045b53465e3a059066, type: 3}
   m_Name: Purple orb
   m_EditorClassIdentifier: 
-  <id>k__BackingField: b5ebb301-c32c-4dc6-937c-7a66e1bff5fa
+  _id: 6743e6cf-ad32-46a9-b1f3-bd0341204cbd
   <Name>k__BackingField: Power Orb
   <Sprite>k__BackingField: {fileID: 2045573216, guid: 90987a2662ebd3146998ee7e48ab6ce9, type: 3}
   <Description>k__BackingField: 
-  <BuyPrice>k__BackingField: 0
-  <SellPrice>k__BackingField: 0
+  <rarities>k__BackingField: 00
