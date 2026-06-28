@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ItemDetailsUI : UIPanelController
@@ -17,10 +18,29 @@ public class ItemDetailsUI : UIPanelController
     [SerializeField] private TextMeshProUGUI statsText;
     [SerializeField] private TextMeshProUGUI effectsText;
 
+    private float lastShownTime;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
+
+    private void Update()
+    {
+        if (!IsOpen)
+            return;
+
+        if (Time.unscaledTime - lastShownTime < 0.15f)
+            return;
+
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
+        {
+            if (!IsPointerOverPanel())
+            {
+                Close();
+            }
+        }
     }
 
     public void Show(Item item, Vector2? screenPosition = null)
@@ -41,6 +61,7 @@ public class ItemDetailsUI : UIPanelController
             PositionDetailsUI(screenPosition.Value);
         }
 
+        lastShownTime = Time.unscaledTime;
         Open();
     }
 
@@ -48,6 +69,12 @@ public class ItemDetailsUI : UIPanelController
     {
         base.Close();
         ClearContent();
+    }
+
+    private bool IsPointerOverPanel()
+    {
+        RectTransform rect = GetComponent<RectTransform>();
+        return rect != null && RectTransformUtility.RectangleContainsScreenPoint(rect, Input.mousePosition, null);
     }
 
     private void ClearContent()

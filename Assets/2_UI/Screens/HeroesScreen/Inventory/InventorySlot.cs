@@ -75,11 +75,5 @@ public class InventorySlot : UiSlot<Item>, IPointerEnterHandler, IPointerExitHan
     }
     public override void OnPointerExit(PointerEventData eventData)
     {
-        if (ItemDetailsUI.Instance.IsOpen)
-        {
-            ItemDetailsUI.Instance.Close();
-        }
     }
-    
-
 }
