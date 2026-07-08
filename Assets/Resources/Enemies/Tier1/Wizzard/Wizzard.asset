@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a973e1be182744f8d0e11eae8f99c0, type: 3}
   m_Name: Wizzard
   m_EditorClassIdentifier: 
-  <id>k__BackingField: 369e875b-fdf1-41b9-9cc0-af98d5959abf
+  _id: 
   prefab: {fileID: 6401038709813873240, guid: e60aeba8e3aced545b612a223d672fc9, type: 3}
   <icon>k__BackingField: {fileID: 0}
   <footprintOffsets>k__BackingField:
   - {x: 0, y: 0}
+  <archetype>k__BackingField: {fileID: 11400000, guid: 13be945bd9373544b958763d31dfa5f1, type: 2}
+  statGrowthRules: []
   attack: 15
   magicAttack: 50
   attackSpeed: 1
@@ -28,9 +30,12 @@ MonoBehaviour:
   defense: 20
   magicDefense: 30
   evasion: 10
+  starterRating: 944.6
+  levelOneRating: 944.6
+  perLevelRatingPercent: 0
   powerCost: 5
   positioning: 3
-  goldReward: 0
+  expReward: 0
   lootTable:
     lootDict:
       _serializedList:

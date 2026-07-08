@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a973e1be182744f8d0e11eae8f99c0, type: 3}
   m_Name: SkeletonRanged
   m_EditorClassIdentifier: 
-  <id>k__BackingField: 32895656-5640-475b-9dcf-de9b096163df
+  _id: d265b853-a614-4349-a7b2-1f9d9e3215dc
   prefab: {fileID: 3473115147642238066, guid: 5cd8130d8b12286439638a4a551fda42, type: 3}
   <icon>k__BackingField: {fileID: 0}
   <footprintOffsets>k__BackingField:
   - {x: 0, y: 0}
+  <archetype>k__BackingField: {fileID: 11400000, guid: 2729a87ec1a901e4092c974886635c67, type: 2}
+  statGrowthRules: []
   attack: 30
   magicAttack: 15
   attackSpeed: 1.2
@@ -28,9 +30,12 @@ MonoBehaviour:
   defense: 20
   magicDefense: 20
   evasion: 25
+  starterRating: 486.6
+  levelOneRating: 1593.2001
+  perLevelRatingPercent: 227.41472
   powerCost: 3
   positioning: 1
-  goldReward: 0
+  expReward: 0
   lootTable:
     lootDict:
       _serializedList:

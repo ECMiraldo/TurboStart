@@ -10,15 +10,33 @@ public class CombatSpawner : MonoBehaviour
 {
 
     private Dictionary<HeroData, Vector2> heroStartPositions = new();
-    public void SpawnRound(RoundDefinitionSO round)
+    public void SpawnRound(StageDefinitionSO stage, int roundIndex)
     {
-        var intents = RoundBuilder.Build(round);
+        var intents = new List<SpawnIntent>();
+        if (stage.specialRounds.TryGetValue(roundIndex, out RoundDefinitionSO specialRound))
+        {
+            intents = RoundBuilder.Build(
+                specialRound.monsterPool, 
+                Mathf.FloorToInt(
+                    stage.round0Budget * Mathf.Pow(stage.budgetMultiplierPerRound, roundIndex)
+                    )
+                );
+        }
+        else
+        {
+            intents = RoundBuilder.Build(
+                stage.monsterPool,
+                Mathf.FloorToInt(
+                    stage.round0Budget * Mathf.Pow(stage.budgetMultiplierPerRound, roundIndex)
+                )
+            );
+        }
 
         foreach (var intent in intents)
         {
             for (int i = 0; i < intent.count; i++)
             {
-                SpawnEnemy(intent.monster, round.difficultyMultiplier);
+                SpawnEnemy(intent.monster);
             }
         }
     }
@@ -42,7 +60,7 @@ public class CombatSpawner : MonoBehaviour
 
     }
 
-    private void SpawnEnemy(EnemyDataSO data, float difficulty, Vector2Int? cell = null)
+    private void SpawnEnemy(EnemyDataSO data, Vector2Int? cell = null)
     {
         var go = Instantiate(data.prefab, transform);
 

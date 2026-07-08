@@ -18,34 +18,14 @@ public class HeroScreenUI : UIPanelController
     [Header("Handlers")]
     [SerializeField] private HeroStatsUI statsUI;
 
-    private List<HeroData> heroList;
+    [SerializeReference] private List<HeroData> heroList;
     private Dictionary<HeroData, GameObject> heroIcons = new();
     private int currentHero;
-    protected override void Start()
-    {
-        base.Start();
-        SelectHero(0);
-    }
-
-    protected void OnEnable()
+    protected void Awake()
     {
         heroList = SaveLoadSystem.Instance.data.heroes;
         InstantiateHeroCards();
-    }
-
-    public void NextHero()
-    {
-        if (currentHero + 1 == heroList.Count) currentHero = 0;
-        else currentHero++;
-        SelectHero(currentHero);
-
-    }
-
-    public void PrevHero()
-    {
-        if (currentHero - 1 < 0) currentHero = heroList.Count - 1;
-        else currentHero--;
-        SelectHero(currentHero);
+        SelectHero(0);
     }
 
     private void InstantiateHeroCards()
@@ -62,6 +42,21 @@ public class HeroScreenUI : UIPanelController
             img.sprite = h.template.icon;
             heroIcons.Add(h, go);
         }
+    }
+
+    public void NextHero()
+    {
+        if (currentHero + 1 == heroList.Count) currentHero = 0;
+        else currentHero++;
+        SelectHero(currentHero);
+
+    }
+
+    public void PrevHero()
+    {
+        if (currentHero - 1 < 0) currentHero = heroList.Count - 1;
+        else currentHero--;
+        SelectHero(currentHero);
     }
 
     private void SelectHero(int idx)

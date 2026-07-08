@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a973e1be182744f8d0e11eae8f99c0, type: 3}
   m_Name: SkeletonMelee
   m_EditorClassIdentifier: 
-  <id>k__BackingField: d4689534-681b-4ea5-84bb-856130a7e70f
+  _id: 
   prefab: {fileID: 378086948500519933, guid: 0d0b3ff491cfa5d439ae6e4fd33433b3, type: 3}
   <icon>k__BackingField: {fileID: 0}
   <footprintOffsets>k__BackingField:
   - {x: 0, y: 0}
+  <archetype>k__BackingField: {fileID: 11400000, guid: 9b9f3d4507278184e815ae981482bc76, type: 2}
+  statGrowthRules: []
   attack: 40
   magicAttack: 0
   attackSpeed: 0.6
@@ -28,9 +30,12 @@ MonoBehaviour:
   defense: 40
   magicDefense: 20
   evasion: 15
+  starterRating: 574.2
+  levelOneRating: 574.2
+  perLevelRatingPercent: 0
   powerCost: 3
   positioning: 0
-  goldReward: 0
+  expReward: 0
   lootTable:
     lootDict:
       _serializedList:

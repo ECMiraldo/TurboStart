@@ -1,30 +1,30 @@
 using Persistence;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIHeroBoard : MonoBehaviour
 {
     [SerializeField] private Transform listContent;
     [SerializeField] private GameObject heroCardPrefab;
+    [SerializeField] private Button startRoundButton;
 
     // from ui button
     public void StartRound()
     {
         CombatSessionManager.Instance.BeginNextRound();
-        this.gameObject.SetActive(false);
+        startRoundButton.gameObject.SetActive(false);
     }
 
     void OnEnable()
     {
         CreateHeroCards();
-        
+        startRoundButton.gameObject.SetActive(true);
     }
 
     void OnDisable()
     {
         ClearHeroCards();
     }
-
-
 
     private void CreateHeroCards()
     {

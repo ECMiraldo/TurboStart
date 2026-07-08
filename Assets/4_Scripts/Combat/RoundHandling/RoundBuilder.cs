@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class RoundBuilder
 {
-    public static List<SpawnIntent> Build(RoundDefinitionSO round)
+    public static List<SpawnIntent> Build(List<EnemyDataSO> monsters, int totalPowerBudget)
     {
         var plans = new List<SpawnIntent>();
-        int remainingPower = round.totalPowerBudget;
+        int remainingPower = totalPowerBudget;
 
-        var pool = round.monsterPool
+        var pool = monsters
             .OrderBy(m => m.powerCost)
             .ToList();
 

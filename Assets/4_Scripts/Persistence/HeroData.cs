@@ -4,92 +4,35 @@ using UnityEngine;
 using AYellowpaper.SerializedCollections;
 using System;
 using System.Collections.Generic;
-
+using System.Runtime.Serialization;
 
 
 [Serializable]
 public class HeroData
 {
-    [JsonProperty, SerializeField] public string templateId { get; private set; }
-    [JsonProperty, SerializeField] public string name { get; private set; }
-    [JsonProperty, SerializeField] public HeroStatData statData { get; private set; }
-    [JsonProperty, SerializeField] public HeroLevelData heroLevelData {get; private set; }
-    [JsonProperty, SerializeField] public HeroEquipmentData equipmentData { get; private set; }
-    [JsonIgnore] public HeroTemplateSO template => Database.heroTemplates[templateId];
+    //privates
+    [SerializeField, JsonProperty] private string templateId;
 
+    //publics
+    public string name;
+    public int level;
+    public List<Equipment> equipments;
+
+    [JsonIgnore] public HeroTemplateSO template => Database.heroTemplates[templateId];
+    [JsonIgnore] public SerializedDictionary<UnitStat, CharacterAttribute> stats;
+
+    [JsonConstructor] public HeroData() {}
     public HeroData(HeroTemplateSO template)
     {
         this.templateId = template.id;
         this.name = template.name;
-        this.statData = new(template);
-        this.heroLevelData = new();
-        this.equipmentData = new();
-
-
+        this.equipments = new List<Equipment>(Enum.GetValues(typeof(EquipmentSlot)).Length);
     }
 
-    [JsonConstructor]
-    public HeroData(string templateId, string name, HeroStatData statData, HeroLevelData heroLevelData, HeroEquipmentData equipmentData)
+    [OnDeserialized] 
+    private void OnDeserialized(StreamingContext context)
     {
-        this.templateId = templateId;
-        this.name = name;
-        this.statData = statData;
-        this.heroLevelData = heroLevelData;
-        this.equipmentData = equipmentData;
+        stats = template.GetStats(level);
     }
 
-
-}
-
-[Serializable]
-public class HeroStatData
-{
-    [field: JsonProperty, SerializeField, ReadOnly]
-    private SerializedDictionary<UnitStat, CharacterAttribute> stats;
-
-    public HeroStatData(HeroTemplateSO template)
-    {
-        stats = template.GetStats();
-    }
-
-    public SerializedDictionary<UnitStat, CharacterAttribute> GetStatCopy()
-    {
-        var copy = new SerializedDictionary<UnitStat, CharacterAttribute>();
-
-        foreach (var kvp in stats)
-        {
-            copy[kvp.Key] = new CharacterAttribute(kvp.Value.Value);
-        }
-
-        return copy;
-    }
-
-    [JsonConstructor]
-    public HeroStatData(SerializedDictionary<UnitStat, CharacterAttribute>  stats)
-    {
-        this.stats = stats;
-    }
-
-}
-
-
-[Serializable]
-public class HeroEquipmentData
-{
-    [JsonProperty, SerializeField] public List<Equipment> equipments;
-
-    public HeroEquipmentData()
-    {
-        equipments = new List<Equipment>(Enum.GetValues(typeof(EquipmentSlot)).Length);
-        for (int i = 0; i < equipments.Capacity; i++)
-        {
-            equipments.Add(null);
-        }
-    }
-}
-
-[Serializable]
-public class HeroLevelData
-{
-    [JsonProperty, SerializeField] public int level {get; set; }
 }

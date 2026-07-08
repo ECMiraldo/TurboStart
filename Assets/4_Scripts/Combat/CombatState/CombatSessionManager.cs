@@ -24,6 +24,7 @@ public class CombatSessionManager : MonoBehaviour
     public static event Action<CombatState> onStateChanged;
     public static event Action<bool> onAutoplayToggled;
     public static event Action onRoundWon; 
+    public static event Action<int> onStageExperienceChanged;
 
     [Header("Refs")]
     [field: SerializeField] public CombatSpawner spawner { get; private set; }
@@ -41,7 +42,8 @@ public class CombatSessionManager : MonoBehaviour
 
 
     [Header("State")]
-    [field: SerializeField, ReadOnly] public int currentRoundIndex { get; private set; }
+    [field: SerializeField, ReadOnly] public int currentRoundIndex { get; private set; } = 0;
+    [field: SerializeField, ReadOnly] public int stageExperience {get; private set;} = 0;
     [field: SerializeField, ReadOnly] public RoundDefinitionSO currentRound { get; private set; }
     [field: SerializeField, ReadOnly] public CombatState State { get; private set; }
 
@@ -60,6 +62,7 @@ public class CombatSessionManager : MonoBehaviour
         unitsByTeam[Team.Neutral] = new();
     }
 
+
     public void SetAutoplay(bool autoplay)
     {
         this.isAutoplay = autoplay;
@@ -77,6 +80,18 @@ public class CombatSessionManager : MonoBehaviour
         UnitBrain.onUnitSpawned -= RegisterUnit;
         UnitBrain.onUnitDespawned -= UnregisterUnit;
         DestroyUnits(allUnits);
+    }
+    public HeroStatsComponent GetHeroStatsByData(HeroData data)
+    {
+        foreach (var unit in unitsByTeam[Team.Player])
+        {
+            if (unit.Context.Stats is HeroStatsComponent heroStats && heroStats.heroData == data)
+            {
+                return heroStats;
+            }
+         
+        }
+        return null;
     }
 
     public void RegisterUnit(UnitBrain unit, Team team)
@@ -114,16 +129,13 @@ public class CombatSessionManager : MonoBehaviour
 
     public void BeginNextRound()
     {
-        if (currentRoundIndex >= currentStage.rounds.Count)
+        if (currentRoundIndex >= currentStage.nRounds)
         {
             SetState(CombatState.StageComplete);
             if (currentRoutine != null) StopCoroutine(currentRoutine);
             currentRoutine = StartCoroutine(HandleVictory());
             return;
         }
-        
-        currentRound = currentStage.rounds[currentRoundIndex];
-        currentRoundIndex++;
 
         if (currentRoutine != null) StopCoroutine(currentRoutine);
         currentRoutine = StartCoroutine(RoundFlow());
@@ -132,49 +144,53 @@ public class CombatSessionManager : MonoBehaviour
 
     private IEnumerator RoundFlow()
     {
-
-        // PRE-ROUND
-        SetState(CombatState.PreRound);
-        yield return new WaitForSeconds(preRoundDelay);
-
-        // SPAWN
-        SetState(CombatState.Spawning);
-        spawner.SpawnRound(currentRound);
-
-        yield return new WaitForSeconds(spawningDelay); ; // one frame safety
-
-        // COMBAT
-        heroBoard.gameObject.SetActive(false);
-        MovementSystem.Instance.SetActiveUnits(allUnits);
-        SetState(CombatState.Combat);
-        ToggleUnits(true);
-        yield return new WaitUntil(IsRoundOver);
-
-
-        // POST-ROUND
-        SetState(CombatState.PostRound);
-       
-        ToggleUnits(false);
-
-        //ROUND WON
-
-        //CHECK ROUND LOST FIRST HERE
-        if (unitsByTeam[Team.Player].Count == 0)
+        while (true)
         {
-            yield return HandleDefeat();
-            yield break;
-        }
-        else
-        {
-            onRoundWon?.Invoke();
-        }
-             
-        yield return new WaitForSeconds(postRoundDelay / 2);
-        ResetHeroUnitsPosition();
-        yield return new WaitForSeconds(postRoundDelay);
+            // PRE-ROUND
+            SetState(CombatState.PreRound);
 
-        // NEXT ROUND
-        BeginNextRound();
+            yield return new WaitForSeconds(preRoundDelay);
+
+            // SPAWN
+            SetState(CombatState.Spawning);
+            spawner.SpawnRound(currentStage, currentRoundIndex);
+
+            yield return new WaitForSeconds(spawningDelay); ; // one frame safety
+
+            // COMBAT
+            MovementSystem.Instance.SetActiveUnits(allUnits);
+            SetState(CombatState.Combat);
+            ToggleUnits(true);
+
+            yield return new WaitUntil(IsRoundOver);
+
+            // POST-ROUND
+            SetState(CombatState.PostRound);
+            ToggleUnits(false);
+
+            //CHECK ROUND LOST FIRST HERE
+            if (unitsByTeam[Team.Player].Count == 0)
+            {
+                yield return HandleDefeat();
+                yield break;
+            }
+            else
+            {
+                //ROUND WON
+                onRoundWon?.Invoke();
+            }
+                
+            yield return new WaitForSeconds(postRoundDelay / 2);
+
+            DestroyUnits(allUnits);
+            spawner.ReplaceHeroes();
+
+            yield return new WaitForSeconds(postRoundDelay);
+
+            currentRoundIndex++;
+
+        }
+        
     }
 
     public void PlayerClickedRestart()
@@ -197,6 +213,7 @@ public class CombatSessionManager : MonoBehaviour
             ResetStage();
             yield return new WaitForSeconds(resultScreenTime);
             spawner.ReplaceHeroes();
+            currentRoundIndex--;
             BeginNextRound();
 
         }
@@ -206,10 +223,6 @@ public class CombatSessionManager : MonoBehaviour
     {
         //onStageWon?.Invoke(resultScreenTime);
 
-        foreach (ItemSO item in currentStage.stageLootTable.GetDrops())
-        {
-            resultUI.AddItemToLoot(item.ToItem());
-        }
         resultUI.ShowVictory();
         if (isAutoplay)
         {
@@ -223,14 +236,6 @@ public class CombatSessionManager : MonoBehaviour
     private bool IsRoundOver()
     {
         return unitsByTeam[Team.Enemy].Count == 0 || unitsByTeam[Team.Player].Count == 0;
-    }
-
-    private void ResetHeroUnitsPosition()
-    {
-        foreach (var unit in unitsByTeam[Team.Player])
-        {
-            unit.Context.Grid.JumpToCell(unit.Context.Grid.starterCell);
-        }
     }
     private void ToggleUnits(bool val)
     {
@@ -254,5 +259,18 @@ public class CombatSessionManager : MonoBehaviour
             Destroy(ctx.gameObject);
         }
     }
+
+    public void IncreaseStageExperience()
+    {
+        stageExperience += Mathf.FloorToInt((currentRoundIndex + 1) * currentStage.experienceMultiplierPerRound  * (1+ DataHelpers.GetSumOfStats(UnitStat.ExperienceGain)));
+        onStageExperienceChanged?.Invoke(stageExperience);
+    }
+
+    public void DecreaseStageExperience(int amount)
+    {
+        stageExperience -= amount;
+        onStageExperienceChanged?.Invoke(stageExperience);
+    }
+
 
 }

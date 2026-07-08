@@ -28,7 +28,6 @@ public class ResultUI : UIPanelController
     public override void Close()
     {
         base.Close();
-        GiveRewards();
         itemRewards.Clear();
         goldRewards = 0;
     }
@@ -43,46 +42,13 @@ public class ResultUI : UIPanelController
     {
         Open();
         mainText.text = "Defeat";
-        HandleProgressBar();
     }
 
     public void ShowVictory()
     {
         Open();
         mainText.text = "Victory";
-        HandleProgressBar();
     }
 
-    private void HandleProgressBar()
-    {
-        if (CombatSessionManager.Instance.isAutoplay)
-        {
-            progressBar.gameObject.SetActive(true);
-            progressBar.StartFill(CombatSessionManager.Instance.resultScreenTime);
-        }
-        else
-        {
-            progressBar.gameObject.SetActive(false);
-        }
-    }
 
-    public void AddItemToLoot(Item item)
-    {
-        itemRewards.Add(item);
-    }
-
-    public void AddGoldToLoot(int goldAmount)
-    {
-        goldRewards += goldAmount;
-    }
-
-    public void GiveRewards()
-    {
-
-        resourceData.AddGold(goldRewards);
-        foreach (Item item in itemRewards)
-        {
-            inventory.AddItem(item);
-        }
-    }
 }

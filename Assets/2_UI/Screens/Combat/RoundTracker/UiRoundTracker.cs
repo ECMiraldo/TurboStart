@@ -55,13 +55,12 @@ public class UiRoundTracker : MonoBehaviour
 
         ClearIcons();
 
-        int roundCount = currentStage.rounds.Count;
+        int roundCount = currentStage.nRounds;
 
         slider.minValue = 0;
         slider.maxValue = roundCount;
         slider.value = 0;
 
-        CreateIcons(currentStage);
         RecalculateSpacing(roundCount);
     }
 
@@ -71,17 +70,6 @@ public class UiRoundTracker : MonoBehaviour
             Destroy(icon.gameObject);
 
         roundIcons.Clear();
-    }
-
-    private void CreateIcons(StageDefinitionSO stage)
-    {
-        foreach (var round in stage.rounds)
-        {
-            var img = Instantiate(roundIconPrefab, roundsContainer);
-            img.sprite = round.icon; // from RoundDefinitionSO
-            img.color = Color.gray;  // inactive look
-            roundIcons.Add(img);
-        }
     }
 
     private void RecalculateSpacing(int count)

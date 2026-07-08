@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Persistence;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -22,7 +23,7 @@ public class EquipmentSlotUI : UiSlot<Equipment>
 
     private void OnHeroChanged(HeroData heroData)
     {
-        SetItem(heroData.equipmentData.equipments[(int)slot]);
+        SetItem(heroData.equipments[(int)slot]);
     }
 
     public override void RemoveItem()
@@ -36,13 +37,14 @@ public class EquipmentSlotUI : UiSlot<Equipment>
         var parentSlot = eventData.pointerDrag.GetComponent<UiDragger>().parentObject.GetComponent<InventorySlot>();
         if (parentSlot.currentItem is Equipment equip)
         {
-            EquipmentSO equipTemplate = equip.SO<EquipmentSO>();
+            EquipmentSO equipTemplate = equip.template<EquipmentSO>();
             if (equipTemplate.Slot == slot)
             {
                 HeroData currentHero = heroScreenUI.GetCurrentHero();
                 if (equipTemplate.CanEquip(currentHero))
                 {
-                    equip.Equip(currentHero, parentSlot); // "backend" equip
+                    currentHero.equipments[(int)equipTemplate.Slot] = equip;
+                    SaveLoadSystem.Instance.data.inventory.RemoveEntry(parentSlot.entry.index);
                     SetItem(equip); // equipment slot ui equip
                     parentSlot.SetItem(null); //inventory slot clear
                 }

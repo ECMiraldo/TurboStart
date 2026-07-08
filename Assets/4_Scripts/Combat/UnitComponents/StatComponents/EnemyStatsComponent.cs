@@ -6,8 +6,9 @@ public class EnemyStatsComponent : StatsComponent
     
     public override void Init(UnitContext ctx)
     {
+        base.Init(ctx);
         team = Team.Enemy;
-        stats = enemyDataSO.GetStats();
+        stats = enemyDataSO.GetStats(CombatSessionManager.Instance.currentRoundIndex + 1);
     }
 
 }

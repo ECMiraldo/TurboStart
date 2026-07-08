@@ -17,7 +17,7 @@ public class CharacterAttribute
     [field: SerializeField][JsonProperty] protected float starterValue;
     [field: SerializeField][JsonProperty] protected float value;
 
-    public float Value => isDirty ? value = Recalculate() : value;
+    [JsonIgnore] public float Value => isDirty ? value = Recalculate() : value;
 
 
     [field: SerializeField] protected bool isDirty;
@@ -80,6 +80,15 @@ public class CharacterAttribute
     }
 
     public int ToInt() => Mathf.FloorToInt(Value);
+
+    public string ToString(int ndecimals)
+    {
+        if (ndecimals <= 0)
+            return Mathf.RoundToInt(Value).ToString();
+
+        string format = "0." + new string('#', ndecimals);
+        return Value.ToString(format);
+    }
 
 }
 

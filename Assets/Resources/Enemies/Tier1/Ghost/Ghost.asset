@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a973e1be182744f8d0e11eae8f99c0, type: 3}
   m_Name: Ghost
   m_EditorClassIdentifier: 
-  <id>k__BackingField: d4689534-681b-4ea5-84bb-856130a7e70f
+  _id: 
   prefab: {fileID: 6823403044727778458, guid: ca42488ad5e5d4d458602358df653c5f, type: 3}
   <icon>k__BackingField: {fileID: 0}
   <footprintOffsets>k__BackingField:
   - {x: 0, y: 0}
+  <archetype>k__BackingField: {fileID: 11400000, guid: 13be945bd9373544b958763d31dfa5f1, type: 2}
+  statGrowthRules: []
   attack: 10
   magicAttack: 25
   attackSpeed: 1
@@ -28,9 +30,12 @@ MonoBehaviour:
   defense: 15
   magicDefense: 30
   evasion: 50
+  starterRating: 581.6
+  levelOneRating: 581.6
+  perLevelRatingPercent: 0
   powerCost: 2
   positioning: 3
-  goldReward: 0
+  expReward: 0
   lootTable:
     lootDict:
       _serializedList:

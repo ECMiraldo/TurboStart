@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ee2b9c1565000e4899d095a486f56ec, type: 3}
+  m_Name: ExperienceCrystal
+  m_EditorClassIdentifier: 
+  <prefab>k__BackingField: {fileID: 4766026607706076288, guid: a00efba35abaa5242a2e6e58a1e4500b, type: 3}
+  <prewarmAmount>k__BackingField: 20

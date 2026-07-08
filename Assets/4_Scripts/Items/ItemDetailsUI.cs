@@ -48,7 +48,7 @@ public class ItemDetailsUI : UIPanelController
         if (item == null)
             return;
 
-        titleText.text = item.SO<ItemSO>().Name;
+        titleText.text = item.template<ItemSO>().Name;
         iconImage.sprite = item.Sprite;
         iconImage.color = item.Sprite != null ? Color.white : new Color(1, 1, 1, 0);
 
@@ -95,7 +95,7 @@ public class ItemDetailsUI : UIPanelController
     {
         if (item is Equipment equipment)
         {
-            EquipmentSO so = equipment.SO<EquipmentSO>();
+            EquipmentSO so = equipment.template<EquipmentSO>();
             var lines = new List<string>
             {
                 $"Slot: {so.Slot}",
@@ -104,7 +104,7 @@ public class ItemDetailsUI : UIPanelController
 
             if (equipment is Weapon weapon)
             {
-                WeaponSO weaponSO = weapon.SO<WeaponSO>();
+                WeaponSO weaponSO = weapon.template<WeaponSO>();
                 lines.Add($"Damage: {weapon.minAttackValue} - {weapon.maxAttackValue}");
                 lines.Add($"Attack Speed: {1 + weaponSO.AttackSpeed:f2}");
                 lines.Add($"Weapon Type: {weaponSO.WeaponType}");

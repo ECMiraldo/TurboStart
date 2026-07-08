@@ -63,10 +63,11 @@ public class WeaponSO : EquipmentSO
 
 public class Weapon : Equipment
 {
-    public int minAttackValue { get; private set; }
-    public int maxAttackValue { get; private set; }
+    public int minAttackValue;
+    public int maxAttackValue;
 
     //[field: SerializeField] public FixedAttributeModifier upgradeModifierMax { get; protected set; }
+    [JsonConstructor] public Weapon() : base() { }
 
     public Weapon(WeaponSO weaponSO) : base(weaponSO)
     {
@@ -84,15 +85,9 @@ public class Weapon : Equipment
 
     //}
 
-    public override void Upgrade()
-    {
-        base.Upgrade();
-        //upgradeModifierMax.ChangeValue(upgradeLevel + Mathf.Floor(upgradeLevel / 2));
-    }
-
     public override string GetFullDescription()
     {
-        WeaponSO so = SO<WeaponSO>();
+        WeaponSO so = template<WeaponSO>();
         string text = $"{so.Description}\n\n\n";
 
         //text += $"Damage type: {so.damageType} \n";

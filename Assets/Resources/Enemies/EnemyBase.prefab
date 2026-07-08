@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6702365608550735891}
   - component: {fileID: 2362743183640295347}
   - component: {fileID: 502999178571237595}
-  - component: {fileID: 2312775050381414904}
   m_Layer: 0
   m_Name: EnemyBase
   m_TagString: Untagged
@@ -123,18 +122,6 @@ MonoBehaviour:
     _serializedList: []
   lastAttackTime: 0
   <enemyDataSO>k__BackingField: {fileID: 0}
---- !u!114 &2312775050381414904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4281402545991561159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2f65429aa7641643874a211bc753796, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6139257663077270108
 GameObject:
   m_ObjectHideFlags: 0

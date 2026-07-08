@@ -30,20 +30,21 @@ public class ItemSO : IDScriptableObject
 public class Item : IDraggable
 {
     public readonly string SoId;
+    [JsonIgnore] public Sprite Sprite => template<ItemSO>().Sprite;
 
-    [JsonIgnore] public Sprite Sprite => SO<ItemSO>().Sprite;
 
+    [JsonConstructor] public Item() {}
     public Item(string SOId)
     {
         this.SoId = SOId;
     }
 
 
-    public T SO<T>() where T : ItemSO => Database.items[SoId] as T;
+    public T template<T>() where T : ItemSO => Database.items[SoId] as T;
 
     public virtual string GetFullDescription()
     {
-        return $"{SO<ItemSO>().Description}\n\n";
+        return $"{template<ItemSO>().Description}\n\n";
     }
 }
 

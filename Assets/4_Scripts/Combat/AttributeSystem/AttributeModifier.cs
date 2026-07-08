@@ -7,6 +7,7 @@ public enum ModifierSource : byte
     Flat,
     skill,
     items,
+    StageLevel,
     
 
 }

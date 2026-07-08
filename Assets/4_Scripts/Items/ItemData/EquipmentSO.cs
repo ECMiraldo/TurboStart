@@ -55,13 +55,14 @@ public class EquipmentSO : ItemSO
 
 public class Equipment : Item
 {
-    [field: SerializeField] public int level { get; private set; }
-    [field: SerializeField] public int enchantSlots { get; private set; }
-    [field: SerializeField] public List<ItemEffect> effects {get; private set;}
-    [field: SerializeField] public List<AttributeModifier> modifiers {get; private set;}
-    [field: SerializeField] public ItemRarity rarity {get; private set; }
-    //[field: SerializeField] public List<EnchantmentItem> enchantItems { get; private set; }
+    public int level;
+    public int enchantSlots;
+    public List<ItemEffect> effects;
+    public List<AttributeModifier> modifiers;
+    public ItemRarity rarity;
 
+    //[field: SerializeField] public List<EnchantmentItem> enchantItems { get; private set; }
+    [JsonConstructor] public Equipment() : base() { }
     public Equipment(EquipmentSO equipmentSO) : base(equipmentSO.id)
     {
         //SaveLoadSystem.Instance.data.heroes.Sum((x) => x.heroLevelData.level);
@@ -72,57 +73,16 @@ public class Equipment : Item
         enchantSlots = equipmentSO.EnchantmentSlots;
     }
 
-    [JsonConstructor]
-    public Equipment(
-        int level,
-        int enchantSlots,
-        List<ItemEffect> effects,
-        List<AttributeModifier> modifiers,
-        ItemRarity rarity,
-        string SoId
-        ): base(SoId)
-    {
-        this.level = level;
-        this.enchantSlots = enchantSlots;
-        this.effects = effects;
-        this.modifiers = modifiers;
-        this.rarity = rarity;
-    }
-
-
-    public void Equip(HeroData heroData, InventorySlot formerSlot)
-    {
-        HeroEquipmentData heroEquipmentData = heroData.equipmentData;
-        heroEquipmentData.equipments[(int)SO<EquipmentSO>().Slot] = this;
-        SaveLoadSystem.Instance.data.inventory.RemoveEntry(formerSlot.entry.index);
-    }
-    public void Unequip(HeroData heroData)
-    {
-        //little bit spaghetti here but backend data of inventory is dealt on the inventory slot
-        HeroEquipmentData heroEquipmentData = heroData.equipmentData;
-        heroEquipmentData.equipments[(int)SO<EquipmentSO>().Slot] = null;
-    }
-
     public string GetFullName()
     {
         // if (upgradeLevel > 0) return SO<EquipmentSO>().Name + " +" + upgradeLevel.ToString() + $" [{enchantSlots}]";
         // else 
-        return SO<EquipmentSO>().Name;
+        return template<EquipmentSO>().Name;
     }
-
-    public virtual void Upgrade()
-    {
-        //upgradeModifier.ChangeValue(upgradeModifier.Value + Mathf.Floor(upgradeLevel / 2));
-    }
-
-    //public void Enchant(EnchantmentItem enchantmentItem)
-    //{
-    //    enchantItems.Add(enchantmentItem);
-    //}
 
     public override string GetFullDescription()
     {
-        EquipmentSO so = SO<EquipmentSO>();
+        EquipmentSO so = template<EquipmentSO>();
         string text = $"{so.Description}\n\n\n ";
         //foreach (AttributeModifier modifier in addedModifiers)
         //{

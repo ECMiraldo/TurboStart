@@ -4,15 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Combat/Round")]
 public class RoundDefinitionSO : ScriptableObject
 {
-    [Header("General")]
-    public Sprite icon;
-
-    [Header("Difficulty")]
-    public float difficultyMultiplier = 1f;
-
-    [Header("Spawn Budget")]
-    public int totalPowerBudget = 10;
-
     [Header("Allowed Monsters")]
     public List<EnemyDataSO> monsterPool;
 

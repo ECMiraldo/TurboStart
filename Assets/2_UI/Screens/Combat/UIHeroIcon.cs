@@ -1,44 +1,62 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIHeroIcon : MonoBehaviour
 {
     [field: SerializeField] public Image icon { get; private set; }
-    [field: SerializeField] public UiDragger dagger { get; private set; }
+    [field: SerializeField] public Slider levelSlider { get; private set; }
+    [field: SerializeField] public Button levelUpButton { get; private set; }
+    [field: SerializeField] public TextMeshProUGUI levelText { get; private set; }
+    [field: SerializeField] public TextMeshProUGUI costText { get; private set; }
+    [field: SerializeField] public UiDragger dragger { get; private set; }
     [field: SerializeField] public HeroData heroData { get; private set; }
 
-
+    private bool isSpawned = false;
     public void SetData(HeroData data)
     {
         heroData = data;
         icon.sprite = data.template.icon;
+        levelText.text = data.level.ToString();
+        costText.text = data.template.GetRequiredExpForLevel(data.level).ToString();
+        HandleExperienceChange(CombatSessionManager.Instance.stageExperience);
     }
 
     private void OnEnable()
     {
-        dagger.onBeginDrag += OnBeginDrag;
-        dagger.onEndDrag += OnEndDrag;
+        dragger.enabled = true;
+        dragger.onEndDrag += OnEndDrag;
+        CombatSessionManager.onStageExperienceChanged += HandleExperienceChange;
     }
     private void OnDisable()
     {
-        dagger.onBeginDrag -= OnBeginDrag;
-        dagger.onEndDrag -= OnEndDrag;
+        dragger.onEndDrag -= OnEndDrag;
+        CombatSessionManager.onStageExperienceChanged -= HandleExperienceChange;
     }
-
-    private void OnBeginDrag(PointerEventData data)
-    {
-    }
-
     private void OnEndDrag(PointerEventData data)
     {
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(data.position);
-        if (CombatSessionManager.Instance.spawner.PlaceHero(heroData, worldPos))
-        {
-            Destroy(this.gameObject);
-        }
+        isSpawned = CombatSessionManager.Instance.spawner.PlaceHero(heroData, worldPos);
+        dragger.enabled = !isSpawned;
     }
 
+    public void OnClick()
+    {
+        if (!isSpawned) return;
+        HeroStatsComponent heroStats = CombatSessionManager.Instance.GetHeroStatsByData(heroData);
+        if (heroStats == null) return;
+        int cost = heroData.template.GetRequiredExpForLevel(heroData.level);
+        CombatSessionManager.Instance.DecreaseStageExperience(cost);
+        heroStats.LevelUp();
+        levelText.text = heroStats.stageLevel.ToString();
+        costText.text = heroData.template.GetRequiredExpForLevel(heroData.level).ToString();
+    }
+
+    private void HandleExperienceChange(int exp)
+    {
+        levelUpButton.interactable = exp >= heroData.template.GetRequiredExpForLevel(heroData.level);
+    }
   
 
 

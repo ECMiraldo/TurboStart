@@ -4,20 +4,6 @@ using NaughtyAttributes;
 
 
 public enum Team : byte { Player, Enemy, Neutral}
-public enum UnitStat : byte
-{
-    Attack,
-    MagicAttack,
-    AttackSpeed,
-    AttackRange,
-    Accuracy,
-    CritChance,
-    Health,
-    Mana,
-    Defense,
-    MagicDefense,
-    Evasion,
-}
 
 public abstract class StatsComponent : MonoBehaviour
 {
@@ -26,6 +12,11 @@ public abstract class StatsComponent : MonoBehaviour
 
     [field: Header("State")]
     [field: ReadOnly] public float lastAttackTime = 0;
-    public abstract void Init(UnitContext ctx);
+
+    protected UnitContext ctx { get; private set; }
+    public virtual void Init(UnitContext ctx)
+    {
+        this.ctx = ctx;
+    }
 
 }

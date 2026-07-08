@@ -11,11 +11,14 @@ public class InventorySlot : UiSlot<Item>, IPointerEnterHandler, IPointerExitHan
     [field: SerializeField] public UiDragger itemDragger;
     public InventoryEntry entry { get; private set; }
    
+    private void Start() 
+    {
+        OnEntryChanged();
+    }
     private void OnEnable()
     {
         entry = SaveLoadSystem.Instance.data.inventory.items[transform.GetSiblingIndex()];
         entry.OnEntryChanged += OnEntryChanged;
-        OnEntryChanged();
     }
 
     private void OnDisable()
@@ -37,7 +40,7 @@ public class InventorySlot : UiSlot<Item>, IPointerEnterHandler, IPointerExitHan
         if (!parentSlot) return;
         HeroData currentHero = heroScreenUI.GetCurrentHero();
         Equipment equip = parentSlot.currentItem;
-        equip.Unequip(currentHero); // "backend" unequip
+        currentHero.equipments[(int)equip.template<EquipmentSO>().Slot] = null;
         parentSlot.SetItem(null);
         if (currentItem == null) entry.SetEntry(equip, 1);
         else SaveLoadSystem.Instance.data.inventory.AddItem(equip);
@@ -48,7 +51,7 @@ public class InventorySlot : UiSlot<Item>, IPointerEnterHandler, IPointerExitHan
         itemDragger.enabled = true;
         itemImage.color = Color.white;
 
-        HeroData currentHero = heroScreenUI.GetCurrentHero();
+        HeroData currentHero = heroScreenUI != null ? heroScreenUI.GetCurrentHero() : null;
 
         if (currentHero == null || currentItem == null)
         {
@@ -57,8 +60,9 @@ public class InventorySlot : UiSlot<Item>, IPointerEnterHandler, IPointerExitHan
 
         if (currentItem is Equipment equipment)
         {
-            itemDragger.enabled = equipment.SO<EquipmentSO>().CanEquip(currentHero);
-            itemImage.color = new Color(1f, 0.3f, 0.3f, 1f);
+            bool canEquip = equipment.template<EquipmentSO>().CanEquip(currentHero);
+            itemDragger.enabled = canEquip;
+            itemImage.color = canEquip ? Color.white : new Color(1f, 0.3f, 0.3f, 1f);
         }
 
     }

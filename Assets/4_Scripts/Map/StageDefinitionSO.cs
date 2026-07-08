@@ -1,12 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using AYellowpaper.SerializedCollections;
 
 [CreateAssetMenu(menuName = "Combat/Stage")]
 public class StageDefinitionSO : MapLocationSO
 {
     public int requiredLevel;
-    public List<RoundDefinitionSO> rounds;
+    public int nRounds;
+    public SerializedDictionary<int, RoundDefinitionSO> specialRounds;
     public LootTable stageLootTable;
+
+    [Header("Allowed Monsters")]
+    public List<EnemyDataSO> monsterPool;
+
+   
+    [Header("Rewards")]
+    public float experienceMultiplierPerRound = 1.0f;
+    public float round0Experience = 10.0f;
+
+    [Header("Scaling")]
+    public int round0Budget = 5;
+    public float budgetMultiplierPerRound = 1.5f;
+
     public List<Sprite> GetPossibleDropIcons()
     {
         List<Sprite> result = new List<Sprite>();

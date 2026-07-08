@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a973e1be182744f8d0e11eae8f99c0, type: 3}
   m_Name: BlueSlime
   m_EditorClassIdentifier: 
-  <id>k__BackingField: d4689534-681b-4ea5-84bb-856130a7e70f
+  _id: 
   prefab: {fileID: 1437391091251012384, guid: 6fe6bfc25cbec7e4cb0bb99397c38ee4, type: 3}
   <icon>k__BackingField: {fileID: 0}
   <footprintOffsets>k__BackingField:
   - {x: 0, y: 0}
+  <archetype>k__BackingField: {fileID: 11400000, guid: 9b9f3d4507278184e815ae981482bc76, type: 2}
+  statGrowthRules: []
   attack: 15
   magicAttack: 5
   attackSpeed: 0.6
@@ -28,9 +30,12 @@ MonoBehaviour:
   defense: 10
   magicDefense: 20
   evasion: 10
+  starterRating: 301.7
+  levelOneRating: 301.7
+  perLevelRatingPercent: 0
   powerCost: 1
   positioning: 2
-  goldReward: 0
+  expReward: 0
   lootTable:
     lootDict:
       _serializedList:

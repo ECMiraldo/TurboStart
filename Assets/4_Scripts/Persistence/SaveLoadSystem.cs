@@ -21,11 +21,16 @@ namespace Persistence
             filePath = Application.persistentDataPath + "/PersistentData.json";
             serializerSettings = new JsonSerializerSettings
             {
-                TypeNameHandling = TypeNameHandling.Auto,
+                // TypeNameHandling = TypeNameHandling.Auto,
                 ObjectCreationHandling = ObjectCreationHandling.Replace,
                 DefaultValueHandling = DefaultValueHandling.Include,
                 Formatting = Formatting.Indented,
                 PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                Error = (sender, args) =>
+                    {
+                        Debug.LogError(args.ErrorContext.Error);
+                        args.ErrorContext.Handled = false;
+                    }
             };
             LoadLastSavedProfile();
             Application.wantsToQuit += OnApplicationWantsToQuit;
@@ -49,10 +54,10 @@ namespace Persistence
             }
             string loadedData = File.ReadAllText(filePath);
             Logger.LogPersistence($"Loaded Data: {loadedData}");
-            data = JsonConvert.DeserializeObject<PersistentData>(loadedData);
+            data = JsonConvert.DeserializeObject<PersistentData>(loadedData, serializerSettings);
 
             //bypass loading for now
-            data = CreateNewGame();            
+            //data = CreateNewGame();            
         }
 
         public void Delete()

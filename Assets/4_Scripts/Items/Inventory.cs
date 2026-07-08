@@ -62,7 +62,7 @@ public class Inventory
 
     public bool AddItem(Item item, int quantity = 1)
     {
-        ItemSO itemSO = item.SO<ItemSO>();
+        ItemSO itemSO = item.template<ItemSO>();
         //checks for full inventory
         if (!itemSO.IsStackable)
         {

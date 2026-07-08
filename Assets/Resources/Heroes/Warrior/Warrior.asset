@@ -17,6 +17,8 @@ MonoBehaviour:
   <icon>k__BackingField: {fileID: 1388075006, guid: 90b1ab723504fb64d945ff85a03197d3, type: 3}
   <footprintOffsets>k__BackingField:
   - {x: 0, y: 0}
+  <archetype>k__BackingField: {fileID: 11400000, guid: 9b9f3d4507278184e815ae981482bc76, type: 2}
+  statGrowthRules: []
   attack: 25
   magicAttack: 15
   attackSpeed: 1
@@ -28,5 +30,10 @@ MonoBehaviour:
   defense: 35
   magicDefense: 25
   evasion: 10
+  starterRating: 554.5
+  levelOneRating: 557.5
+  perLevelRatingPercent: 0.54102796
   <usableArmors>k__BackingField: 0102
   <usableWeapons>k__BackingField: 02000000
+  <expGrowPerLevel>k__BackingField: 100
+  <lvl1Exp>k__BackingField: 50
