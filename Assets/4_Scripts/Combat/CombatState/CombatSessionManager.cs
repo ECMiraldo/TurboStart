@@ -127,16 +127,16 @@ public class CombatSessionManager : MonoBehaviour
     }
 
 
-    public void BeginNextRound()
+    public void BeginRound(int index)
     {
-        if (currentRoundIndex >= currentStage.nRounds)
+        if (index == currentStage.nRounds)
         {
             SetState(CombatState.StageComplete);
             if (currentRoutine != null) StopCoroutine(currentRoutine);
-            currentRoutine = StartCoroutine(HandleVictory());
+            currentRoutine = StartCoroutine(HandleStageVictory());
             return;
         }
-
+        currentRoundIndex = index;
         if (currentRoutine != null) StopCoroutine(currentRoutine);
         currentRoutine = StartCoroutine(RoundFlow());
     }
@@ -144,95 +144,58 @@ public class CombatSessionManager : MonoBehaviour
 
     private IEnumerator RoundFlow()
     {
-        while (true)
+        // PRE-ROUND
+        SetState(CombatState.PreRound);
+
+        yield return new WaitForSeconds(preRoundDelay);
+
+        // SPAWN
+        SetState(CombatState.Spawning);
+        spawner.SpawnRound(currentStage, currentRoundIndex);
+
+        yield return new WaitForSeconds(spawningDelay); ; // one frame safety
+
+        // COMBAT
+        MovementSystem.Instance.SetActiveUnits(allUnits);
+        SetState(CombatState.Combat);
+        ToggleUnits(true);
+
+        yield return new WaitUntil(IsRoundOver);
+
+        // POST-ROUND
+        SetState(CombatState.PostRound);
+        ToggleUnits(false);
+
+        //ROUND LOST
+        if (unitsByTeam[Team.Player].Count == 0)
         {
-            // PRE-ROUND
-            SetState(CombatState.PreRound);
-
-            yield return new WaitForSeconds(preRoundDelay);
-
-            // SPAWN
-            SetState(CombatState.Spawning);
-            spawner.SpawnRound(currentStage, currentRoundIndex);
-
-            yield return new WaitForSeconds(spawningDelay); ; // one frame safety
-
-            // COMBAT
-            MovementSystem.Instance.SetActiveUnits(allUnits);
-            SetState(CombatState.Combat);
-            ToggleUnits(true);
-
-            yield return new WaitUntil(IsRoundOver);
-
-            // POST-ROUND
-            SetState(CombatState.PostRound);
-            ToggleUnits(false);
-
-            //CHECK ROUND LOST FIRST HERE
-            if (unitsByTeam[Team.Player].Count == 0)
-            {
-                yield return HandleDefeat();
-                yield break;
-            }
-            else
-            {
-                //ROUND WON
-                onRoundWon?.Invoke();
-            }
-                
-            yield return new WaitForSeconds(postRoundDelay / 2);
-
-            DestroyUnits(allUnits);
-            spawner.ReplaceHeroes();
-
-            yield return new WaitForSeconds(postRoundDelay);
-
-            currentRoundIndex++;
-
+            resultUI.ShowDefeat();
+            int nextRound = Mathf.Max(0, currentRoundIndex - 1);
+            yield return ResetRound(nextRound);
         }
-        
-    }
+        else
+        {
+            //ROUND WON
+            onRoundWon?.Invoke();
+            resultUI.ShowVictory();
+            currentRoundIndex += isAutoplay ? 1 : 0;
+            yield return ResetRound(currentRoundIndex);
+        }
 
-    public void PlayerClickedRestart()
-    {
-        if (currentRoutine != null) StopCoroutine(currentRoutine);
-        ResetStage();
     }
-
-    public void PlayerClickedLeave()
+    public void LeaveStage()
     {
         AdventureMap.Instance.SetMapToWorld();
         gameObject.SetActive(false);
     }
 
-    private IEnumerator HandleDefeat()
+    private IEnumerator HandleStageVictory()
     {
-        resultUI.ShowDefeat();
-        if (isAutoplay)
-        {
-            ResetStage();
-            yield return new WaitForSeconds(resultScreenTime);
-            spawner.ReplaceHeroes();
-            currentRoundIndex--;
-            BeginNextRound();
-
-        }
+        //resultUI.ShowStageComplete();
+        yield return new WaitForSeconds(resultScreenTime);
+        LeaveStage();
     }
 
-    private IEnumerator HandleVictory()
-    {
-        //onStageWon?.Invoke(resultScreenTime);
-
-        resultUI.ShowVictory();
-        if (isAutoplay)
-        {
-            ResetStage();
-            yield return new WaitForSeconds(resultScreenTime);
-            spawner.ReplaceHeroes();
-            BeginNextRound();
-        }
-       
-    }
     private bool IsRoundOver()
     {
         return unitsByTeam[Team.Enemy].Count == 0 || unitsByTeam[Team.Player].Count == 0;
@@ -245,11 +208,14 @@ public class CombatSessionManager : MonoBehaviour
         }
     }
 
-    private void ResetStage()
+    private IEnumerator ResetRound(int round)
     {
+
+        yield return new WaitForSeconds(resultScreenTime);
         DestroyUnits(allUnits);
         resultUI.Close();
-        StartStage(currentStage);
+        spawner.ReplaceHeroes();
+        BeginRound(round);
     }
 
     private void DestroyUnits(IEnumerable<UnitBrain> brains)
@@ -262,7 +228,12 @@ public class CombatSessionManager : MonoBehaviour
 
     public void IncreaseStageExperience()
     {
-        stageExperience += Mathf.FloorToInt((currentRoundIndex + 1) * currentStage.experienceMultiplierPerRound  * (1+ DataHelpers.GetSumOfStats(UnitStat.ExperienceGain)));
+        stageExperience += Mathf.FloorToInt(
+            currentStage.round0Experience * 
+            (currentRoundIndex + 1) * 
+            currentStage.experienceMultiplierPerRound  * 
+            ( 1 + DataHelpers.GetSumOfStats(UnitStat.ExperienceGain))
+        );
         onStageExperienceChanged?.Invoke(stageExperience);
     }
 

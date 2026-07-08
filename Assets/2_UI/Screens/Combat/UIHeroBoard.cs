@@ -11,7 +11,7 @@ public class UIHeroBoard : MonoBehaviour
     // from ui button
     public void StartRound()
     {
-        CombatSessionManager.Instance.BeginNextRound();
+        CombatSessionManager.Instance.BeginRound(0);
         startRoundButton.gameObject.SetActive(false);
     }
 

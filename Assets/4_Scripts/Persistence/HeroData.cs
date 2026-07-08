@@ -27,6 +27,10 @@ public class HeroData
         this.templateId = template.id;
         this.name = template.name;
         this.equipments = new List<Equipment>(Enum.GetValues(typeof(EquipmentSlot)).Length);
+        for (int i = 0; i < equipments.Capacity; i++)
+        {
+            equipments.Add(null);
+        }
     }
 
     [OnDeserialized] 

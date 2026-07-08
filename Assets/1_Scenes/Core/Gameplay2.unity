@@ -1856,7 +1856,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &121843913
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7821,7 +7821,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &680042383
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21169,7 +21169,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1237908631
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29708,7 +29708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2100092239
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30376,6 +30376,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ProgressBar
       objectReference: {fileID: 0}
+    - target: {fileID: 1681862618443903829, guid: cc80ebc2b683f0a46a61b65452ea9cfb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1905933592595526425, guid: cc80ebc2b683f0a46a61b65452ea9cfb, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.221
@@ -30386,7 +30390,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1905933592595526425, guid: cc80ebc2b683f0a46a61b65452ea9cfb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -54.53
       objectReference: {fileID: 0}
     - target: {fileID: 4113641887393690245, guid: cc80ebc2b683f0a46a61b65452ea9cfb, type: 3}
       propertyPath: m_Pivot.x

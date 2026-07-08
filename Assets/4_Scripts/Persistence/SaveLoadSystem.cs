@@ -54,10 +54,10 @@ namespace Persistence
             }
             string loadedData = File.ReadAllText(filePath);
             Logger.LogPersistence($"Loaded Data: {loadedData}");
-            data = JsonConvert.DeserializeObject<PersistentData>(loadedData, serializerSettings);
+            //data = JsonConvert.DeserializeObject<PersistentData>(loadedData, serializerSettings);
 
             //bypass loading for now
-            //data = CreateNewGame();            
+            data = CreateNewGame();            
         }
 
         public void Delete()

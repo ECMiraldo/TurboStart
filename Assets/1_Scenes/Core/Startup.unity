@@ -270,13 +270,20 @@ MonoBehaviour:
     lastTickTime: 0
     heroes: []
     inventory:
-      <items>k__BackingField: []
+      <items>k__BackingField:
+      - quantity: 0
+        index: 0
+      - quantity: 0
+        index: 0
       <maxItems>k__BackingField: 30
     tavernData:
       nCardsShown: 3
       durationInHours: 6
       nextRefresh: 0
     cityData: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!4 &1427433499
 Transform:
   m_ObjectHideFlags: 0
