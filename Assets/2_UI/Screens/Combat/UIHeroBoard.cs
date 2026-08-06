@@ -28,7 +28,7 @@ public class UIHeroBoard : MonoBehaviour
 
     private void CreateHeroCards()
     {
-        foreach (HeroData data in SaveLoadSystem.Instance.data.heroes)
+        foreach (HeroData data in SaveLoadSystem.Instance.data.partyData.heroes)
         {
             UIHeroIcon icon = Instantiate(heroCardPrefab, listContent).GetComponent<UIHeroIcon>();
             icon.SetData(data);

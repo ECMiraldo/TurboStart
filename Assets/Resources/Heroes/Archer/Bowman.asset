@@ -18,49 +18,21 @@ MonoBehaviour:
   <footprintOffsets>k__BackingField:
   - {x: 0, y: 0}
   <archetype>k__BackingField: {fileID: 11400000, guid: 2729a87ec1a901e4092c974886635c67, type: 2}
-  statGrowthRules:
-  - stat: 0
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 1
-  - stat: 0
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 1
-  - stat: 0
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 1
-  - stat: 0
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 1
-  - stat: 0
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 1
-  - stat: 0
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 1
-  - stat: 0
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 1
-  attack: 25
+  statGrowthRules: []
+  attack: 15
   magicAttack: 10
-  attackSpeed: 1.2
+  attackSpeed: 1
   attackRange: 6
-  accuracy: 30
+  accuracy: 0
   critChance: 0
   health: 180
-  mana: 60
-  defense: 20
-  magicDefense: 10
-  evasion: 20
-  starterRating: 833.6
-  levelOneRating: 1785.2
-  perLevelRatingPercent: 114.15547
+  mana: 0
+  defense: 2
+  magicDefense: 1
+  evasion: 0
+  starterRating: 762.297
+  levelOneRating: 847.878
+  perLevelRatingPercent: 11.226726
   <usableArmors>k__BackingField: 0001
   <usableWeapons>k__BackingField: 01000000
   <expGrowPerLevel>k__BackingField: 100

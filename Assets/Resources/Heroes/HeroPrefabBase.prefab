@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2312811653962111864}
   - component: {fileID: 6702365608550735891}
   - component: {fileID: 3010486010304474893}
+  - component: {fileID: 1896504759568332432}
   m_Layer: 0
   m_Name: HeroPrefabBase
   m_TagString: Untagged
@@ -70,7 +71,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebec0f57d40634e4993184d467982cde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5000
   bar: {fileID: 1884228646434735612}
 --- !u!114 &6702365608550735891
 MonoBehaviour:
@@ -106,18 +106,28 @@ MonoBehaviour:
   <stats>k__BackingField:
     _serializedList: []
   lastAttackTime: 0
-  maxHealth: 100
-  currentHealth: 100
-  attackDamage: 10
-  attackSpeed: 2
-  attackRange: 1
   <heroData>k__BackingField:
     rid: -2
+  <stageLevel>k__BackingField: 1
+  <experience>k__BackingField: 0
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+--- !u!114 &1896504759568332432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4281402545991561159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f04338134b75fad4cb0b3b7a8cad5ad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bar: {fileID: 8109432858459537552}
 --- !u!1 &6139257663077270108
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,6 +372,17 @@ PrefabInstance:
 --- !u!114 &1884228646434735612 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5391086672922720200, guid: 1cf38eb5b94119749a59db86fc6bdbae, type: 3}
+  m_PrefabInstance: {fileID: 5834100216403145268}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8109432858459537552 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2340918549463282340, guid: 1cf38eb5b94119749a59db86fc6bdbae, type: 3}
   m_PrefabInstance: {fileID: 5834100216403145268}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

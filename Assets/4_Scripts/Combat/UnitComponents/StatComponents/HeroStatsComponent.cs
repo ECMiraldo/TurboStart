@@ -16,7 +16,6 @@ public class HeroStatsComponent : StatsComponent
     public override void Init(UnitContext ctx)
     {
         base.Init(ctx);
-        stageLevel = 0;
         team = Team.Player;
         stats = heroData.template.GetStats(heroData.level);
         AddLevelModifiers();

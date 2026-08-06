@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6702365608550735891}
   - component: {fileID: 2362743183640295347}
   - component: {fileID: 502999178571237595}
+  - component: {fileID: -8819109162484000401}
   m_Layer: 0
   m_Name: EnemyBase
   m_TagString: Untagged
@@ -71,7 +72,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebec0f57d40634e4993184d467982cde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
   bar: {fileID: 7472193345655141248}
 --- !u!114 &6702365608550735891
 MonoBehaviour:
@@ -122,6 +122,19 @@ MonoBehaviour:
     _serializedList: []
   lastAttackTime: 0
   <enemyDataSO>k__BackingField: {fileID: 0}
+--- !u!114 &-8819109162484000401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4281402545991561159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f04338134b75fad4cb0b3b7a8cad5ad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bar: {fileID: 945458515609712364}
 --- !u!1 &6139257663077270108
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,6 +376,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cf38eb5b94119749a59db86fc6bdbae, type: 3}
+--- !u!114 &945458515609712364 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2340918549463282340, guid: 1cf38eb5b94119749a59db86fc6bdbae, type: 3}
+  m_PrefabInstance: {fileID: 3270295602745394248}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1038835961940279665 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2524482320370713913, guid: 1cf38eb5b94119749a59db86fc6bdbae, type: 3}

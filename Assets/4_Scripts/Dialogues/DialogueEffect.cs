@@ -32,3 +32,15 @@ public class GiveGoldEffect : DialogueEffect
 		yield return null;
 	}
 }
+
+[Serializable]
+public class StartStageEffect : DialogueEffect
+{
+	[SerializeField] public StageDefinitionSO stage;
+
+	public override IEnumerator Execute()
+	{
+		CombatSessionManager.Instance.StartStage(stage);
+		yield return null;
+	}
+}

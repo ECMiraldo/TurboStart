@@ -21,9 +21,9 @@ public class HeroScreenUI : UIPanelController
     [SerializeReference] private List<HeroData> heroList;
     private Dictionary<HeroData, GameObject> heroIcons = new();
     private int currentHero;
-    protected void Awake()
+    protected override void Awake()
     {
-        heroList = SaveLoadSystem.Instance.data.heroes;
+        heroList = SaveLoadSystem.Instance.data.partyData.heroes;
         InstantiateHeroCards();
         SelectHero(0);
     }

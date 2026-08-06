@@ -71,7 +71,7 @@ public class Tavern : MonoBehaviour
 
     private void RefreshPlayerHeroList()
     {
-        foreach (HeroData h in data.heroes)
+        foreach (HeroData h in data.partyData.heroes)
         {
             if (heroIcons.ContainsKey(h) && heroIcons[h] != null) continue;
 

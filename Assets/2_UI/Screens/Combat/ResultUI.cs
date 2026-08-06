@@ -18,7 +18,7 @@ public class ResultUI : UIPanelController
     private ResourceData resourceData;
     private Inventory inventory;
 
-    private void Awake()
+    protected override void Awake()
     {
         if (instance == null) instance = this;
         else Destroy(this.gameObject);

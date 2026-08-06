@@ -112,17 +112,18 @@ namespace Persistence
             return new PersistentData
             {
                 inventory = Inventory.CreateDefault(),
-                heroes = new List<HeroData>
-                {
-                    new HeroData(Database.heroTemplates["dcd0c2cc-d3b5-448a-b037-0246cec20619"]), //warrior
-                    new HeroData(Database.heroTemplates["bd66c29c-56c1-4f96-91ac-d9071a6edcc1"]), //archer 
-                    new HeroData(Database.heroTemplates["2dd829e4-d585-4502-aab2-5a0d8bb6c697"]), //mage
-                },
+                partyData = new PartyData( 
+                    new List<HeroData> {
+                        new HeroData(Database.heroTemplates["dcd0c2cc-d3b5-448a-b037-0246cec20619"]), //warrior
+                        new HeroData(Database.heroTemplates["bd66c29c-56c1-4f96-91ac-d9071a6edcc1"]), //archer 
+                    }
+                ),
                 tavernData = new TavernData(),
                 resourceData = new ResourceData(),
                 lastTickTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
                 mapData = new MapData(),
                 cityData = new List<CityData>(),
+                progressionData = new ProgressionData()
             };
         }
     }

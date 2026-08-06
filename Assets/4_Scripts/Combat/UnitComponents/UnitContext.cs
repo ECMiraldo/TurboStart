@@ -5,18 +5,10 @@ using UnityEngine;
 public sealed class UnitContext
 {
     public readonly GridComponent Grid;
-
-
     public readonly StatsComponent Stats;
-    //public StatusController Status;
-
-
     public readonly HealthComponent Health;
-   // public readonly GridAttackComponent Attack;
-
-
     public readonly CombatVisuals Visuals;
-
+    public readonly FocusComponent Focus;
 
     // Runtime state (owned by the unit, not behaviors)
     public UnitContext Target = null;
@@ -26,9 +18,11 @@ public sealed class UnitContext
         Grid = brain.GetComponent<GridComponent>();
         Stats = brain.GetComponent<StatsComponent>();
         Health = brain.GetComponent<HealthComponent>();
+        Focus = brain.GetComponent<FocusComponent>();
         Visuals = brain.GetComponentInChildren<CombatVisuals>();
         Stats.Init(this);
         Health.Init(Stats);
+        Focus.Init(Stats);
     }
 
 

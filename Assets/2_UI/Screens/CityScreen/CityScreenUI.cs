@@ -11,7 +11,7 @@ public class CityScreenUI : UIPanelController
 
     private List<CityData> cityData;
     [field: SerializeField] public CityData currentCityData {get; private set;}
-    private void Awake()
+    protected override void Awake()
     {
         cityData = SaveLoadSystem.Instance.data.cityData;
     }

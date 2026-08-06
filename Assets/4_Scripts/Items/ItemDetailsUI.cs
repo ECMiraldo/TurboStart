@@ -20,7 +20,7 @@ public class ItemDetailsUI : UIPanelController
 
     private float lastShownTime;
 
-    private void Awake()
+    protected override void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);

@@ -8,7 +8,7 @@ public enum Team : byte { Player, Enemy, Neutral}
 public abstract class StatsComponent : MonoBehaviour
 {
     [field: SerializeField, ReadOnly] public Team team { get; protected set; }
-    [field: SerializeField] public SerializedDictionary<UnitStat, CharacterAttribute> stats { get; protected set; }
+    [field: SerializeField] public SerializedDictionary<UnitStat, Attribute> stats { get; protected set; }
 
     [field: Header("State")]
     [field: ReadOnly] public float lastAttackTime = 0;

@@ -19,20 +19,20 @@ MonoBehaviour:
   - {x: 0, y: 0}
   <archetype>k__BackingField: {fileID: 11400000, guid: 9b9f3d4507278184e815ae981482bc76, type: 2}
   statGrowthRules: []
-  attack: 25
+  attack: 12
   magicAttack: 15
   attackSpeed: 1
   attackRange: 1
-  accuracy: 10
+  accuracy: 0
   critChance: 0
   health: 300
-  mana: 70
-  defense: 35
-  magicDefense: 25
-  evasion: 10
-  starterRating: 554.5
-  levelOneRating: 557.5
-  perLevelRatingPercent: 0.54102796
+  mana: 0
+  defense: 5
+  magicDefense: 3
+  evasion: 0
+  starterRating: 405.69
+  levelOneRating: 436.46002
+  perLevelRatingPercent: 7.584614
   <usableArmors>k__BackingField: 0102
   <usableWeapons>k__BackingField: 02000000
   <expGrowPerLevel>k__BackingField: 100

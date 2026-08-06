@@ -47,9 +47,7 @@ public class AttackBehavior : GridUnitBehaviourSO
             ctx.Visuals.ResetVisuals();
             return;
         }
-        ctx.Target.Health.TakeDamage(ctx.Stats.stats[UnitStat.Attack].ToInt());
-        DamageNumberManager.ShowNumber(ctx.Target.Grid.transform.position, ctx.Stats.stats[UnitStat.Attack].ToInt().ToString());
-
-       
+        int amount = ctx.Stats.stats[UnitStat.Attack].ToInt();
+        Damage.Create(ctx, ctx.Target, DamageType.Physical, amount);
     }
 }

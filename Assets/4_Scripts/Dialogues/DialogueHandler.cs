@@ -33,7 +33,7 @@ public class DialogueHandler : UIPanelController
    	[SerializeField] private DialogueSO dialogue;
 	private Story story;
 
-	private void Awake()
+	protected override void Awake()
 	{
 		if (Instance == null) Instance = this;
 		else Destroy(gameObject);
@@ -57,6 +57,15 @@ public class DialogueHandler : UIPanelController
 		speakerTitle.text = dialogue.name;
 		if (dialogue.dialogueImage != null) dialogueImage.sprite = dialogue.dialogueImage;
 		story = new Story(dialogue.story.text);
+		ContinueStory();
+	}
+
+	private void EndDialogue()
+	{
+		story = null;
+		dialogue = null;
+		HideAllChoices();
+		Close();
 	}
 
 	private void Update()
@@ -68,24 +77,30 @@ public class DialogueHandler : UIPanelController
 			if (isTypewriterRunning  && typewriterCoroutine != null) Halt();
 			else if (story.canContinue) ContinueStory(); // If there's more story, continue
 			else if (story.currentChoices.Count > 0) ShowChoices();
-			else Close(); // If no more story and no choices, end the dialogue
+			else EndDialogue(); // If no more story and no choices, end the dialogue
 		}
-		if (story.currentChoices.Count > 0) ShowChoices();
 	}
 
 	private void ContinueStory()
 	{
-		if (story.canContinue)
+		 HideAllChoices();
+
+		string text = story.Continue();
+
+		if (!string.IsNullOrWhiteSpace(text))
 		{
-			HideAllChoices(); 
-			string text = story.Continue();
 			typewriterCoroutine = StartCoroutine(IncreaseMaxVisibleChar(text));
-			// Process any story tags present in the new line
-			if (story.currentTags.Count > 0)
-			{
-				HandleStoryTags(story.currentTags);
-			}
 		}
+
+		HandleStoryTags(story.currentTags);
+
+		if (!story.canContinue &&
+			story.currentChoices.Count == 0 &&
+			string.IsNullOrWhiteSpace(text))
+		{
+			EndDialogue();
+		}
+
 	}
 
 	public void OnChoiceClicked(int index)
@@ -93,7 +108,9 @@ public class DialogueHandler : UIPanelController
 		// Hide choices immediately upon selection
 		HideAllChoices();
 		story.ChooseChoiceIndex(index);
-		ContinueStory(); // Proceed to NPC's next dialogue, which may contain story tags
+		if (story.currentTags.Count > 0) HandleStoryTags(story.currentTags);
+		if (story.canContinue) ContinueStory();
+		else EndDialogue();
 	}
 
 
@@ -132,6 +149,11 @@ public class DialogueHandler : UIPanelController
 				string effectID = tag.Split(":")[1];
 				var allEffects = dialogue.dialogueEffects.FindAll((x) => x.tagID == effectID);
 				foreach (var efx in allEffects) StartCoroutine(efx.Execute());
+			}
+			if (tag.StartsWith("Speaker:"))
+			{
+				string speakerName = tag.Split(":")[1];
+				speakerTitle.text = speakerName;
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Persistence;
 using UnityEngine;
 
 [Serializable]
@@ -31,13 +32,13 @@ public class ResourceData
 
     public void AddGold(int amount, bool withModifiers = true) 
     {
-        if (withModifiers) amount = Mathf.FloorToInt(amount * DataHelpers.GetSumOfStats(UnitStat.GoldDrop));
+        if (withModifiers) amount = Mathf.FloorToInt(amount * DataHelpers.GetPartyStat(PartyStat.GoldDrop));
         gold += amount;
     }
 
     public void AddExperience(int amount, bool withModifiers = true)
     {
-        if (withModifiers) amount = Mathf.FloorToInt(amount * DataHelpers.GetSumOfStats(UnitStat.ExperienceGain));
+        if (withModifiers) amount = Mathf.FloorToInt(amount * DataHelpers.GetPartyStat(PartyStat.ExperienceGain));
         experience += amount;
     }
 

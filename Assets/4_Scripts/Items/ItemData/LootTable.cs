@@ -15,7 +15,7 @@ public class LootTable
         foreach (ItemSO item in lootDict.Keys)
         {
             float roll = UnityEngine.Random.Range(0, 101);
-            roll *= 1 / DataHelpers.GetSumOfStats(UnitStat.DropChance);
+            roll *= 1 / DataHelpers.GetPartyStat(PartyStat.DropChance);
             if (roll < lootDict[item]) lootList.Add(item);
         }
         return lootList;

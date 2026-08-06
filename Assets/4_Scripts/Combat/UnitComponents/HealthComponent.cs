@@ -4,28 +4,45 @@ using UnityEngine.UI;
 
 public class HealthComponent : MonoBehaviour
 {
-    public event Action OnDeath;
     public static event Action<StatsComponent> OnUnitDied;
+    public event Action OnDeath;
+    
 
-    [SerializeField] private int maxHealth = 10;
     [SerializeField] private Slider bar;
-    public int CurrentHealth { get; private set; }
 
-    public bool IsDead => CurrentHealth <= 0;
+
     private StatsComponent stats;
+    private Attribute healthStat;
+
+    public int CurrentHealth { get; private set; }
+    public bool IsDead => CurrentHealth <= 0;
+
     public void Init(StatsComponent stats)
     {
         this.stats = stats;
-        maxHealth = stats.stats[UnitStat.Health].ToInt();
-        CurrentHealth = maxHealth;
+        healthStat = stats.stats[UnitStat.Health];
+        CurrentHealth = healthStat.ToInt();
+        healthStat.OnValueChanged += UpdateMaxHealth;
+        UpdateMaxHealth(healthStat.ToInt());
+    }
+
+    private void OnDisable()
+    {
+        healthStat.OnValueChanged -= UpdateMaxHealth;
+    }
+
+    private void UpdateMaxHealth(float newValue)
+    {
+        CurrentHealth = Mathf.Min(CurrentHealth, healthStat.ToInt());
         UpdateUi();
     }
+
 
     public void TakeDamage(int amount)
     {
         if (IsDead) return;
 
-
+        amount = Mathf.Max(amount, 0);
         CurrentHealth -= amount;
 
 
@@ -41,7 +58,7 @@ public class HealthComponent : MonoBehaviour
     private void UpdateUi()
     {
         bar.enabled = !IsDead;
-        bar.maxValue = maxHealth;
+        bar.maxValue = healthStat.ToInt();
         bar.value = CurrentHealth;
     }
 }

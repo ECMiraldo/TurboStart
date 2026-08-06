@@ -8,10 +8,11 @@ using UnityEngine;
 public class PersistentData
 {
     public long lastTickTime;
-    [SerializeReference] public List<HeroData> heroes;
+    public PartyData partyData;
     public Inventory inventory;
     public TavernData tavernData;
     public ResourceData resourceData;
     public MapData mapData;
-    public List<CityData> cityData;
+    public List<CityData> cityData; 
+    public ProgressionData progressionData;
 }

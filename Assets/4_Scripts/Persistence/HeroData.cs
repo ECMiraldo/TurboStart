@@ -19,7 +19,7 @@ public class HeroData
     public List<Equipment> equipments;
 
     [JsonIgnore] public HeroTemplateSO template => Database.heroTemplates[templateId];
-    [JsonIgnore] public SerializedDictionary<UnitStat, CharacterAttribute> stats;
+    [JsonIgnore] public SerializedDictionary<UnitStat, Attribute> stats;
 
     [JsonConstructor] public HeroData() {}
     public HeroData(HeroTemplateSO template)

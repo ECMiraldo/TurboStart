@@ -14,7 +14,6 @@ public class MapStageLocationButton : MapLocationButton
 
     public override void Enter()
     {
-        AdventureMap.Instance.SetMapToWindow();
         combatSessionManager.gameObject.SetActive(true);
         combatSessionManager.StartStage(stageDefinitionSO);
     }

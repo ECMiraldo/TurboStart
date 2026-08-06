@@ -33,21 +33,21 @@ public abstract class UnitDataSO : IDScriptableObject
 
     [SerializeField, ReadOnly] private float perLevelRatingPercent;
 
-    public SerializedDictionary<UnitStat, CharacterAttribute> GetStats(int round)
+    public SerializedDictionary<UnitStat, Attribute> GetStats(int round)
     {
         return new()
         {
-            { UnitStat.Health, new CharacterAttribute(GetScaledStatValue(UnitStat.Health, health, round)) },
-            { UnitStat.Mana, new CharacterAttribute(GetScaledStatValue(UnitStat.Mana, mana, round)) },
-            { UnitStat.Attack, new CharacterAttribute(GetScaledStatValue(UnitStat.Attack, attack, round)) },
-            { UnitStat.MagicAttack, new CharacterAttribute(GetScaledStatValue(UnitStat.MagicAttack, magicAttack, round)) },
-            { UnitStat.AttackSpeed, new CharacterAttribute(GetScaledStatValue(UnitStat.AttackSpeed, attackSpeed, round)) },
-            { UnitStat.AttackRange, new CharacterAttribute(GetScaledStatValue(UnitStat.AttackRange, attackRange, round)) },
-            { UnitStat.Accuracy, new CharacterAttribute(GetScaledStatValue(UnitStat.Accuracy, accuracy, round)) },
-            { UnitStat.CritChance, new CharacterAttribute(GetScaledStatValue(UnitStat.CritChance, critChance, round)) },
-            { UnitStat.Defense, new CharacterAttribute(GetScaledStatValue(UnitStat.Defense, defense, round)) },
-            { UnitStat.MagicDefense, new CharacterAttribute(GetScaledStatValue(UnitStat.MagicDefense, magicDefense, round)) },
-            { UnitStat.Evasion, new CharacterAttribute(GetScaledStatValue(UnitStat.Evasion, evasion, round)) },
+            { UnitStat.Health, new Attribute(GetScaledStatValue(UnitStat.Health, health, round)) },
+            { UnitStat.Focus, new Attribute(GetScaledStatValue(UnitStat.Focus, mana, round)) },
+            { UnitStat.Attack, new Attribute(GetScaledStatValue(UnitStat.Attack, attack, round)) },
+            { UnitStat.MagicAttack, new Attribute(GetScaledStatValue(UnitStat.MagicAttack, magicAttack, round)) },
+            { UnitStat.AttackSpeed, new Attribute(GetScaledStatValue(UnitStat.AttackSpeed, attackSpeed, round)) },
+            { UnitStat.AttackRange, new Attribute(GetScaledStatValue(UnitStat.AttackRange, attackRange, round)) },
+            { UnitStat.Accuracy, new Attribute(GetScaledStatValue(UnitStat.Accuracy, accuracy, round)) },
+            { UnitStat.CritChance, new Attribute(GetScaledStatValue(UnitStat.CritChance, critChance, round)) },
+            { UnitStat.Defense, new Attribute(GetScaledStatValue(UnitStat.Defense, defense, round)) },
+            { UnitStat.MagicDefense, new Attribute(GetScaledStatValue(UnitStat.MagicDefense, magicDefense, round)) },
+            { UnitStat.Evasion, new Attribute(GetScaledStatValue(UnitStat.Evasion, evasion, round)) },
         };
     }
 
@@ -94,9 +94,9 @@ public abstract class UnitDataSO : IDScriptableObject
     }
    public void CalculateRatings()
     {
-        starterRating = CalculateRating(0);
+        starterRating = CalculateRating(1);
 
-        levelOneRating = CalculateRating(1);
+        levelOneRating = CalculateRating(2);
 
         if (starterRating > 0)
         {
@@ -137,7 +137,7 @@ public abstract class UnitDataSO : IDScriptableObject
         return stat switch
         {
             UnitStat.Health => health,
-            UnitStat.Mana => mana,
+            UnitStat.Focus => mana,
             UnitStat.Attack => attack,
             UnitStat.MagicAttack => magicAttack,
             UnitStat.AttackSpeed => attackSpeed,

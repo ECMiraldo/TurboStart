@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 442bd4ccdffbdc84a97455eee5339f7f, type: 3}
-  m_Name: Dialogue1
+  m_Name: Guide1
   m_EditorClassIdentifier: 
   dialogueEffects:
-  - rid: 5592807119262056576
-  dialogueName: Dialogue Text
-  story: {fileID: 4900000, guid: 81f9a0f35ee25b249b5e36f3b3c210ff, type: 3}
+  - rid: 4148491513627672690
+  dialogueName: Humble Beginnings
+  story: {fileID: 4900000, guid: 1b973c4b3389ed94f951ebbb013321f8, type: 3}
   dialogueImage: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 5592807119262056576
-      type: {class: GiveGoldEffect, ns: , asm: Assembly-CSharp}
+    - rid: 4148491513627672690
+      type: {class: StartStageEffect, ns: , asm: Assembly-CSharp}
       data:
-        tagID: Choice1
-        goldAmount: 50
+        tagID: StartStage
+        stage: {fileID: 11400000, guid: c1e2f7fc2fd688b44a7a3791e28be843, type: 2}

@@ -1,4 +1,5 @@
 ﻿using NaughtyAttributes;
+using Persistence;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,13 +24,13 @@ public class CombatSessionManager : MonoBehaviour
 
     public static event Action<CombatState> onStateChanged;
     public static event Action<bool> onAutoplayToggled;
-    public static event Action onRoundWon; 
+    public static event Action onRoundWon;
+    public static event Action<int> onRoundChanged;
     public static event Action<int> onStageExperienceChanged;
 
     [Header("Refs")]
     [field: SerializeField] public CombatSpawner spawner { get; private set; }
     [field: SerializeField] public ResultUI resultUI { get; private set; }
-    [field: SerializeField] public UIHeroBoard heroBoard { get; private set; }
     [field: SerializeField] public StageDefinitionSO currentStage { get; private set; }
     [field: SerializeField] public GameObject UI { get; private set; }
 
@@ -43,6 +44,7 @@ public class CombatSessionManager : MonoBehaviour
 
     [Header("State")]
     [field: SerializeField, ReadOnly] public int currentRoundIndex { get; private set; } = 0;
+    [field: SerializeField, ReadOnly] public int completedRoundIndex { get; private set; } = 0;
     [field: SerializeField, ReadOnly] public int stageExperience {get; private set;} = 0;
     [field: SerializeField, ReadOnly] public RoundDefinitionSO currentRound { get; private set; }
     [field: SerializeField, ReadOnly] public CombatState State { get; private set; }
@@ -119,11 +121,13 @@ public class CombatSessionManager : MonoBehaviour
 
     public void StartStage(StageDefinitionSO stage)
     {
+        AdventureMap.Instance.SetMapToWindow();
         gameObject.SetActive(true);
         currentStage = stage;
         currentRoundIndex = 0;
+        onRoundChanged?.Invoke(currentRoundIndex);
         SetState(CombatState.StageSetup);
-        heroBoard.gameObject.SetActive(true);
+        UI.gameObject.SetActive(true);
     }
 
 
@@ -137,6 +141,7 @@ public class CombatSessionManager : MonoBehaviour
             return;
         }
         currentRoundIndex = index;
+        onRoundChanged?.Invoke(currentRoundIndex);
         if (currentRoutine != null) StopCoroutine(currentRoutine);
         currentRoutine = StartCoroutine(RoundFlow());
     }
@@ -179,6 +184,10 @@ public class CombatSessionManager : MonoBehaviour
             onRoundWon?.Invoke();
             resultUI.ShowVictory();
             currentRoundIndex += isAutoplay ? 1 : 0;
+            if (currentRoundIndex > completedRoundIndex)
+            {
+                completedRoundIndex = currentRoundIndex;
+            }
             yield return ResetRound(currentRoundIndex);
         }
 
@@ -208,6 +217,16 @@ public class CombatSessionManager : MonoBehaviour
         }
     }
 
+    public void JumpToRound(int roundIndex)
+    {
+        if (roundIndex < 0 || roundIndex >= currentStage.nRounds)
+        {
+            Debug.LogWarning($"Invalid round index: {roundIndex}");
+            return;
+        }
+        StartCoroutine(ResetRound(roundIndex));
+    }
+
     private IEnumerator ResetRound(int round)
     {
 
@@ -232,7 +251,7 @@ public class CombatSessionManager : MonoBehaviour
             currentStage.round0Experience * 
             (currentRoundIndex + 1) * 
             currentStage.experienceMultiplierPerRound  * 
-            ( 1 + DataHelpers.GetSumOfStats(UnitStat.ExperienceGain))
+            ( 1 + DataHelpers.GetPartyStat(PartyStat.ExperienceGain))
         );
         onStageExperienceChanged?.Invoke(stageExperience);
     }

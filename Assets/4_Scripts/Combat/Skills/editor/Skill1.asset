@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da3db70e91b0ade439f6e4ed7265a4a8, type: 3}
+  m_Name: Skill1
+  m_EditorClassIdentifier: 
+  _id: 
+  <icon>k__BackingField: {fileID: 21300000, guid: b6892fd23842e0f47bfa27e00744bc85, type: 3}
+  <skillName>k__BackingField: Arrow
+  <prefab>k__BackingField: {fileID: 0}
+  <minFocusCost>k__BackingField: 0
+  <damageType>k__BackingField: 0
+  onCastEffects:
+  - rid: 4148491612553478242
+  onDamageEffects:
+  - rid: 4148491612553478243
+  references:
+    version: 2
+    RefIds:
+    - rid: 4148491612553478242
+      type: {class: ProjectileEffect, ns: , asm: Assembly-CSharp}
+      data:
+        animationYield: 0
+        projectile: {fileID: 0}
+    - rid: 4148491612553478243
+      type: {class: ProjectileEffect, ns: , asm: Assembly-CSharp}
+      data:
+        animationYield: 0
+        projectile: {fileID: 0}

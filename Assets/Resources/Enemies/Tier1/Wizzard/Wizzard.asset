@@ -26,16 +26,15 @@ MonoBehaviour:
   accuracy: 25
   critChance: 0
   health: 200
-  mana: 100
+  mana: 0
   defense: 20
   magicDefense: 30
-  evasion: 10
-  starterRating: 944.6
-  levelOneRating: 944.6
-  perLevelRatingPercent: 0
+  evasion: 0
+  starterRating: 924.6
+  levelOneRating: 924.7
+  perLevelRatingPercent: 0.010819449
   powerCost: 5
   positioning: 3
-  expReward: 0
   lootTable:
     lootDict:
       _serializedList:

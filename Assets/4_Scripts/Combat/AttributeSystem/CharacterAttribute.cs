@@ -9,7 +9,7 @@ using UnityEngine;
 
 
 [Serializable]
-public class CharacterAttribute
+public class Attribute
 {
 
     public event Action<float> OnValueChanged;
@@ -23,7 +23,7 @@ public class CharacterAttribute
     [field: SerializeField] protected bool isDirty;
     [field: SerializeField] public SerializedDictionary<ModifierSource, List<AttributeModifier>> Modifiers { get; private set; }
 
-    public CharacterAttribute(float starterValue)
+    public Attribute(float starterValue)
     {
         value = starterValue;
         this.starterValue = starterValue;

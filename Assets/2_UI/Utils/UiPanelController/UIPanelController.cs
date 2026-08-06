@@ -7,9 +7,15 @@ public abstract class UIPanelController : MonoBehaviour
     [SerializeField] protected bool startActive = false;
     [SerializeField] protected GameObject child;
     public bool IsOpen { get; protected set; }
-    protected virtual void Start()
+
+    protected virtual void Awake()
     {
         if (child == null && transform.childCount == 1) child = transform.GetChild(0).gameObject;
+        Open();
+    }
+
+    protected virtual void Start()
+    {
         if (!startActive) Close();
     }
 
