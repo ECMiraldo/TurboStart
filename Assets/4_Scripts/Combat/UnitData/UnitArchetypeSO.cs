@@ -20,6 +20,11 @@ public class StatGrowthRule
 [CreateAssetMenu(menuName = "Combat/Unit Archetype")]
 public class UnitArchetypeSO : IDScriptableObject
 {
+
+    public float focusPerHit;
+    public float focusOnDamageTaken;
+    public float focusPerSecond;
+
     public List<StatGrowthRule> statGrowthRules = new();
 
 #if UNITY_EDITOR

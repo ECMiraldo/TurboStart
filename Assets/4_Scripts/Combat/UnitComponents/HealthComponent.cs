@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class HealthComponent : MonoBehaviour
 {
     public static event Action<StatsComponent> OnUnitDied;
+    public event Action<float> OnDamageTaken;
     public event Action OnDeath;
     
 
@@ -45,13 +46,14 @@ public class HealthComponent : MonoBehaviour
         amount = Mathf.Max(amount, 0);
         CurrentHealth -= amount;
 
-
         if (CurrentHealth <= 0)
         {
             CurrentHealth = 0;
             OnDeath?.Invoke();
             OnUnitDied?.Invoke(stats);
         }
+        else OnDamageTaken?.Invoke(amount);
+
         UpdateUi();
     }
 

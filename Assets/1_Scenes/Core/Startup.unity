@@ -268,7 +268,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <data>k__BackingField:
     lastTickTime: 0
-    heroes: []
+    partyData:
+      heroes: []
+      partyStats:
+        _serializedList: []
     inventory:
       <items>k__BackingField:
       - quantity: 0
@@ -283,9 +286,6 @@ MonoBehaviour:
     cityData: []
     progressionData:
       hasSeenGameGuide1: 0
-  references:
-    version: 2
-    RefIds: []
 --- !u!4 &1427433499
 Transform:
   m_ObjectHideFlags: 0

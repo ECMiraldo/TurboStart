@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Warrior
   m_EditorClassIdentifier: 
   _id: ed9cac64-f1cf-4e02-8c74-2fe6eaea1186
+  focusPerHit: 0
+  focusOnDamageTaken: 0
+  focusPerSecond: 0
   statGrowthRules:
   - stat: 0
     flatGainPerLevel: 1
@@ -55,6 +58,10 @@ MonoBehaviour:
     percentGainPerLevel: 0.01
     ratingWeight: 2
   - stat: 10
+    flatGainPerLevel: 0
+    percentGainPerLevel: 0
+    ratingWeight: 2
+  - stat: 13
     flatGainPerLevel: 0
     percentGainPerLevel: 0
     ratingWeight: 2

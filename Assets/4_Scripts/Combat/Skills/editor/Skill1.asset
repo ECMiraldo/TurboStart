@@ -15,21 +15,23 @@ MonoBehaviour:
   _id: 
   <icon>k__BackingField: {fileID: 21300000, guid: b6892fd23842e0f47bfa27e00744bc85, type: 3}
   <skillName>k__BackingField: Arrow
-  <prefab>k__BackingField: {fileID: 0}
-  <minFocusCost>k__BackingField: 0
+  <minFocusCost>k__BackingField: 20
+  <baseEffectValue>k__BackingField: 20
+  <bonusPerFocus>k__BackingField: 0.5
   <damageType>k__BackingField: 0
   onCastEffects:
   - rid: 4148491612553478242
   onDamageEffects:
   - rid: 4148491612553478243
+  statScales: []
   references:
     version: 2
     RefIds:
     - rid: 4148491612553478242
       type: {class: ProjectileEffect, ns: , asm: Assembly-CSharp}
       data:
-        animationYield: 0
-        projectile: {fileID: 0}
+        animationYield: 0.1
+        projectile: {fileID: 11400000, guid: 070b6fa592979974587ddd597544fd52, type: 2}
     - rid: 4148491612553478243
       type: {class: ProjectileEffect, ns: , asm: Assembly-CSharp}
       data:

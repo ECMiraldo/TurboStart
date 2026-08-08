@@ -3,7 +3,8 @@
 public class EnemyStatsComponent : StatsComponent
 {
     [field: SerializeField] public EnemyDataSO enemyDataSO { get; private set; }
-    
+    public override UnitDataSO unitData => enemyDataSO;
+
     public override void Init(UnitContext ctx)
     {
         base.Init(ctx);

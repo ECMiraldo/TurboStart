@@ -12,6 +12,7 @@ public abstract class UnitDataSO : IDScriptableObject
     [field: SerializeField] public Sprite icon { get; private set; }
     [field: SerializeField] public Vector2Int[] footprintOffsets { get; private set; } = new Vector2Int[] { Vector2Int.zero };
     [field: SerializeField] public UnitArchetypeSO archetype { get; private set; }
+    [field: SerializeField] public SkillSO skill { get; private set; }
     [SerializeField] public List<StatGrowthRule> statGrowthRules = new();
 
     [Header("Stats")]
@@ -22,7 +23,7 @@ public abstract class UnitDataSO : IDScriptableObject
     public int accuracy;
     public float critChance;
     public int health;
-    public int mana;
+    public int focus;
     public int defense;
     public int magicDefense;
     public int evasion;
@@ -38,7 +39,7 @@ public abstract class UnitDataSO : IDScriptableObject
         return new()
         {
             { UnitStat.Health, new Attribute(GetScaledStatValue(UnitStat.Health, health, round)) },
-            { UnitStat.Focus, new Attribute(GetScaledStatValue(UnitStat.Focus, mana, round)) },
+            { UnitStat.Focus, new Attribute(GetScaledStatValue(UnitStat.Focus, focus, round)) },
             { UnitStat.Attack, new Attribute(GetScaledStatValue(UnitStat.Attack, attack, round)) },
             { UnitStat.MagicAttack, new Attribute(GetScaledStatValue(UnitStat.MagicAttack, magicAttack, round)) },
             { UnitStat.AttackSpeed, new Attribute(GetScaledStatValue(UnitStat.AttackSpeed, attackSpeed, round)) },
@@ -48,6 +49,10 @@ public abstract class UnitDataSO : IDScriptableObject
             { UnitStat.Defense, new Attribute(GetScaledStatValue(UnitStat.Defense, defense, round)) },
             { UnitStat.MagicDefense, new Attribute(GetScaledStatValue(UnitStat.MagicDefense, magicDefense, round)) },
             { UnitStat.Evasion, new Attribute(GetScaledStatValue(UnitStat.Evasion, evasion, round)) },
+            { UnitStat.FocusOnDamageTaken, new Attribute(archetype.focusOnDamageTaken) },
+            { UnitStat.FocusPerHit, new Attribute(archetype.focusPerHit) },
+            { UnitStat.FocusPerSecond, new Attribute(archetype.focusPerSecond) },
+
         };
     }
 
@@ -137,7 +142,7 @@ public abstract class UnitDataSO : IDScriptableObject
         return stat switch
         {
             UnitStat.Health => health,
-            UnitStat.Focus => mana,
+            UnitStat.Focus => focus,
             UnitStat.Attack => attack,
             UnitStat.MagicAttack => magicAttack,
             UnitStat.AttackSpeed => attackSpeed,

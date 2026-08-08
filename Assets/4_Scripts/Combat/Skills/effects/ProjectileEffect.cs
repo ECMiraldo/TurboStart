@@ -16,7 +16,11 @@ public class ProjectileEffect : CombatEffect
             yield break;
         }
 
-        GameObject projectileGO = GameObject.Instantiate(projectile.projectilePrefab, caster.Grid.transform.position, Quaternion.identity);
+        //get casted skill
+        SkillSO castedSkill = caster.Stats.unitData.skill;
+        int totalFocus = caster.Focus.CurrentFocus;
+        caster.Focus.ConsumeAll();
+        GameObject projectileGO = GameObject.Instantiate(projectile.projectilePrefab, caster.Grid.transform.position, Quaternion.identity, null);
 
         float elapsed = 0f;
 
@@ -26,7 +30,10 @@ public class ProjectileEffect : CombatEffect
         while (Vector3.Distance(projectileGO.transform.position,targetPos) > 0.1f)
         {
             if (caster.Target == null || caster.Target.Health.IsDead)
-                break;
+            {
+                GameObject.Destroy(projectileGO);
+                yield break;
+            }
 
             targetPos = caster.Target.Grid.transform.position;
             projectileGO.transform.position = Vector3.MoveTowards(
@@ -40,6 +47,9 @@ public class ProjectileEffect : CombatEffect
             elapsed += Time.deltaTime;
             yield return null;
         }
+
+        int effectValue = castedSkill.GetEffectValue(caster.Stats, totalFocus );
+        Damage.Create(caster, caster.Target, castedSkill.damageType, effectValue);
 
         foreach (CombatEffect effect in projectile.onDamageEffects)
         {

@@ -32,6 +32,7 @@ public class CombatVisuals : MonoBehaviour
     public void OnAttack(UnitContext ctx, Action<UnitContext> callback)
     {
         UpdateVisuals(ctx.Grid.anchorCell, ctx.Target.Grid.anchorCell);
+        onAttack?.Invoke(ctx);
         if (attackAnimator != null) 
             StartCoroutine(attackAnimator.OnAttack(ctx, callback));
     }

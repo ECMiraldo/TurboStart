@@ -21,5 +21,7 @@ public enum UnitStat : byte
     MagicDefense = 9,
     Evasion = 10,
     Lifesteal = 11,
-    ManaPerHit = 12,
+    FocusPerHit = 12,
+    FocusOnDamageTaken = 13,
+    FocusPerSecond = 14
 }

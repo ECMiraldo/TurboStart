@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Archer
   m_EditorClassIdentifier: 
   _id: 114db6b7-f434-497f-99a1-13f40588e55b
+  focusPerHit: 5
+  focusOnDamageTaken: 0
+  focusPerSecond: 0
   statGrowthRules:
   - stat: 0
     flatGainPerLevel: 5
@@ -45,7 +48,7 @@ MonoBehaviour:
   - stat: 7
     flatGainPerLevel: 0
     percentGainPerLevel: 0
-    ratingWeight: 0
+    ratingWeight: 2
   - stat: 8
     flatGainPerLevel: 5
     percentGainPerLevel: 0.01

@@ -13,7 +13,8 @@ public abstract class StatsComponent : MonoBehaviour
     [field: Header("State")]
     [field: ReadOnly] public float lastAttackTime = 0;
 
-    protected UnitContext ctx { get; private set; }
+    public abstract UnitDataSO unitData { get;  }
+    public UnitContext ctx { get; private set; }
     public virtual void Init(UnitContext ctx)
     {
         this.ctx = ctx;

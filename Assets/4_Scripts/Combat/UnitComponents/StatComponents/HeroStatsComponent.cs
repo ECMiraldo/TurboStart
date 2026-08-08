@@ -8,6 +8,7 @@ public class HeroStatsComponent : StatsComponent
     [field: SerializeField] public int stageLevel { get; private set; } = 1;
     [field: SerializeField] public int experience { get; private set; } = 0;
     private Dictionary<UnitStat, List<AttributeModifier>> levelModifiers = new();
+    public override UnitDataSO unitData => heroData.template;
 
     public void SetHeroData(HeroData data)
     {

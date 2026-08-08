@@ -12,15 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f93e2b9473398408fdd4844088182f, type: 3}
   m_Name: New Projectile
   m_EditorClassIdentifier: 
-  <projectilePrefab>k__BackingField: {fileID: 0}
-  <speed>k__BackingField: 0
-  onDamageEffects:
-  - rid: 4148491612553478238
+  <projectilePrefab>k__BackingField: {fileID: 2180164256584092794, guid: 035facf50894c7b448543fd90ab65c26, type: 3}
+  <speed>k__BackingField: 7
+  onDamageEffects: []
   references:
     version: 2
-    RefIds:
-    - rid: 4148491612553478238
-      type: {class: ProjectileEffect, ns: , asm: Assembly-CSharp}
-      data:
-        animationYield: 0
-        projectile: {fileID: 0}
+    RefIds: []

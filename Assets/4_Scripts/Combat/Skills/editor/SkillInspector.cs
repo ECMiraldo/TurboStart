@@ -9,6 +9,8 @@ public class SkillInspector : Editor
     SerializedProperty skillNameProperty;
     SerializedProperty prefabProperty;
     SerializedProperty minFocusCostProperty;
+    SerializedProperty baseEffectValueProperty;
+    SerializedProperty bonusPerFocusProperty;
     SerializedProperty damageTypeProperty;
 
     SerializedProperty onCastEffectsProperty;
@@ -18,8 +20,11 @@ public class SkillInspector : Editor
     {
         iconProperty = serializedObject.FindProperty("<icon>k__BackingField");
         skillNameProperty = serializedObject.FindProperty("<skillName>k__BackingField");
-        prefabProperty = serializedObject.FindProperty("<prefab>k__BackingField");
+
         minFocusCostProperty = serializedObject.FindProperty("<minFocusCost>k__BackingField");
+        baseEffectValueProperty = serializedObject.FindProperty("<baseEffectValue>k__BackingField");
+        bonusPerFocusProperty = serializedObject.FindProperty("<bonusPerFocus>k__BackingField");
+
         damageTypeProperty = serializedObject.FindProperty("<damageType>k__BackingField");
 
         onCastEffectsProperty = serializedObject.FindProperty("onCastEffects");
@@ -32,8 +37,11 @@ public class SkillInspector : Editor
 
         EditorGUILayout.PropertyField(iconProperty);
         EditorGUILayout.PropertyField(skillNameProperty);
-        EditorGUILayout.PropertyField(prefabProperty);
         EditorGUILayout.PropertyField(minFocusCostProperty);
+        EditorGUILayout.PropertyField(baseEffectValueProperty);
+        EditorGUILayout.PropertyField(bonusPerFocusProperty);
+
+
         EditorGUILayout.PropertyField(damageTypeProperty);
 
         DrawEffectsList("On Cast Effects", onCastEffectsProperty);
