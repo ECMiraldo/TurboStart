@@ -23,5 +23,6 @@ public enum UnitStat : byte
     Lifesteal = 11,
     FocusPerHit = 12,
     FocusOnDamageTaken = 13,
-    FocusPerSecond = 14
+    FocusPerSecond = 14,
+    DamageReduction = 15,
 }

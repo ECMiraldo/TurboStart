@@ -16,48 +16,37 @@ MonoBehaviour:
   focusPerHit: 5
   focusOnDamageTaken: 0
   focusPerSecond: 0
+  offensiveRatingWeight: 0.7
+  magicRatingWeight: 0.1
+  defensiveRatingWeight: 0.2
   statGrowthRules:
   - stat: 0
-    flatGainPerLevel: 5
+    flatGainPerLevel: 3
     percentGainPerLevel: 0.05
-    ratingWeight: 5
   - stat: 1
     flatGainPerLevel: 1
     percentGainPerLevel: 0.01
-    ratingWeight: 0.2
   - stat: 2
     flatGainPerLevel: 0
     percentGainPerLevel: 0.02
-    ratingWeight: 3
-  - stat: 3
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 100
   - stat: 4
     flatGainPerLevel: 5
     percentGainPerLevel: 0.01
-    ratingWeight: 1
   - stat: 5
     flatGainPerLevel: 0
     percentGainPerLevel: 0
-    ratingWeight: 2
   - stat: 6
-    flatGainPerLevel: 20
+    flatGainPerLevel: 5
     percentGainPerLevel: 0.02
-    ratingWeight: 0.1
   - stat: 7
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 2
+    flatGainPerLevel: 1
+    percentGainPerLevel: 0.01
   - stat: 8
     flatGainPerLevel: 5
     percentGainPerLevel: 0.01
-    ratingWeight: 0.5
   - stat: 9
     flatGainPerLevel: 5
     percentGainPerLevel: 0.01
-    ratingWeight: 0.5
   - stat: 10
     flatGainPerLevel: 5
     percentGainPerLevel: 1
-    ratingWeight: 2

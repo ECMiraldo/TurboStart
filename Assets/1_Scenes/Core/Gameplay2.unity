@@ -6682,7 +6682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8603587788799329662, guid: e4518a2c5b894134eabbab67e9ad9858, type: 3}
       propertyPath: m_text
-      value: ManaPerHit
+      value: FocusPerHit
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16127,7 +16127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8603587788799329662, guid: e4518a2c5b894134eabbab67e9ad9858, type: 3}
       propertyPath: m_text
-      value: GoldDrop
+      value: FocusPerSecond
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22793,7 +22793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8603587788799329662, guid: e4518a2c5b894134eabbab67e9ad9858, type: 3}
       propertyPath: m_text
-      value: ExperienceGain
+      value: DamageReduction
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -26747,7 +26747,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1858320317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28308,7 +28308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8603587788799329662, guid: e4518a2c5b894134eabbab67e9ad9858, type: 3}
       propertyPath: m_text
-      value: DropChance
+      value: FocusOnDamageTaken
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

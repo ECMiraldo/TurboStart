@@ -13,55 +13,31 @@ MonoBehaviour:
   m_Name: Warrior
   m_EditorClassIdentifier: 
   _id: ed9cac64-f1cf-4e02-8c74-2fe6eaea1186
-  focusPerHit: 0
-  focusOnDamageTaken: 0
+  focusPerHit: 5
+  focusOnDamageTaken: 2
   focusPerSecond: 0
+  offensiveRatingWeight: 0.2
+  magicRatingWeight: 0.1
+  defensiveRatingWeight: 0.7
   statGrowthRules:
   - stat: 0
-    flatGainPerLevel: 1
+    flatGainPerLevel: 2
     percentGainPerLevel: 0.02
-    ratingWeight: 3
-  - stat: 1
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 0.1
   - stat: 2
     flatGainPerLevel: 0
     percentGainPerLevel: 0.01
-    ratingWeight: 2
-  - stat: 3
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 20
   - stat: 4
     flatGainPerLevel: 1
     percentGainPerLevel: 0.01
-    ratingWeight: 1
   - stat: 5
     flatGainPerLevel: 0
     percentGainPerLevel: 0
-    ratingWeight: 0.5
   - stat: 6
-    flatGainPerLevel: 10
-    percentGainPerLevel: 0.01
-    ratingWeight: 1
-  - stat: 7
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 0
+    flatGainPerLevel: 30
+    percentGainPerLevel: 0.04
   - stat: 8
-    flatGainPerLevel: 3
-    percentGainPerLevel: 0.01
-    ratingWeight: 2
+    flatGainPerLevel: 10
+    percentGainPerLevel: 0.05
   - stat: 9
-    flatGainPerLevel: 3
-    percentGainPerLevel: 0.01
-    ratingWeight: 2
-  - stat: 10
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 2
-  - stat: 13
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 2
+    flatGainPerLevel: 10
+    percentGainPerLevel: 0.05

@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using NaughtyAttributes;
+using Unity.VisualScripting;
 
 [Serializable]
 public class StatGrowthRule
@@ -11,22 +12,22 @@ public class StatGrowthRule
     [Header("Scaling")]
     public float flatGainPerLevel;
     public float percentGainPerLevel;
-
-    [Header("Rating")]
-    [Min(0)]
-    public float ratingWeight = 1f;
 }
 
 [CreateAssetMenu(menuName = "Combat/Unit Archetype")]
 public class UnitArchetypeSO : IDScriptableObject
 {
-
     public float focusPerHit;
     public float focusOnDamageTaken;
     public float focusPerSecond;
 
+    [ReadOnly] public float offensiveRatingWeight;
+    [ReadOnly] public float magicRatingWeight;
+    [ReadOnly] public float defensiveRatingWeight;
+
     public List<StatGrowthRule> statGrowthRules = new();
 
+    
 #if UNITY_EDITOR
     private void OnValidate()
     {
@@ -45,4 +46,7 @@ public class UnitArchetypeSO : IDScriptableObject
     {
         return statGrowthRules.Find(r => r.stat == stat);
     }
+
+
+    
 }

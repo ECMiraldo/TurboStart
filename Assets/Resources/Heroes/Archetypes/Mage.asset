@@ -13,48 +13,34 @@ MonoBehaviour:
   m_Name: Mage
   m_EditorClassIdentifier: 
   _id: 5c1c45e2-d59e-4804-bcbd-078dc6c907a6
+  focusPerHit: 5
+  focusOnDamageTaken: 0
+  focusPerSecond: 3
+  offensiveRatingWeight: 0.2
+  magicRatingWeight: 0.7
+  defensiveRatingWeight: 0.1
   statGrowthRules:
   - stat: 0
-    flatGainPerLevel: 1
-    percentGainPerLevel: 0
-    ratingWeight: 0.1
+    flatGainPerLevel: 2
+    percentGainPerLevel: 0.01
   - stat: 1
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 5
+    flatGainPerLevel: 5
+    percentGainPerLevel: 0.05
   - stat: 2
     flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 3
-  - stat: 3
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 100
+    percentGainPerLevel: 0.01
   - stat: 4
     flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 1
-  - stat: 5
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 0.5
+    percentGainPerLevel: 0.01
   - stat: 6
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 0.1
+    flatGainPerLevel: 10
+    percentGainPerLevel: 0.02
   - stat: 7
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 0
+    flatGainPerLevel: 2
+    percentGainPerLevel: 0.05
   - stat: 8
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 0.5
+    flatGainPerLevel: 3
+    percentGainPerLevel: 0.01
   - stat: 9
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 0.5
-  - stat: 10
-    flatGainPerLevel: 0
-    percentGainPerLevel: 0
-    ratingWeight: 2
+    flatGainPerLevel: 3
+    percentGainPerLevel: 0.01
