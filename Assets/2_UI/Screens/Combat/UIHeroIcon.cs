@@ -13,13 +13,15 @@ public class UIHeroIcon : MonoBehaviour
     [field: SerializeField] public UiDragger dragger { get; private set; }
     [field: SerializeField] public HeroData heroData { get; private set; }
 
+    private HeroStatsComponent heroStats;
+
     private bool isSpawned = false;
     public void SetData(HeroData data)
     {
         heroData = data;
         icon.sprite = data.template.icon;
-        levelText.text = data.level.ToString();
-        costText.text = data.template.GetRequiredExpForLevel(data.level).ToString();
+        levelText.text = "1";
+        costText.text = data.template.GetRequiredExpForLevel(2).ToString();
         HandleExperienceChange(CombatSessionManager.Instance.stageExperience);
     }
 
@@ -39,23 +41,29 @@ public class UIHeroIcon : MonoBehaviour
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(data.position);
         isSpawned = CombatSessionManager.Instance.spawner.PlaceHero(heroData, worldPos);
         dragger.enabled = !isSpawned;
+
     }
 
     public void OnClick()
     {
         if (!isSpawned) return;
-        HeroStatsComponent heroStats = CombatSessionManager.Instance.GetHeroStatsByData(heroData);
+        heroStats = CombatSessionManager.Instance.GetHeroStatsByData(heroData);
         if (heroStats == null) return;
-        int cost = heroData.template.GetRequiredExpForLevel(heroData.level);
+        int cost = heroData.template.GetRequiredExpForLevel(heroStats.stageLevel);
         CombatSessionManager.Instance.DecreaseStageExperience(cost);
         heroStats.LevelUp();
         levelText.text = heroStats.stageLevel.ToString();
-        costText.text = heroData.template.GetRequiredExpForLevel(heroData.level).ToString();
+        costText.text = heroData.template.GetRequiredExpForLevel(heroStats.stageLevel).ToString();
     }
 
     private void HandleExperienceChange(int exp)
     {
-        levelUpButton.interactable = exp >= heroData.template.GetRequiredExpForLevel(heroData.level);
+        if (!isSpawned)
+        {
+            levelUpButton.interactable = false;
+            return;
+        }
+        levelUpButton.interactable = exp >= heroData.template.GetRequiredExpForLevel(heroStats.stageLevel);
     }
   
 

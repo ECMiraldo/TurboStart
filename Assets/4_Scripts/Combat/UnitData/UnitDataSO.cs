@@ -36,7 +36,10 @@ public abstract class UnitDataSO : IDScriptableObject
     [SerializeField,ReadOnly] private float weightedRating;
     [SerializeField, ReadOnly] private float perLevelGrow;
 
-    public SerializedDictionary<UnitStat, Attribute> GetStats(int round)
+
+    //round is a float so we can actually apply more scaling to enemies
+    //proably shoulld have another name 
+    public SerializedDictionary<UnitStat, Attribute> GetStats(float round)
     {
         return new()
         {
@@ -60,7 +63,7 @@ public abstract class UnitDataSO : IDScriptableObject
 
 
 
-    private float GetScaledStatValue(UnitStat stat, float baseValue, int round)
+    private float GetScaledStatValue(UnitStat stat, float baseValue, float round)
     {
         float flatGain = 0f;
         float percentGain = 0f;
@@ -132,13 +135,19 @@ public abstract class UnitDataSO : IDScriptableObject
 
     private int CalculateDefensiveRating(float health, float defense, float magicDefense)
     {
-        float physicalMitigation = Mathf.Pow(defense, 1.0f / 2.0f); //cubic root
+        float physicalMitigation = Mathf.Min(
+            0.75f,
+            Mathf.Pow(defense, 0.5f) / 100f //square root
+        );
 
         //cap damage reduction at 75%
-        float magicMitigation = Mathf.Pow(magicDefense, 1.0f / 2.0f); //dubic root
+        float magicMitigation = Mathf.Min(
+            0.75f,
+            Mathf.Pow(magicDefense, 0.5f) / 100f
+        );
 
-        float physicalHP = health / ( 1 - physicalMitigation/ 100);
-        float magicHP = health / ( 1 - magicMitigation / 100);
+        float physicalHP = health / ( 1 - physicalMitigation);
+        float magicHP = health / ( 1 - magicMitigation);
 
         return Mathf.FloorToInt((physicalHP + magicHP) * 0.5f);
     }

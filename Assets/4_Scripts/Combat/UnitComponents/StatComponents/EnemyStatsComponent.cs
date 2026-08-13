@@ -9,7 +9,9 @@ public class EnemyStatsComponent : StatsComponent
     {
         base.Init(ctx);
         team = Team.Enemy;
-        stats = enemyDataSO.GetStats(CombatSessionManager.Instance.currentRoundIndex + 1);
+        float roundPowerMultiplier = (CombatSessionManager.Instance.currentRoundIndex + 1) *
+                                    CombatSessionManager.Instance.currentStage.enemyRoundMultiplier;
+        stats = enemyDataSO.GetStats(roundPowerMultiplier);
     }
 
 }

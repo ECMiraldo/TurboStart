@@ -28,14 +28,14 @@ MonoBehaviour:
   critChance: 0
   health: 500
   focus: 58
-  defense: 30
-  magicDefense: 30
+  defense: 20
+  magicDefense: 20
   evasion: 0
   offensiveRating: 12
-  defensiveRating: 52.8
+  defensiveRating: 52.3
   magicRating: 27
-  weightedRating: 42.059998
-  perLevelGrow: 1685.8513
+  weightedRating: 41.71
+  perLevelGrow: 1690.5569
   <usableArmors>k__BackingField: 0102
   <usableWeapons>k__BackingField: 02000000
   <expGrowPerLevel>k__BackingField: 100

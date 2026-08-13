@@ -20,7 +20,7 @@ public class StatLineUI : MonoBehaviour
 
     private void UpdateStatLine(HeroData heroData)
     {
-        var stats = heroData.template.GetStats(heroData.level);
+        var stats = heroData.template.GetStats(1);
 
         statName.text = unitStat.ToString();
         if (stats.ContainsKey(unitStat))

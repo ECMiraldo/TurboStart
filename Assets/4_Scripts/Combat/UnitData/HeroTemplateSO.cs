@@ -17,7 +17,7 @@ public class HeroTemplateSO : UnitDataSO
         float requiredExp = lvl1Exp;
         for (int currentLevel = 2; currentLevel <= level; currentLevel++)
         {
-            requiredExp *= expGrowPerLevel;
+            requiredExp += currentLevel * expGrowPerLevel;
         }
 
         return Mathf.CeilToInt(requiredExp);

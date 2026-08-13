@@ -18,7 +18,7 @@ public class HeroStatsComponent : StatsComponent
     {
         base.Init(ctx);
         team = Team.Player;
-        stats = heroData.template.GetStats(heroData.level);
+        stats = heroData.template.GetStats(1);
         AddLevelModifiers();
 
         foreach(Equipment equipment in heroData.equipments)

@@ -11,7 +11,7 @@ public class AttributeScaling
     //unused
     public static float SumOfScalings(IEnumerable<AttributeScaling> scalings, StatsComponent stats)
     {
-        float sum = 1;
+        float sum = 0;
         foreach (var scaling in scalings)
         {
             if (stats.stats.TryGetValue(scaling.stat, out var attribute))

@@ -8,11 +8,4 @@ public static class DataHelpers
     {
         return SaveLoadSystem.Instance.data.partyData.partyStats[stat].Value;
     }
-
-    public static float GetSumOfStats(UnitStat stat)
-    {
-        return SaveLoadSystem.Instance.data.partyData.heroes.Sum(
-            (x) => x.template.GetStats(x.level).TryGetValue(stat, out Attribute attr) ? attr.Value : 0
-        );
-    }
 }

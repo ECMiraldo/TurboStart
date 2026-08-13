@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using Unity.VisualScripting;
 
 public class FocusComponent : MonoBehaviour
 {
@@ -68,7 +69,8 @@ public class FocusComponent : MonoBehaviour
         if (currentFocus >= focusStat.ToInt())
         {
             currentFocus = 0f;
-            StartCoroutine(skill?.Cast(stats.ctx));
+            if (skill != null) 
+                StartCoroutine(skill.Cast(stats.ctx));
         }
 
         UpdateUI();

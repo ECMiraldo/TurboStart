@@ -15,7 +15,6 @@ public class HeroData
 
     //publics
     public string name;
-    public int level;
     public List<Equipment> equipments;
 
     [JsonIgnore] public HeroTemplateSO template => Database.heroTemplates[templateId];
@@ -36,7 +35,7 @@ public class HeroData
     [OnDeserialized] 
     private void OnDeserialized(StreamingContext context)
     {
-        stats = template.GetStats(level);
+        stats = template.GetStats(1);
     }
 
 }

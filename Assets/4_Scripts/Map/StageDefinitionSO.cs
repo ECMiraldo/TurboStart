@@ -21,6 +21,7 @@ public class StageDefinitionSO : MapLocationSO
     [Header("Scaling")]
     public int round0Budget = 5;
     public float budgetMultiplierPerRound = 1.5f;
+    public float enemyRoundMultiplier = 1.5f;
 
     public List<Sprite> GetPossibleDropIcons()
     {
